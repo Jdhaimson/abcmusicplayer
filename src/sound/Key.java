@@ -2,6 +2,11 @@ package sound;
 
 import java.util.Map;
 
+/**
+ * Mutable Key object that stores the default accidentals of each note
+ * @author Josh
+ *
+ */
 public class Key {
 	// Stores the Key - maps notes to their proper accidentals in this key
 	private Map<String, Pitch> keySignature;

@@ -6,10 +6,16 @@ import java.util.List;
 public class Measure {
 	private List<Voice> voices = new LinkedList<Voice>();
 	private List<Lyric> lyrics = new LinkedList<Lyric>();
+	private int measureNumber;
 	private Key key;
 	private int ticksPerMeasure;
-	private Measure startRepeat;
+	
+	// Keep track of repeats and alternate endings
+	private int repeatStartMeasure;
 	private boolean repeated = false;
+	private boolean hasAlternateEnding = false;
+	private int alternateEnding;
+	
 	
 	/**
 	 * Object representing a measure of a piece.  Contains Voices (which contain notes)
@@ -18,10 +24,11 @@ public class Measure {
 	 * @param key: key of measure, used to keep track of accidentals
 	 * @param ticksPerMeasure: amount of ticks in each measure
 	 */
-	public Measure(Key key, int ticksPerMeasure) {
+	public Measure(Key key, int ticksPerMeasure, int measureNumber) {
 		this.key = key;
 		this.ticksPerMeasure = ticksPerMeasure;
-		this.startRepeat = null;
+		this.measureNumber = measureNumber;
+		this.repeatStartMeasure = null;
 	}
 
 	/**
@@ -32,10 +39,11 @@ public class Measure {
 	 * @param ticksPerMeasure: amount of ticks in each measure
 	 * @param startRepeat: measure to repeat at
 	 */
-	public Measure(Key key, int ticksPerMeasure, Measure startRepeat) {
+	public Measure(Key key, int ticksPerMeasure, int repeatStartMeasure, int measureNumber) {
 		this.key = key;
 		this.ticksPerMeasure = ticksPerMeasure;
-		this.startRepeat = startRepeat;
+		this.measureNumber = measureNumber;
+		this.repeatStartMeasure = repeatStartMeasure;
 	}
 	
 	/**
@@ -44,7 +52,7 @@ public class Measure {
 	 * be <= ticksPerMeasure
 	 */
 	public void addVoice(Voice voice) {
-		
+		this.voices.add(voice.clone());
 	}
 	
 	/**
@@ -53,16 +61,26 @@ public class Measure {
 	 * be <= ticksPerMeasure
 	 */
 	public void addLyric(Lyric lyric) {
-		
+		this.lyrics.add(lyric);
 	}
 	
 	/**
 	 * Get repeat start measure and set repeated flag to true
 	 * @return Starting measure of repeat
 	 */
-	public Measure doRepeat() {
+	public int doRepeat() {
 		this.repeated = true;
-		return this.startRepeat;
+		return this.repeatStartMeasure;
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return Integer.toString(this.measureNumber);
+	}
+	
 	
 }

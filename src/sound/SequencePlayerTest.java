@@ -65,42 +65,42 @@ public class SequencePlayerTest{
             player3.addNote(new Pitch('D').transpose(Pitch.OCTAVE).toMidiNote(), 42, 8);
             
             //creates a new player for piece 2
-            player2 = new SequencePlayer(200, 6, listener);
+            player2 = new SequencePlayer(200, 12, listener);
             
             //adds the necessary notes for the player for piece 2
             
-            player2.addNote(new Pitch('F').transpose(1).toMidiNote(), 0, 3);
-            player2.addNote(new Pitch('E').transpose(Pitch.OCTAVE).toMidiNote(), 0, 3);
-            player2.addNote(new Pitch('F').transpose(1).toMidiNote(), 3, 3);
-            player2.addNote(new Pitch('E').transpose(Pitch.OCTAVE).toMidiNote(), 3, 3);
-            player2.addNote(new Pitch('F').transpose(1).toMidiNote(), 9, 3);
-            player2.addNote(new Pitch('E').transpose(Pitch.OCTAVE).toMidiNote(), 9, 3);
-            player2.addNote(new Pitch('F').transpose(1).toMidiNote(), 15, 3);
-            player2.addNote(new Pitch('C').transpose(Pitch.OCTAVE).toMidiNote(), 15, 3);
+            player2.addNote(new Pitch('F').transpose(1).toMidiNote(), 0, 6);
+            player2.addNote(new Pitch('E').transpose(Pitch.OCTAVE).toMidiNote(), 0, 6);
+            player2.addNote(new Pitch('F').transpose(1).toMidiNote(), 6, 6);
+            player2.addNote(new Pitch('E').transpose(Pitch.OCTAVE).toMidiNote(), 6, 6);
             player2.addNote(new Pitch('F').transpose(1).toMidiNote(), 18, 6);
             player2.addNote(new Pitch('E').transpose(Pitch.OCTAVE).toMidiNote(), 18, 6);
-            player2.addNote(new Pitch('G').toMidiNote(), 24, 6);
-            player2.addNote(new Pitch('B').toMidiNote(), 24, 6);
-            player2.addNote(new Pitch('G').transpose(Pitch.OCTAVE).toMidiNote(), 24, 6);
-            player2.addNote(new Pitch('G').toMidiNote(), 36, 6);
-            player2.addNote(new Pitch('C').transpose(Pitch.OCTAVE).toMidiNote(), 48, 9);
-            player2.addNote(new Pitch('G').toMidiNote(), 57, 3);
-            player2.addNote(new Pitch('E').toMidiNote(), 66, 6);
-            player2.addNote(new Pitch('E').toMidiNote(), 72, 3);
-            player2.addNote(new Pitch('A').toMidiNote(), 75, 6);
-            player2.addNote(new Pitch('B').toMidiNote(), 81, 6);
-            player2.addNote(new Pitch('B').transpose(-1).toMidiNote(), 87, 3);
-            player2.addNote(new Pitch('A').toMidiNote(), 90, 6);
-            player2.addNote(new Pitch('G').toMidiNote(), 96, 4);
-            player2.addNote(new Pitch('E').transpose(Pitch.OCTAVE).toMidiNote(), 100, 4);
-            player2.addNote(new Pitch('G').transpose(Pitch.OCTAVE).toMidiNote(), 104, 4);
-            player2.addNote(new Pitch('A').transpose(Pitch.OCTAVE).toMidiNote(), 108, 6);
-            player2.addNote(new Pitch('F').transpose(Pitch.OCTAVE).toMidiNote(), 114, 3);
-            player2.addNote(new Pitch('G').transpose(Pitch.OCTAVE).toMidiNote(), 117, 3);
-            player2.addNote(new Pitch('E').transpose(Pitch.OCTAVE).toMidiNote(), 123, 6);
-            player2.addNote(new Pitch('C').transpose(Pitch.OCTAVE).toMidiNote(), 129, 3);
-            player2.addNote(new Pitch('D').transpose(Pitch.OCTAVE).toMidiNote(), 132, 3);
-            player2.addNote(new Pitch('B').toMidiNote(), 135, 4);
+            player2.addNote(new Pitch('F').transpose(1).toMidiNote(), 30, 6);
+            player2.addNote(new Pitch('C').transpose(Pitch.OCTAVE).toMidiNote(), 30, 6);
+            player2.addNote(new Pitch('F').transpose(1).toMidiNote(), 36, 12);
+            player2.addNote(new Pitch('E').transpose(Pitch.OCTAVE).toMidiNote(), 36, 12);
+            player2.addNote(new Pitch('G').toMidiNote(), 48, 12);
+            player2.addNote(new Pitch('B').toMidiNote(), 48, 12);
+            player2.addNote(new Pitch('G').transpose(Pitch.OCTAVE).toMidiNote(), 48, 12);
+            player2.addNote(new Pitch('G').toMidiNote(), 72, 12);
+            player2.addNote(new Pitch('C').transpose(Pitch.OCTAVE).toMidiNote(), 96, 18);
+            player2.addNote(new Pitch('G').toMidiNote(), 114, 6);
+            player2.addNote(new Pitch('E').toMidiNote(), 132, 12);
+            player2.addNote(new Pitch('E').toMidiNote(), 144, 6);
+            player2.addNote(new Pitch('A').toMidiNote(), 150, 12);
+            player2.addNote(new Pitch('B').toMidiNote(), 162, 12);
+            player2.addNote(new Pitch('B').transpose(-1).toMidiNote(), 174, 6);
+            player2.addNote(new Pitch('A').toMidiNote(), 180, 12);
+            player2.addNote(new Pitch('G').toMidiNote(), 192, 8);
+            player2.addNote(new Pitch('E').transpose(Pitch.OCTAVE).toMidiNote(), 200, 8);
+            player2.addNote(new Pitch('G').transpose(Pitch.OCTAVE).toMidiNote(), 208, 8);
+            player2.addNote(new Pitch('A').transpose(Pitch.OCTAVE).toMidiNote(), 216, 12);
+            player2.addNote(new Pitch('F').transpose(Pitch.OCTAVE).toMidiNote(), 228, 6);
+            player2.addNote(new Pitch('G').transpose(Pitch.OCTAVE).toMidiNote(), 234, 6);
+            player2.addNote(new Pitch('E').transpose(Pitch.OCTAVE).toMidiNote(), 246, 12);
+            player2.addNote(new Pitch('C').transpose(Pitch.OCTAVE).toMidiNote(), 258, 6);
+            player2.addNote(new Pitch('D').transpose(Pitch.OCTAVE).toMidiNote(), 264, 6);
+            player2.addNote(new Pitch('B').toMidiNote(), 270, 9);
             
             //creates a new SequencePlayer for the first piece
             player1 = new SequencePlayer(140, 12, listener);
@@ -157,7 +157,7 @@ public class SequencePlayerTest{
             System.out.println(player);
 
             // play specifid player (player1, player2, player3)
-            player3.play();
+            player2.play();
 
             /*
              * Note: A possible weird behavior of the Java sequencer: Even if the

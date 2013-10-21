@@ -83,8 +83,8 @@ SPACE : ' ' ;
 LINE_FEED : ('\r'? '\n') | '\r' ;
 PERCENT : '%' ;
 
-//TEXT : (~[\r\n])+ ;
-TEXT : [a-zA-Z]+ ;
+TEXT : (~[:\r\n])+ ;
+//TEXT : [a-zA-Z]+ ;
 
 LYRIC_ELEMENTS : ' '+ | '_' | '-' | '*' | '~' | '\-' | '|' ;
 

@@ -7,7 +7,7 @@
  * java -jar ../../antlr.jar ABCMusic.g4
  */
 
-grammar ABCMusic;
+grammar ABCMusicHeader;
 
 /*
  * This puts "package grammar;" at the top of the output Java files.
@@ -54,28 +54,17 @@ V: 'V:' ;
 K: 'K:' ;
 W: 'w:' ;
 
-// "^" is sharp, "_" is flat, and "=" is neutral
-ACCIDENTAL : '^' | '^^' | '_' | '__' | '=' ;
-
 BASE_NOTE : 'C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'B'
         | 'c' | 'd' | 'e' | 'f' | 'g' | 'a' | 'b' ;
-
-REST : 'z';
-
-BAR_LINE : '|' | '||' | '[|' | '|]' | ':|' | '|:' ;
-NTH_REPEAT : '[1' | '[2' ;
 
 KEY_ACCIDENTAL : '#' | 'b' ;
 MODE_MINOR : 'm' ;
 
+NOTE_LENGTH_STRICT : DIGIT+ DIVIDE DIGIT+ ;
+
 EQUALS : '=' ;
 
 OCTAVE : [',]+ ;
-
-OPEN_PAREN : '(' ;
-
-OPEN_BRACK : '[' ; 
-CLOSED_BRACK : ']' ;
 
 DIVIDE : '/' ;
 DIGIT : [0-9]+ ;
@@ -83,10 +72,8 @@ SPACE : ' ' ;
 LINE_FEED : ('\r'? '\n') | '\r' ;
 PERCENT : '%' ;
 
-TEXT : (~[:\r\n])+ ;
-//TEXT : [a-zA-Z]+ ;
-
-LYRIC_ELEMENTS : ' '+ | '_' | '-' | '*' | '~' | '\-' | '|' ;
+TEXT : ~[:\r\n]+ ;
+COLON : ':' ;
 
 METER_VARIANTS : 'C' | 'C|' ;
 METER_FRACTION : DIGIT+ DIVIDE DIGIT+ ;
@@ -97,7 +84,7 @@ TEMPO : METER_FRACTION EQUALS DIGIT+ ;
 KEY : KEY_NOTE MODE_MINOR? ;
 KEY_NOTE : BASE_NOTE KEY_ACCIDENTAL? ;
 
-COMMENT : PERCENT TEXT LINE_FEED ;
+COMMENT : PERCENT (TEXT | COLON)+ LINE_FEED ;
 EOL : COMMENT | LINE_FEED ;
 
 /*
@@ -112,44 +99,16 @@ EOL : COMMENT | LINE_FEED ;
  * http://www.antlr.org/wiki/display/ANTLR4/Parser+Rules#ParserRules-StartRulesandEOF
  */
  
-abc_tune : abc_header abc_music EOF;
+abc_tune_header : abc_header EOF;
 
 abc_header : field_number COMMENT* field_title other_fields* field_key ;
 
 field_number : X DIGIT+ EOL ;
-field_title : T TEXT EOL ;
+field_title : T (TEXT | COLON)+ EOL ;
 other_fields : field_composer | field_default_length | field_meter | field_tempo | field_voice | COMMENT ;
-field_composer : C TEXT EOL ;
+field_composer : C (TEXT | COLON)+ EOL ;
 field_default_length : L NOTE_LENGTH_STRICT EOL ;
 field_meter : M METER EOL ;
 field_tempo : Q TEMPO EOL ;
-field_voice : V TEXT EOL ;
+field_voice : V (TEXT | COLON)+ EOL ;
 field_key : K KEY EOL ;
-
-abc_music : abc_line+ ;
-abc_line : element+ LINE_FEED (lyric LINE_FEED)? | mid_tune_field | COMMENT ;
-
-element : note_element | tuplet_element | BAR_LINE | NTH_REPEAT | SPACE ;
-note_element : note | multi_note ;
-
-// note is either a pitch or a rest
-note : note_or_rest note_length? ;
-note_or_rest : pitch | REST ;
-pitch : ACCIDENTAL? BASE_NOTE OCTAVE? ;
-
-note_length : (DIGIT+ DIVIDE DIGIT+) | (DIVIDE DIGIT+) | (DIGIT+ DIVIDE) | DIGIT+ | DIVIDE ;
-NOTE_LENGTH_STRICT : DIGIT+ DIVIDE DIGIT+ ;
-
-// tuplets
-tuplet_element : tuplet_spec note_element+;
-tuplet_spec : OPEN_PAREN DIGIT ;
-
-// chords
-multi_note : OPEN_BRACK note+ CLOSED_BRACK ;
-
-// A voice field might reappear in the middle of a piece to indicate the change of a voice
-mid_tune_field : field_voice ;
-
-lyric : W lyrical_element* ;
-lyrical_element : LYRIC_ELEMENTS | lyric_text ;
-lyric_text : TEXT ;

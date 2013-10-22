@@ -47,7 +47,7 @@ public class Pitch {
         this.octave = octave;
         checkRep();
     }
-    
+
     /**
      * Make a Pitch.
      * @param c a note in {'A',...,'G'}
@@ -151,16 +151,6 @@ public class Pitch {
         return this.difference(that) < 0;
     }
 
-
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#clone()
-     */
-    @Override
-    public Pitch clone() {
-    	return new Pitch(this.value, this.accidental, this.octave);
-    }
-    
     @Override
     public boolean equals(Object obj) {
         if (obj == null)

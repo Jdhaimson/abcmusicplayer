@@ -17,28 +17,18 @@ public class ABCMusicLexer extends Lexer {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-<<<<<<< HEAD
-		PLUS=1;
-=======
 		X=1, T=2, C=3, L=4, M=5, Q=6, V=7, K=8, W=9, ACCIDENTAL=10, BASE_NOTE=11, 
 		REST=12, BAR_LINE=13, NTH_REPEAT=14, KEY_ACCIDENTAL=15, MODE_MINOR=16, 
 		EQUALS=17, OCTAVE=18, OPEN_PAREN=19, OPEN_BRACK=20, CLOSED_BRACK=21, DIVIDE=22, 
 		DIGIT=23, SPACE=24, LINE_FEED=25, PERCENT=26, TEXT=27, LYRIC_TEXT=28, 
 		LYRIC_ELEMENTS=29, METER_VARIANTS=30, METER_FRACTION=31, METER=32, TEMPO=33, 
 		KEY=34, KEY_NOTE=35, COMMENT=36, EOL=37, NOTE_LENGTH_STRICT=38;
->>>>>>> LexerRules
 	public static String[] modeNames = {
 		"DEFAULT_MODE"
 	};
 
 	public static final String[] tokenNames = {
 		"<INVALID>",
-<<<<<<< HEAD
-		"'+'"
-	};
-	public static final String[] ruleNames = {
-		"PLUS"
-=======
 		"'X:'", "'T:'", "'C:'", "'L:'", "'M:'", "'Q:'", "'V:'", "'K:'", "'w:'", 
 		"ACCIDENTAL", "BASE_NOTE", "'z'", "BAR_LINE", "NTH_REPEAT", "KEY_ACCIDENTAL", 
 		"'m'", "'='", "OCTAVE", "'('", "'['", "']'", "'/'", "DIGIT", "' '", "LINE_FEED", 
@@ -52,7 +42,6 @@ public class ABCMusicLexer extends Lexer {
 		"SPACE", "LINE_FEED", "PERCENT", "TEXT", "LYRIC_TEXT", "LYRIC_ELEMENTS", 
 		"METER_VARIANTS", "METER_FRACTION", "METER", "TEMPO", "KEY", "KEY_NOTE", 
 		"COMMENT", "EOL", "NOTE_LENGTH_STRICT"
->>>>>>> LexerRules
 	};
 
 
@@ -94,10 +83,6 @@ public class ABCMusicLexer extends Lexer {
 	public ATN getATN() { return _ATN; }
 
 	public static final String _serializedATN =
-<<<<<<< HEAD
-		"\2\4\3\7\b\1\4\2\t\2\3\2\3\2\2\3\3\3\1\3\2\2\6\2\3\3\2\2\2\3\5\3\2\2\2"+
-		"\5\6\7-\2\2\6\4\3\2\2\2\3\2";
-=======
 		"\2\4(\u00f8\b\1\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t"+
 		"\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20"+
 		"\t\20\4\21\t\21\4\22\t\22\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27"+
@@ -184,7 +169,6 @@ public class ABCMusicLexer extends Lexer {
 		"\u00f3\3\2\2\2\u00f5\u00f6\3\2\2\2\u00f6\u00f4\3\2\2\2\u00f6\u00f7\3\2"+
 		"\2\2\u00f7N\3\2\2\2\30\2q\u0082\u0088\u0093\u00a0\u00a5\u00a9\u00b0\u00b5"+
 		"\u00ba\u00c0\u00c5\u00ca\u00d0\u00d4\u00db\u00df\u00e3\u00eb\u00f0\u00f6";
->>>>>>> LexerRules
 	public static final ATN _ATN =
 		ATNSimulator.deserialize(_serializedATN.toCharArray());
 	static {

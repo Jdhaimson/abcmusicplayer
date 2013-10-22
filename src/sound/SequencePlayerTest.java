@@ -13,7 +13,6 @@ import org.junit.Test;
  */
 public class SequencePlayerTest{
 
-    @Test
     public static void main(String[] args) {
         SequencePlayer player;
         SequencePlayer player1;

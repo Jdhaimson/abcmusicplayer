@@ -43,8 +43,22 @@ package grammar;
 /*
  * These are the lexical rules. They define the tokens used by the lexer.
  */
-PLUS     : '+';
+ 
+/* 
+ * WHITESPACE : [ \t\r\n]+ -> skip ;
+ */
+COMPOSER : ANYTHING* [\r\n] ;
+KEY : 'K:' [a-zA-Z]+ [\r\n] ;
+LENGTH : 'L:' NUMERATOR DENOMINATOR? [\r\n] ;
+NUMERATOR: [0-9]+ ;
+DENOMINATOR: '/'[0-9]+ ;
+ANYTHING : [a-zA-Z] ;
+METER: 'M:' NUMERATOR DENOMINATOR [\r\n] ;
+TEMPO: 'Q:' NUMERATOR DENOMINATOR '=' NUMERATOR [\r\n] ;
+TITLE: 'T:' ANYTHING* [\r\n];
+INDEX: 'X:' NUMERATOR [\r\n];
 
+HEADER: INDEX TITLE [ COMPOSER | LENGTH | METER | TEMPO ]* KEY ;
 
 /*
  * These are the parser rules. They define the structures used by the parser.
@@ -57,4 +71,7 @@ PLUS     : '+';
  * For more information, see
  * http://www.antlr.org/wiki/display/ANTLR4/Parser+Rules#ParserRules-StartRulesandEOF
  */
-line     : PLUS EOF;
+ 
+/*
+ line     : ANYTHING EOF;
+ */

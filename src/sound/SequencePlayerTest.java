@@ -9,7 +9,7 @@ import org.junit.Test;
 
 /**
  * @author ChristopherFord
- * @category no_didt
+ * @category no_didit
  */
 public class SequencePlayerTest{
 

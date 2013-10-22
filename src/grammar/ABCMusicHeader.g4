@@ -7,7 +7,7 @@
  * java -jar ../../antlr.jar ABCMusic.g4
  */
 
-grammar ABCMusic;
+grammar ABCMusicHeader;
 
 /*
  * This puts "package grammar;" at the top of the output Java files.
@@ -43,8 +43,49 @@ package grammar;
 /*
  * These are the lexical rules. They define the tokens used by the lexer.
  */
-PLUS     : '+';
 
+X: 'X:' ;
+T: 'T:' ;
+C: 'C:' ;
+L: 'L:' ;
+M: 'M:' ;
+Q: 'Q:' ;
+V: 'V:' ;
+K: 'K:' ;
+W: 'w:' ;
+
+BASE_NOTE : 'C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'B'
+        | 'c' | 'd' | 'e' | 'f' | 'g' | 'a' | 'b' ;
+
+KEY_ACCIDENTAL : '#' | 'b' ;
+MODE_MINOR : 'm' ;
+
+NOTE_LENGTH_STRICT : DIGIT+ DIVIDE DIGIT+ ;
+
+EQUALS : '=' ;
+
+OCTAVE : [',]+ ;
+
+DIVIDE : '/' ;
+DIGIT : [0-9]+ ;
+SPACE : ' ' ;
+LINE_FEED : ('\r'? '\n') | '\r' ;
+PERCENT : '%' ;
+
+TEXT : ~[:\r\n]+ ;
+COLON : ':' ;
+
+METER_VARIANTS : 'C' | 'C|' ;
+METER_FRACTION : DIGIT+ DIVIDE DIGIT+ ;
+METER : METER_VARIANTS | METER_FRACTION ;
+
+TEMPO : METER_FRACTION EQUALS DIGIT+ ;
+
+KEY : KEY_NOTE MODE_MINOR? ;
+KEY_NOTE : BASE_NOTE KEY_ACCIDENTAL? ;
+
+COMMENT : PERCENT (TEXT | COLON)+ LINE_FEED ;
+EOL : COMMENT | LINE_FEED ;
 
 /*
  * These are the parser rules. They define the structures used by the parser.
@@ -57,4 +98,17 @@ PLUS     : '+';
  * For more information, see
  * http://www.antlr.org/wiki/display/ANTLR4/Parser+Rules#ParserRules-StartRulesandEOF
  */
-line     : PLUS EOF;
+ 
+abc_tune_header : abc_header EOF;
+
+abc_header : field_number COMMENT* field_title other_fields* field_key ;
+
+field_number : X DIGIT+ EOL ;
+field_title : T (TEXT | COLON)+ EOL ;
+other_fields : field_composer | field_default_length | field_meter | field_tempo | field_voice | COMMENT ;
+field_composer : C (TEXT | COLON)+ EOL ;
+field_default_length : L NOTE_LENGTH_STRICT EOL ;
+field_meter : M METER EOL ;
+field_tempo : Q TEMPO EOL ;
+field_voice : V (TEXT | COLON)+ EOL ;
+field_key : K KEY EOL ;

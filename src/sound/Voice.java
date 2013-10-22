@@ -53,6 +53,14 @@ public class Voice {
 		return clonedNotes;
 	}
 	
+	/**
+	 * Returns max amount of ticks in voice
+	 * @return max amount of ticks in voice
+	 */
+	public int getTicksPerVoice() {
+		return this.ticksPerVoice;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#clone()

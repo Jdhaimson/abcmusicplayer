@@ -8,7 +8,6 @@ import javax.sound.midi.MidiUnavailableException;
 import org.junit.Test;
 
 /**
- * 
  * @author ChristopherFord
  * @category no_didt
  */

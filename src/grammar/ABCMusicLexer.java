@@ -17,20 +17,17 @@ public class ABCMusicLexer extends Lexer {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		COMPOSER=1, KEY=2, LENGTH=3, NUMERATOR=4, DENOMINATOR=5, ANYTHING=6, METER=7, 
-		TEMPO=8, TITLE=9, INDEX=10, HEADER=11;
+		PLUS=1;
 	public static String[] modeNames = {
 		"DEFAULT_MODE"
 	};
 
 	public static final String[] tokenNames = {
 		"<INVALID>",
-		"COMPOSER", "KEY", "LENGTH", "NUMERATOR", "DENOMINATOR", "ANYTHING", "METER", 
-		"TEMPO", "TITLE", "INDEX", "HEADER"
+		"'+'"
 	};
 	public static final String[] ruleNames = {
-		"COMPOSER", "KEY", "LENGTH", "NUMERATOR", "DENOMINATOR", "ANYTHING", "METER", 
-		"TEMPO", "TITLE", "INDEX", "HEADER"
+		"PLUS"
 	};
 
 
@@ -40,7 +37,7 @@ public class ABCMusicLexer extends Lexer {
 	        removeErrorListeners();
 	        addErrorListener(new ExceptionThrowingErrorListener());
 	    }
-
+	    
 	    private static class ExceptionThrowingErrorListener extends BaseErrorListener {
 	        @Override
 	        public void syntaxError(Recognizer<?, ?> recognizer,
@@ -72,35 +69,8 @@ public class ABCMusicLexer extends Lexer {
 	public ATN getATN() { return _ATN; }
 
 	public static final String _serializedATN =
-		"\2\4\rl\b\1\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4"+
-		"\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\3\2\7\2\33\n\2\f\2\16\2\36\13\2\3\2\3"+
-		"\2\3\3\3\3\3\3\3\3\6\3&\n\3\r\3\16\3\'\3\3\3\3\3\4\3\4\3\4\3\4\3\4\5\4"+
-		"\61\n\4\3\4\3\4\3\5\6\5\66\n\5\r\5\16\5\67\3\6\3\6\6\6<\n\6\r\6\16\6="+
-		"\3\7\3\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3"+
-		"\t\3\n\3\n\3\n\3\n\7\nV\n\n\f\n\16\nY\13\n\3\n\3\n\3\13\3\13\3\13\3\13"+
-		"\3\13\3\13\3\f\3\f\3\f\7\ff\n\f\f\f\16\fi\13\f\3\f\3\f\2\r\3\3\1\5\4\1"+
-		"\7\5\1\t\6\1\13\7\1\r\b\1\17\t\1\21\n\1\23\13\1\25\f\1\27\r\1\3\2\16\4"+
-		"\f\f\17\17\4C\\c|\4\f\f\17\17\4\f\f\17\17\3\62;\3\62;\4C\\c|\4\f\f\17"+
-		"\17\4\f\f\17\17\4\f\f\17\17\4\f\f\17\17\t\"\"EEGGIJNRTV~~r\2\3\3\2\2\2"+
-		"\2\5\3\2\2\2\2\7\3\2\2\2\2\t\3\2\2\2\2\13\3\2\2\2\2\r\3\2\2\2\2\17\3\2"+
-		"\2\2\2\21\3\2\2\2\2\23\3\2\2\2\2\25\3\2\2\2\2\27\3\2\2\2\3\34\3\2\2\2"+
-		"\5!\3\2\2\2\7+\3\2\2\2\t\65\3\2\2\2\139\3\2\2\2\r?\3\2\2\2\17A\3\2\2\2"+
-		"\21H\3\2\2\2\23Q\3\2\2\2\25\\\3\2\2\2\27b\3\2\2\2\31\33\5\r\7\2\32\31"+
-		"\3\2\2\2\33\36\3\2\2\2\34\32\3\2\2\2\34\35\3\2\2\2\35\37\3\2\2\2\36\34"+
-		"\3\2\2\2\37 \t\2\2\2 \4\3\2\2\2!\"\7M\2\2\"#\7<\2\2#%\3\2\2\2$&\t\3\2"+
-		"\2%$\3\2\2\2&\'\3\2\2\2\'%\3\2\2\2\'(\3\2\2\2()\3\2\2\2)*\t\4\2\2*\6\3"+
-		"\2\2\2+,\7N\2\2,-\7<\2\2-.\3\2\2\2.\60\5\t\5\2/\61\5\13\6\2\60/\3\2\2"+
-		"\2\60\61\3\2\2\2\61\62\3\2\2\2\62\63\t\5\2\2\63\b\3\2\2\2\64\66\t\6\2"+
-		"\2\65\64\3\2\2\2\66\67\3\2\2\2\67\65\3\2\2\2\678\3\2\2\28\n\3\2\2\29;"+
-		"\7\61\2\2:<\t\7\2\2;:\3\2\2\2<=\3\2\2\2=;\3\2\2\2=>\3\2\2\2>\f\3\2\2\2"+
-		"?@\t\b\2\2@\16\3\2\2\2AB\7O\2\2BC\7<\2\2CD\3\2\2\2DE\5\t\5\2EF\5\13\6"+
-		"\2FG\t\t\2\2G\20\3\2\2\2HI\7S\2\2IJ\7<\2\2JK\3\2\2\2KL\5\t\5\2LM\5\13"+
-		"\6\2MN\7?\2\2NO\5\t\5\2OP\t\n\2\2P\22\3\2\2\2QR\7V\2\2RS\7<\2\2SW\3\2"+
-		"\2\2TV\5\r\7\2UT\3\2\2\2VY\3\2\2\2WU\3\2\2\2WX\3\2\2\2XZ\3\2\2\2YW\3\2"+
-		"\2\2Z[\t\13\2\2[\24\3\2\2\2\\]\7Z\2\2]^\7<\2\2^_\3\2\2\2_`\5\t\5\2`a\t"+
-		"\f\2\2a\26\3\2\2\2bc\5\25\13\2cg\5\23\n\2df\t\r\2\2ed\3\2\2\2fi\3\2\2"+
-		"\2ge\3\2\2\2gh\3\2\2\2hj\3\2\2\2ig\3\2\2\2jk\5\5\3\2k\30\3\2\2\2\n\2\34"+
-		"\'\60\67=Wg";
+		"\2\4\3\7\b\1\4\2\t\2\3\2\3\2\2\3\3\3\1\3\2\2\6\2\3\3\2\2\2\3\5\3\2\2\2"+
+		"\5\6\7-\2\2\6\4\3\2\2\2\3\2";
 	public static final ATN _ATN =
 		ATNSimulator.deserialize(_serializedATN.toCharArray());
 	static {

@@ -11,7 +11,7 @@ public class VoiceTest {
 	 */
 
 	@Test
-	public void testVoiceName() {
+	public void testVoiceConstructor() {
 		Voice v = new Voice("Test", 100);
 		assertEquals("Test", v.toString());
 	}
@@ -36,15 +36,10 @@ public class VoiceTest {
 	public void testVoiceHashCode(){
 	    Voice voice1 = new Voice("Bass", 100);
         Voice voice2 = new Voice("Bass", 100);
-        Voice voice3 = new Voice("Soprano", 100);
-        Voice voice4 = new Voice("Bass", 150);
-        Voice voice5 = new Voice("Soprano", 200);
         
         assertEquals(true, voice1.hashCode() == voice1.hashCode());
         assertEquals(true, voice1.hashCode() == voice2.hashCode());
-        assertEquals(false, voice1.hashCode() == voice3.hashCode());
-        assertEquals(false, voice1.hashCode() == voice4.hashCode());
-        assertEquals(false, voice1.hashCode() == voice5.hashCode());
+
 	}
 	
 	@Test

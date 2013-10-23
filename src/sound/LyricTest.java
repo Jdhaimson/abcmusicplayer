@@ -36,16 +36,11 @@ public class LyricTest {
 	@Test
 	public void testLyricHashCode() {
 	    Lyric lyric1 = new Lyric("I will be testing hashCode here", 10);
-	    Lyric lyric2 = new Lyric("This will be slightly different", 10);
-	    Lyric lyric3 = new Lyric("I will be testing hashCode here", 25);
-	    Lyric lyric4 = new Lyric("This is totally different", 35);
 	    Lyric lyric5 = new Lyric("I will be testing hashCode here", 10);
 	    
-	    assertEquals(lyric1.hashCode(), lyric5.hashCode());
-	    assertEquals(false, lyric1.hashCode() == lyric2.hashCode());
-	    assertEquals(false, lyric1.hashCode() == lyric3.hashCode());
-	    assertEquals(false, lyric1.hashCode() == lyric4.hashCode());
-	    assertEquals(false, lyric2.hashCode() == lyric4.hashCode());
+	    assertEquals(true, lyric1.hashCode() == lyric5.hashCode());
+	    assertEquals(true, lyric1.hashCode() == lyric1.hashCode());
+	   
 	}
 	
 	@Test

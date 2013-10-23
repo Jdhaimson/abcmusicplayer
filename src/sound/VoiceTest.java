@@ -2,6 +2,9 @@ package sound;
 
 import static org.junit.Assert.*;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.junit.Test;
 
 public class VoiceTest {
@@ -92,8 +95,70 @@ public class VoiceTest {
 	
 	
 	public void testVoiceAddNote() {
-	    Voice voice1 = new Voice("Bass", 50);
-	    Pitch myPitchBiggerThanABridge = new Pitch('C');
-	    Note myNote = new Note(myPitchBiggerThanABridge, 6);
+	    Voice voice1 = new Voice("Bass", 20);
+	    
+	    List<Note> notesToCheck = new LinkedList<Note>();
+	    
+	    List<Pitch> pitches1 = new LinkedList<Pitch>();
+        pitches1.add(new Pitch('C'));
+        pitches1.add(new Pitch('E'));
+        pitches1.add(new Pitch('G'));
+        
+        List<Pitch> pitches2 = new LinkedList<Pitch>();
+        pitches2.add(new Pitch('C'));
+        pitches2.add(new Pitch('F'));
+        pitches2.add(new Pitch('G'));
+        
+        Note note1 = new Note(pitches1, 2);
+        Note note2 = new Note(pitches1, 4);
+        Note note3 = new Note(pitches2, 2);
+        
+        try {
+            voice1.addNote(note1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        notesToCheck.add(note1);
+        assertEquals(true, voice1.getNotes().equals(notesToCheck));
+        
+        try {
+            voice1.addNote(note1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        notesToCheck.add(note1);
+        assertEquals(true, voice1.getNotes().equals(notesToCheck));
+        
+        try {
+            voice1.addNote(note2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        notesToCheck.add(note2);
+        assertEquals(true, voice1.getNotes().equals(notesToCheck));
+	}
+	
+	@Test(expected = Exception.class) 
+	public void testVoiceException() throws Exception{
+	    Voice voice1 = new Voice("Bass", 2);
+        
+        List<Pitch> pitches1 = new LinkedList<Pitch>();
+        pitches1.add(new Pitch('C'));
+        pitches1.add(new Pitch('E'));
+        pitches1.add(new Pitch('G'));
+        
+        List<Pitch> pitches2 = new LinkedList<Pitch>();
+        pitches2.add(new Pitch('C'));
+        pitches2.add(new Pitch('F'));
+        pitches2.add(new Pitch('G'));
+        
+        Note note2 = new Note(pitches1, 4);
+        
+        voice1.addNote(note2);
+
+        
 	}
 }

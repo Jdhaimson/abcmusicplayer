@@ -9,20 +9,32 @@ public interface ABCMusicHeaderListener extends ParseTreeListener {
 	void enterField_tempo(ABCMusicHeaderParser.Field_tempoContext ctx);
 	void exitField_tempo(ABCMusicHeaderParser.Field_tempoContext ctx);
 
-	void enterField_key(ABCMusicHeaderParser.Field_keyContext ctx);
-	void exitField_key(ABCMusicHeaderParser.Field_keyContext ctx);
-
-	void enterField_default_length(ABCMusicHeaderParser.Field_default_lengthContext ctx);
-	void exitField_default_length(ABCMusicHeaderParser.Field_default_lengthContext ctx);
-
 	void enterOther_fields(ABCMusicHeaderParser.Other_fieldsContext ctx);
 	void exitOther_fields(ABCMusicHeaderParser.Other_fieldsContext ctx);
 
 	void enterAbc_header(ABCMusicHeaderParser.Abc_headerContext ctx);
 	void exitAbc_header(ABCMusicHeaderParser.Abc_headerContext ctx);
 
+	void enterKey_note(ABCMusicHeaderParser.Key_noteContext ctx);
+	void exitKey_note(ABCMusicHeaderParser.Key_noteContext ctx);
+
+	void enterField_composer(ABCMusicHeaderParser.Field_composerContext ctx);
+	void exitField_composer(ABCMusicHeaderParser.Field_composerContext ctx);
+
+	void enterField_key(ABCMusicHeaderParser.Field_keyContext ctx);
+	void exitField_key(ABCMusicHeaderParser.Field_keyContext ctx);
+
+	void enterMeter(ABCMusicHeaderParser.MeterContext ctx);
+	void exitMeter(ABCMusicHeaderParser.MeterContext ctx);
+
+	void enterField_default_length(ABCMusicHeaderParser.Field_default_lengthContext ctx);
+	void exitField_default_length(ABCMusicHeaderParser.Field_default_lengthContext ctx);
+
 	void enterField_meter(ABCMusicHeaderParser.Field_meterContext ctx);
 	void exitField_meter(ABCMusicHeaderParser.Field_meterContext ctx);
+
+	void enterEol(ABCMusicHeaderParser.EolContext ctx);
+	void exitEol(ABCMusicHeaderParser.EolContext ctx);
 
 	void enterField_number(ABCMusicHeaderParser.Field_numberContext ctx);
 	void exitField_number(ABCMusicHeaderParser.Field_numberContext ctx);
@@ -30,11 +42,11 @@ public interface ABCMusicHeaderListener extends ParseTreeListener {
 	void enterField_title(ABCMusicHeaderParser.Field_titleContext ctx);
 	void exitField_title(ABCMusicHeaderParser.Field_titleContext ctx);
 
-	void enterField_composer(ABCMusicHeaderParser.Field_composerContext ctx);
-	void exitField_composer(ABCMusicHeaderParser.Field_composerContext ctx);
-
 	void enterAbc_tune_header(ABCMusicHeaderParser.Abc_tune_headerContext ctx);
 	void exitAbc_tune_header(ABCMusicHeaderParser.Abc_tune_headerContext ctx);
+
+	void enterKey(ABCMusicHeaderParser.KeyContext ctx);
+	void exitKey(ABCMusicHeaderParser.KeyContext ctx);
 
 	void enterField_voice(ABCMusicHeaderParser.Field_voiceContext ctx);
 	void exitField_voice(ABCMusicHeaderParser.Field_voiceContext ctx);

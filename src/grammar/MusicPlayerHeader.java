@@ -33,11 +33,8 @@ public class MusicPlayerHeader {
 //      System.err.println(tree.toStringTree(parser));
 
       // debugging option #2: show the tree in a window
-//      ((RuleContext)tree).inspect(parser);
+      ((RuleContext)tree).inspect(parser);
 
-      // debugging option #3: walk the tree with a listener
-//      new ParseTreeWalker().walk(new FormulaListener_PrintEverything(), tree);
-        
         // Walk the tree with the listener.
         ParseTreeWalker walker = new ParseTreeWalker();
         ParseTreeListener listener = new HeaderListener();
@@ -50,9 +47,9 @@ public class MusicPlayerHeader {
 		String s = "X:2167\n"+
 				"T:Waxie's Dargle\n"+
 				"M:4/4\n"+
-				"L:1/8"+
-				"Q:1/4=180"+
-				"K:G";
+				"L:1/8\n"+
+				"Q:1/4=180\n"+
+				"K:G\n";
 		header.runListener(s);
     }
     

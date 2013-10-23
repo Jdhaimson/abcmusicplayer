@@ -60,32 +60,27 @@ BASE_NOTE : 'C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'B'
 KEY_ACCIDENTAL : '#' | 'b' ;
 MODE_MINOR : 'm' ;
 
-NOTE_LENGTH_STRICT : DIGIT+ DIVIDE DIGIT+ ;
+//NOTE_LENGTH_STRICT : DIGIT+ DIVIDE DIGIT+;
 
 EQUALS : '=' ;
 
 OCTAVE : [',]+ ;
 
-DIVIDE : '/' ;
+//DIVIDE : '/' ;
 DIGIT : [0-9]+ ;
 SPACE : ' ' ;
-LINE_FEED : ('\r'? '\n') | '\r' ;
+LINE_FEED : '\n' | '\r' | '\r\n' ;
 PERCENT : '%' ;
 
-TEXT : ~[:\r\n]+ ;
-COLON : ':' ;
-
 METER_VARIANTS : 'C' | 'C|' ;
-METER_FRACTION : DIGIT+ DIVIDE DIGIT+ ;
-METER : METER_VARIANTS | METER_FRACTION ;
+METER_FRACTION : [0-9]+ '/' [0-9]+ ;
+
+TEXT : ~[/:\r\n]+ ;
+COLON : ':' ;
 
 TEMPO : METER_FRACTION EQUALS DIGIT+ ;
 
-KEY : KEY_NOTE MODE_MINOR? ;
-KEY_NOTE : BASE_NOTE KEY_ACCIDENTAL? ;
-
 COMMENT : PERCENT (TEXT | COLON)+ LINE_FEED ;
-EOL : COMMENT | LINE_FEED ;
 
 /*
  * These are the parser rules. They define the structures used by the parser.
@@ -103,12 +98,18 @@ abc_tune_header : abc_header EOF;
 
 abc_header : field_number COMMENT* field_title other_fields* field_key ;
 
-field_number : X DIGIT+ EOL ;
-field_title : T (TEXT | COLON)+ EOL ;
+field_number : X DIGIT eol ;
+field_title : T (TEXT | COLON)+ eol ;
 other_fields : field_composer | field_default_length | field_meter | field_tempo | field_voice | COMMENT ;
-field_composer : C (TEXT | COLON)+ EOL ;
-field_default_length : L NOTE_LENGTH_STRICT EOL ;
-field_meter : M METER EOL ;
-field_tempo : Q TEMPO EOL ;
-field_voice : V (TEXT | COLON)+ EOL ;
-field_key : K KEY EOL ;
+field_composer : C (TEXT | COLON)+ eol ;
+field_default_length : L METER_FRACTION eol ;
+field_meter : M meter eol ;
+field_tempo : Q TEMPO eol ;
+field_voice : V (TEXT | COLON)+ eol ;
+field_key : K key eol ;
+
+eol : COMMENT | LINE_FEED ;
+meter : METER_FRACTION | METER_VARIANTS  ;
+
+key : key_note MODE_MINOR? ;
+key_note : BASE_NOTE KEY_ACCIDENTAL? ;

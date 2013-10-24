@@ -59,7 +59,8 @@ public class Key {
 	
 	/**
 	 * Returns the correct pitch for the key
-	 * @param noteName: Input note name
+	 * @param noteName: Input note name - does not contain any accidental notation
+	 * 					but can contain octave notation
 	 * @return Pitch with the correct accidental for the key 
 	 */
 	public Pitch getPitch(String noteName) {
@@ -68,8 +69,10 @@ public class Key {
 		}
 		else {
 			// Remove octave notation leaving only the base note
-			String baseNote = noteName.replaceAll("[^A-Ga-g]", "");
-			return this.keySignature.get(baseNote);
+			String baseNote = noteName.replaceAll("[^A-G]", "");
+			Pitch basePitch = this.keySignature.get(baseNote);
+			// Make new pitch in the right octave with the basenote's accidental
+			return new Pitch(noteName).accidentalTranspose(basePitch.getAccidental());
 		}
 	}
 	

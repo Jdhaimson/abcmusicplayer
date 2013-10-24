@@ -39,6 +39,23 @@ public class Song {
 		this.tempo = tempo;
 		this.key = key;
 	}
+
+	/**
+	 * Returns the given note with proper accidentals for the song's key
+	 * @param note: String representing name of note
+	 * @return Pitch with proper accidentals for key
+	 */
+	public Pitch getPitchInKey(String note) {
+		return this.key.getPitch(note);
+	}
+	
+	/**
+	 * Adds measure to end of current measures
+	 * @param measure
+	 */
+	public void addMeasure(Measure measure) {
+		this.measures.add(measure);
+	}
 	
 	/**
 	 * Adds measures to end of current measures

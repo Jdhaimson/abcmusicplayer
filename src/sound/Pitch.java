@@ -184,6 +184,15 @@ public class Pitch {
         return this.difference(that) < 0;
     }
 
+    
+    /**
+     * Returns the accidental of the Pitch
+     * @return int representing the accidental of the pitch
+     */
+    public int getAccidental() {
+    	return this.accidental;
+    }
+    
 
     /*
      * (non-Javadoc)

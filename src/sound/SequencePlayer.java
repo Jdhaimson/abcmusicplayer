@@ -104,7 +104,7 @@ public class SequencePlayer {
 
     /**
      * Schedules the note to be played starting at startTick for the duration of numTicks.
-     *
+     * 
      * @param note the pitch value for the note to be played; must be a valid note
      * @param startTick the starting tick; must be >= 0
      * @param numTicks the number of ticks for which this note should be played; must be >= 0
@@ -194,7 +194,7 @@ public class SequencePlayer {
     public static void main(String[] args) {
         SequencePlayer player;
         try {
-
+        	
             // Create a new player, with 120 beats per minute, 2 ticks per beat
             // and a LyricListener that prints each lyric that it sees.
             LyricListener listener = new LyricListener() {
@@ -202,8 +202,27 @@ public class SequencePlayer {
                     System.out.println(text);
                 }
             };
+ 
+            System.out.println("Hello");
             player = new SequencePlayer(120, 2, listener);
-
+            player.addLyricEvent("Up!", 0);
+            player.addNote(new Pitch("C").toMidiNote(), 0, 1);
+            player.addNote(new Pitch("^C").toMidiNote(), 1, 1);
+            player.addNote(new Pitch("D").toMidiNote(), 2, 1);
+            player.addNote(new Pitch("^D").toMidiNote(), 3, 1);
+            player.addNote(new Pitch("E").toMidiNote(), 4, 1);
+            player.addNote(new Pitch("F").toMidiNote(), 5, 1);
+            player.addNote(new Pitch("^F").toMidiNote(), 6, 1);
+            player.addNote(new Pitch("G").toMidiNote(), 7, 1);
+            player.addNote(new Pitch("^G").toMidiNote(), 8, 1);
+            player.addNote(new Pitch("A").toMidiNote(), 9, 1);
+            player.addNote(new Pitch("^A").toMidiNote(), 10, 1);
+            player.addNote(new Pitch("B").toMidiNote(), 11, 2);
+            player.addNote(new Pitch("_c").toMidiNote(), 13, 2);
+            player.addNote(new Pitch("B").toMidiNote(), 15, 4);
+            
+            
+/*
             player.addLyricEvent("Up!", 0);
             player.addNote(new Pitch('C').toMidiNote(), 0, 1);
             player.addNote(new Pitch('D').toMidiNote(), 1, 1);
@@ -221,7 +240,7 @@ public class SequencePlayer {
             player.addNote(new Pitch('E').toMidiNote(), 12, 1);
             player.addNote(new Pitch('D').toMidiNote(), 13, 1);
             player.addNote(new Pitch('C').toMidiNote(), 14, 1);
-
+*/
             System.out.println(player);
 
             // play!

@@ -3,6 +3,12 @@ package sound;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Mutable object representing a measure of a piece.  Measure contains
+ * voices, lyrics and a key which is used to keep track of accidentals.
+ * @author Josh
+ *
+ */
 public class Measure {
 	private List<Voice> voices = new LinkedList<Voice>();
 	private List<Lyric> lyrics = new LinkedList<Lyric>();
@@ -117,8 +123,8 @@ public class Measure {
 	 * @param note
 	 * @param accidental
 	 */
-	public void modifyKey(String note, String accidental) {
-		this.key.alterKey(note, accidental);
+	public void modifyKey(String note, int semitonesUp) {
+		this.key.alterKey(note, semitonesUp);
 	}
 	
 	/*

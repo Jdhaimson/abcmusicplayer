@@ -8,7 +8,7 @@ public class KeyTest {
 
 	@Test
 	public void testeMinor() {
-		Key key = new Key("e");
+		Key key = new Key("Em");
 		assertEquals(true, key.getPitch("C"). equals(new Pitch("C")));
 		assertEquals(true, key.getPitch("D"). equals(new Pitch("D")));
 		assertEquals(true, key.getPitch("E"). equals(new Pitch("E")));

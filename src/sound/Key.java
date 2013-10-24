@@ -134,20 +134,21 @@ public class Key {
 	 */
 	private String getRelativeMajor(String key) {
 		Map<String, String> relativeMajor = new HashMap<String, String>();
-		relativeMajor.put("a", "C");
-		relativeMajor.put("a#", "C#");
-		relativeMajor.put("bb", "Db");
-		relativeMajor.put("b", "D");
-		relativeMajor.put("c", "Eb");
-		relativeMajor.put("c#", "E");
-		relativeMajor.put("d", "F");
-		relativeMajor.put("d#", "F#");
-		relativeMajor.put("eb", "Gb");
-		relativeMajor.put("e", "G");
-		relativeMajor.put("f", "Ab");
-		relativeMajor.put("f#", "A");
-		relativeMajor.put("g", "Bb");
-		relativeMajor.put("g#", "B");
+		relativeMajor.put("Abm", "Cb");
+		relativeMajor.put("Am", "C");
+		relativeMajor.put("A#m", "C#");
+		relativeMajor.put("Bbm", "Db");
+		relativeMajor.put("Bm", "D");
+		relativeMajor.put("Cm", "Eb");
+		relativeMajor.put("C#m", "E");
+		relativeMajor.put("Dm", "F");
+		relativeMajor.put("D#m", "F#");
+		relativeMajor.put("Ebm", "Gb");
+		relativeMajor.put("Em", "G");
+		relativeMajor.put("Fm", "Ab");
+		relativeMajor.put("F#m", "A");
+		relativeMajor.put("Gm", "Bb");
+		relativeMajor.put("G#m", "B");
 		
 		if (relativeMajor.containsKey(key)) {
 			return relativeMajor.get(key);

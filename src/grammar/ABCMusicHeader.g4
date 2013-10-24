@@ -68,19 +68,16 @@ OCTAVE : [',]+ ;
 
 //DIVIDE : '/' ;
 DIGIT : [0-9]+ ;
-SPACE : ' ' ;
 LINE_FEED : '\n' | '\r' | '\r\n' ;
 PERCENT : '%' ;
 
 METER_VARIANTS : 'C' | 'C|' ;
 METER_FRACTION : [0-9]+ '/' [0-9]+ ;
 
-TEXT : ~[/:\r\n]+ ;
+TEXT : ~[%/:\r\n]+ ;
 COLON : ':' ;
 
 TEMPO : METER_FRACTION EQUALS DIGIT+ ;
-
-COMMENT : PERCENT (TEXT | COLON)+ LINE_FEED ;
 
 /*
  * These are the parser rules. They define the structures used by the parser.
@@ -96,20 +93,22 @@ COMMENT : PERCENT (TEXT | COLON)+ LINE_FEED ;
  
 abc_tune_header : abc_header EOF;
 
-abc_header : field_number COMMENT* field_title other_fields* field_key ;
+abc_header : field_number comment* field_title other_fields* field_key ;
 
 field_number : X DIGIT eol ;
-field_title : T (TEXT | COLON)+ eol ;
-other_fields : field_composer | field_default_length | field_meter | field_tempo | field_voice | COMMENT ;
-field_composer : C (TEXT | COLON)+ eol ;
+field_title : T (TEXT | COLON | PERCENT)+ eol ;
+other_fields : field_composer | field_default_length | field_meter | field_tempo | field_voice | comment ;
+field_composer : C (TEXT | COLON | PERCENT)+ eol ;
 field_default_length : L METER_FRACTION eol ;
 field_meter : M meter eol ;
 field_tempo : Q TEMPO eol ;
-field_voice : V (TEXT | COLON)+ eol ;
+field_voice : V (TEXT | COLON | PERCENT)+ eol ;
 field_key : K key eol ;
 
-eol : COMMENT | LINE_FEED ;
+eol : comment | LINE_FEED ;
 meter : METER_FRACTION | METER_VARIANTS  ;
 
 key : key_note MODE_MINOR? ;
 key_note : BASE_NOTE KEY_ACCIDENTAL? ;
+
+comment : PERCENT (TEXT | BASE_NOTE | COLON | PERCENT)* LINE_FEED ;

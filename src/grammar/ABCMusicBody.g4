@@ -46,13 +46,11 @@ package grammar;
 
 W: 'w:' ;
 V: 'V:' ;
-FIELD_VOICE : V (~[\r\n])+ EOL ;
 
 // "^" is sharp, "_" is flat, and "=" is neutral
 ACCIDENTAL : '^' | '^^' | '_' | '__' | '=' ;
 
-BASE_NOTE : 'C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'B'
-        | 'c' | 'd' | 'e' | 'f' | 'g' | 'a' | 'b' ;
+FIELD_VOICE : V ~[\r\n]+ EOL ;
 
 REST : 'z';
 
@@ -62,9 +60,7 @@ NTH_REPEAT : '[1' | '[2' ;
 KEY_ACCIDENTAL : '#' | 'b' ;
 MODE_MINOR : 'm' ;
 
-NOTE_LENGTH_STRICT : DIGIT+ DIVIDE DIGIT+ ;
-
-EQUALS : '=' ;
+NOTE_LENGTH_STRICT : DIGIT+ '/' DIGIT+ ;
 
 OCTAVE : [',]+ ;
 
@@ -74,32 +70,24 @@ OPEN_BRACK : '[' ;
 CLOSED_BRACK : ']' ;
 
 DIVIDE : '/' ;
-DIGIT : [0-9]+ ;
+DIGIT : [0-9] ;
 SPACE : ' ' ;
-LINE_FEED : ('\r'? '\n') | '\r' ;
+LINE_FEED : '\n' | '\r' | '\r\n' ;
 PERCENT : '%' ;
 
-LYRIC_TEXT : [a-zA-Z] ;
-
-LYRIC_ELEMENTS : ' '+ | '_' | '-' | '*' | '~' | '\-' | '|' ;
+COMMENT : PERCENT ~[\r\n]+ LINE_FEED ;
 
 METER_VARIANTS : 'C' | 'C|' ;
-METER_FRACTION : DIGIT+ DIVIDE DIGIT+ ;
-METER : METER_VARIANTS | METER_FRACTION ;
+METER_FRACTION : DIGIT+ '/' DIGIT+ ;
 
-// note is either a pitch or a rest
-NOTE : NOTE_OR_REST NOTE_LENGTH? ;
-NOTE_OR_REST : PITCH | REST ;
-PITCH : ACCIDENTAL? BASE_NOTE OCTAVE? ;
+BASE_NOTE : 'C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'B'
+        | 'c' | 'd' | 'e' | 'f' | 'g' | 'a' | 'b' ;
 
-NOTE_LENGTH : (DIGIT+ DIVIDE DIGIT+) | (DIVIDE DIGIT+) | (DIGIT+ DIVIDE) | DIGIT+ | DIVIDE ;
+TEMPO : METER_FRACTION '=' DIGIT+ ;
+        
+LYRIC_TEXT : ~[abcdefgABCDEFG',_-*~\-| \r\n]+ ;
+LYRICAL_ELEMENTS : ' '+ | '_' | '-' | '*' | '~' | '\-' | '|' ;
 
-TEMPO : METER_FRACTION EQUALS DIGIT+ ;
-
-KEY : KEY_NOTE MODE_MINOR? ;
-KEY_NOTE : BASE_NOTE KEY_ACCIDENTAL? ;
-
-COMMENT : PERCENT (~[\r\n])+ LINE_FEED ;
 EOL : COMMENT | LINE_FEED ;
 
 /*
@@ -120,17 +108,25 @@ abc_music : abc_line+ ;
 abc_line : element+ LINE_FEED (lyric LINE_FEED)? | mid_tune_field | COMMENT ;
 
 element : note_element | tuplet_element | BAR_LINE | NTH_REPEAT | SPACE ;
-note_element : NOTE | MULTI_NOTE ;
+note_element : note | multi_note ;
+
+note_length : DIGIT+ | (DIGIT+ DIVIDE DIGIT+) | (DIVIDE DIGIT+) | (DIGIT+ DIVIDE) | DIVIDE ;
+
+note : note_or_rest note_length? ;
+multi_note : OPEN_BRACK note+ CLOSED_BRACK ;
+note_or_rest : pitch | REST ;
+pitch : ACCIDENTAL? BASE_NOTE OCTAVE? ;
+
+meter : METER_VARIANTS | METER_FRACTION ;
+
+key : key_note MODE_MINOR? ;
+key_note : BASE_NOTE KEY_ACCIDENTAL? ;
 
 // tuplets
 tuplet_element : tuplet_spec note_element+;
 tuplet_spec : OPEN_PAREN DIGIT ;
 
-// chords
-MULTI_NOTE : OPEN_BRACK NOTE+ CLOSED_BRACK ;
-
 // A voice field might reappear in the middle of a piece to indicate the change of a voice
 mid_tune_field : FIELD_VOICE ;
 
-lyric : W lyrical_element* ;
-lyrical_element : LYRIC_ELEMENTS | LYRIC_TEXT+ ;
+lyric : W (LYRICAL_ELEMENTS | (LYRIC_TEXT | BASE_NOTE | OCTAVE)+ | SPACE)* ;

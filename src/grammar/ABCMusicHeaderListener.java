@@ -39,6 +39,9 @@ public interface ABCMusicHeaderListener extends ParseTreeListener {
 	void enterField_number(ABCMusicHeaderParser.Field_numberContext ctx);
 	void exitField_number(ABCMusicHeaderParser.Field_numberContext ctx);
 
+	void enterComment(ABCMusicHeaderParser.CommentContext ctx);
+	void exitComment(ABCMusicHeaderParser.CommentContext ctx);
+
 	void enterField_title(ABCMusicHeaderParser.Field_titleContext ctx);
 	void exitField_title(ABCMusicHeaderParser.Field_titleContext ctx);
 

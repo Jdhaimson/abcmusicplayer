@@ -42,6 +42,9 @@ public class ABCMusicHeaderBaseListener implements ABCMusicHeaderListener {
 	@Override public void enterField_number(ABCMusicHeaderParser.Field_numberContext ctx) { }
 	@Override public void exitField_number(ABCMusicHeaderParser.Field_numberContext ctx) { }
 
+	@Override public void enterComment(ABCMusicHeaderParser.CommentContext ctx) { }
+	@Override public void exitComment(ABCMusicHeaderParser.CommentContext ctx) { }
+
 	@Override public void enterField_title(ABCMusicHeaderParser.Field_titleContext ctx) { }
 	@Override public void exitField_title(ABCMusicHeaderParser.Field_titleContext ctx) { }
 

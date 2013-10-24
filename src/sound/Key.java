@@ -23,7 +23,7 @@ public class Key {
 	
 	/**
 	 * Constructor for Key Object
-	 * @param keyName: Name of key
+	 * @param keyName: Name of key. First letter must be capital
 	 */
 	public Key(String keyName) {
 		this.keySignature = this.getBaseKey(keyName);

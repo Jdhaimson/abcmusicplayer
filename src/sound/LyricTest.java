@@ -5,6 +5,14 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class LyricTest {
+    
+    /*
+     * Testing Strategy
+     * 
+     * Tested Lyric's methods by way of creating many instances of Lyric, each in some way different from the others.
+     * Used the instances to check for structural equality, for equivalent toString() ouputs, equivalent getDuration() outputs.
+     * To test hashCode(), checked to make sure each instance's hashCode was equivalent to itself and that structural equivalent instances had the same hashCode().
+     */
 
 	@Test
 	public void testBasicLyricToString() {

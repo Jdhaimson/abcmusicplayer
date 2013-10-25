@@ -11,7 +11,12 @@ public class NoteTest {
 
 	/*
 	 * Testing Strategy:
-	 * NONE
+	 * 
+	 * We tested each of Note's toString(), equals(), and hashCode() methods by way of creating several instances of Note, each slightly different than the others.
+	 * We tested used these instances to check that structural equivalent Note's would be .equal(), would return the same hashCode() output, and would have equivalent toString() outputs.
+	 * We tested clone() by checking that the output would have equivalent toString() and hashCode() values as the object getting cloned, and that both the original and the clone were structurally equivalent.
+	 * We tested getDuration() and getPitches() in a similar way as toString(), equals(), and hashCode()
+	 * We created instances of Note slightly each slightly different than the others and tested for equivalence or inequivalence depending on what differed between the instances.
 	 */
 	
 	@Test

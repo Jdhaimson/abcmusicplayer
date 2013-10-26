@@ -45,7 +45,7 @@ public class MusicPlayerHeader {
     public static void main(String[] args) {
 		MusicPlayerHeader header = new MusicPlayerHeader();
 		String s = "X:2167\n"+
-				"T:Waxie's Dargle\n"+
+				"T:Waxie's: Dargle\n"+
 				"%Random Comment % * $ ()\n"+
 				"M:4/4\n"+
 				"L:1/8\n"+

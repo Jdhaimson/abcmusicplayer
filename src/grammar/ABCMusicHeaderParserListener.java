@@ -1,11 +1,11 @@
-// Generated from ABCMusicHeader.g4 by ANTLR 4.0
+// Generated from ABCMusicHeaderParser.g4 by ANTLR 4.0
 
 package grammar;
 
 import org.antlr.v4.runtime.tree.*;
 import org.antlr.v4.runtime.Token;
 
-public interface ABCMusicHeaderListener extends ParseTreeListener {
+public interface ABCMusicHeaderParserListener extends ParseTreeListener {
 	void enterField_tempo(ABCMusicHeaderParser.Field_tempoContext ctx);
 	void exitField_tempo(ABCMusicHeaderParser.Field_tempoContext ctx);
 

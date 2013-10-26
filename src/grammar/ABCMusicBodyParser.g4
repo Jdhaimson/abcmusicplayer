@@ -1,18 +1,12 @@
-/**
- * This file is the grammar file used by ANTLR.
- *
- * In order to compile this file, navigate to this directory
- * (<src/grammar>) and run the following command:
- *
- * java -jar ../../antlr.jar ABCMusic.g4
- */
+parser grammar ABCMusicBodyParser;
 
-grammar ABCMusicHeader;
+options { tokenVocab=ABCMusicBodyLexer; }
 
 /*
  * This puts "package grammar;" at the top of the output Java files.
  * Do not change these lines unless you know what you're doing.
  */
+ 
 @header {
 package grammar;
 }
@@ -40,44 +34,6 @@ package grammar;
     }
 }
 
-/*
- * These are the lexical rules. They define the tokens used by the lexer.
- */
-
-X: 'X:' ;
-T: 'T:' ;
-C: 'C:' ;
-L: 'L:' ;
-M: 'M:' ;
-Q: 'Q:' ;
-V: 'V:' ;
-K: 'K:' ;
-W: 'w:' ;
-
-BASE_NOTE : 'C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'B'
-        | 'c' | 'd' | 'e' | 'f' | 'g' | 'a' | 'b' ;
-
-KEY_ACCIDENTAL : '#' | 'b' ;
-MODE_MINOR : 'm' ;
-
-//NOTE_LENGTH_STRICT : DIGIT+ DIVIDE DIGIT+;
-
-EQUALS : '=' ;
-
-OCTAVE : [',]+ ;
-
-//DIVIDE : '/' ;
-DIGIT : [0-9]+ ;
-LINE_FEED : '\n' | '\r' | '\r\n' ;
-PERCENT : '%' ;
-
-METER_VARIANTS : 'C' | 'C|' ;
-METER_FRACTION : [0-9]+ '/' [0-9]+ ;
-
-TEXT : ~[%/:\r\n]+ ;
-COLON : ':' ;
-
-TEMPO : METER_FRACTION EQUALS DIGIT+ ;
 
 /*
  * These are the parser rules. They define the structures used by the parser.
@@ -91,24 +47,37 @@ TEMPO : METER_FRACTION EQUALS DIGIT+ ;
  * http://www.antlr.org/wiki/display/ANTLR4/Parser+Rules#ParserRules-StartRulesandEOF
  */
  
-abc_tune_header : abc_header EOF;
+abc_tune_body : abc_music EOF;
 
-abc_header : field_number comment* field_title other_fields* field_key ;
+abc_music : abc_line+ ;
+abc_line : element+ LINE_FEED lyric? | mid_tune_field | comment ;
 
-field_number : X DIGIT eol ;
-field_title : T (TEXT | COLON | PERCENT)+ eol ;
-other_fields : field_composer | field_default_length | field_meter | field_tempo | field_voice | comment ;
-field_composer : C (TEXT | COLON | PERCENT)+ eol ;
-field_default_length : L METER_FRACTION eol ;
-field_meter : M meter eol ;
-field_tempo : Q TEMPO eol ;
-field_voice : V (TEXT | COLON | PERCENT)+ eol ;
-field_key : K key eol ;
+element : note_element | tuplet_element | BAR_LINE | NTH_REPEAT | SPACE ;
+note_element : note | multi_note ;
 
-eol : comment | LINE_FEED ;
-meter : METER_FRACTION | METER_VARIANTS  ;
+note_length : DIGIT+ | (DIGIT+ DIVIDE DIGIT+) | (DIVIDE DIGIT+) | (DIGIT+ DIVIDE) | DIVIDE ;
+
+note : note_or_rest note_length? ;
+multi_note : OPEN_BRACK note+ CLOSED_BRACK ;
+note_or_rest : pitch | REST ;
+pitch : ACCIDENTAL? BASE_NOTE OCTAVE? ;
+
+meter : METER_VARIANTS | METER_FRACTION ;
 
 key : key_note MODE_MINOR? ;
 key_note : BASE_NOTE KEY_ACCIDENTAL? ;
 
-comment : PERCENT (TEXT | BASE_NOTE | COLON | PERCENT)* LINE_FEED ;
+// tuplets
+tuplet_element : tuplet_spec note_element+;
+tuplet_spec : OPEN_PAREN DIGIT ;
+
+// A voice field might reappear in the middle of a piece to indicate the change of a voice
+mid_tune_field : field_voice ;
+
+field_voice : V VOICE_TEXT+ eol ;
+
+lyric : W (LYRIC_TEXT | LYRICAL_ELEMENTS)* END_LYRIC;
+
+comment : PERCENT COMMENT_TEXT* LINE_FEED ;
+
+eol : comment | LINE_FEED ;

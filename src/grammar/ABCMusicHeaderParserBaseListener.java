@@ -1,4 +1,4 @@
-// Generated from ABCMusicHeader.g4 by ANTLR 4.0
+// Generated from ABCMusicHeaderParser.g4 by ANTLR 4.0
 
 package grammar;
 
@@ -8,7 +8,7 @@ import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.antlr.v4.runtime.tree.ErrorNode;
 
-public class ABCMusicHeaderBaseListener implements ABCMusicHeaderListener {
+public class ABCMusicHeaderParserBaseListener implements ABCMusicHeaderParserListener {
 	@Override public void enterField_tempo(ABCMusicHeaderParser.Field_tempoContext ctx) { }
 	@Override public void exitField_tempo(ABCMusicHeaderParser.Field_tempoContext ctx) { }
 

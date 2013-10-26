@@ -1,4 +1,4 @@
-// Generated from ABCMusicHeader.g4 by ANTLR 4.0
+// Generated from ABCMusicHeaderParser.g4 by ANTLR 4.0
 
 package grammar;
 
@@ -17,14 +17,15 @@ public class ABCMusicHeaderParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		X=1, T=2, C=3, L=4, M=5, Q=6, V=7, K=8, W=9, BASE_NOTE=10, KEY_ACCIDENTAL=11, 
-		MODE_MINOR=12, EQUALS=13, OCTAVE=14, DIGIT=15, LINE_FEED=16, PERCENT=17, 
-		METER_VARIANTS=18, METER_FRACTION=19, TEXT=20, COLON=21, TEMPO=22;
+		VOICE_TEXT=24, PERCENT=17, C=3, BASE_NOTE=10, L=4, M=5, K=8, T=2, OCTAVE=14, 
+		W=9, V=7, Q=6, EQUALS=13, METER_VARIANTS=18, COMMENT_TEXT=25, KEY_ACCIDENTAL=11, 
+		METER_FRACTION=19, MODE_MINOR=12, X=1, COLON=20, COMPOSER_TEXT=23, LINE_FEED=16, 
+		DIGIT=15, TITLE_TEXT=22, TEMPO=21;
 	public static final String[] tokenNames = {
 		"<INVALID>", "'X:'", "'T:'", "'C:'", "'L:'", "'M:'", "'Q:'", "'V:'", "'K:'", 
 		"'w:'", "BASE_NOTE", "KEY_ACCIDENTAL", "'m'", "'='", "OCTAVE", "DIGIT", 
-		"LINE_FEED", "'%'", "METER_VARIANTS", "METER_FRACTION", "TEXT", "':'", 
-		"TEMPO"
+		"LINE_FEED", "'%'", "METER_VARIANTS", "METER_FRACTION", "':'", "TEMPO", 
+		"TITLE_TEXT", "COMPOSER_TEXT", "VOICE_TEXT", "COMMENT_TEXT"
 	};
 	public static final int
 		RULE_abc_tune_header = 0, RULE_abc_header = 1, RULE_field_number = 2, 
@@ -39,7 +40,7 @@ public class ABCMusicHeaderParser extends Parser {
 	};
 
 	@Override
-	public String getGrammarFileName() { return "ABCMusicHeader.g4"; }
+	public String getGrammarFileName() { return "ABCMusicHeaderParser.g4"; }
 
 	@Override
 	public String[] getTokenNames() { return tokenNames; }
@@ -82,11 +83,11 @@ public class ABCMusicHeaderParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_abc_tune_header; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).enterAbc_tune_header(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).enterAbc_tune_header(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).exitAbc_tune_header(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).exitAbc_tune_header(this);
 		}
 	}
 
@@ -139,11 +140,11 @@ public class ABCMusicHeaderParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_abc_header; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).enterAbc_header(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).enterAbc_header(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).exitAbc_header(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).exitAbc_header(this);
 		}
 	}
 
@@ -208,11 +209,11 @@ public class ABCMusicHeaderParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_field_number; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).enterField_number(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).enterField_number(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).exitField_number(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).exitField_number(this);
 		}
 	}
 
@@ -239,21 +240,13 @@ public class ABCMusicHeaderParser extends Parser {
 	}
 
 	public static class Field_titleContext extends ParserRuleContext {
-		public List<TerminalNode> COLON() { return getTokens(ABCMusicHeaderParser.COLON); }
 		public TerminalNode T() { return getToken(ABCMusicHeaderParser.T, 0); }
-		public TerminalNode PERCENT(int i) {
-			return getToken(ABCMusicHeaderParser.PERCENT, i);
-		}
-		public TerminalNode TEXT(int i) {
-			return getToken(ABCMusicHeaderParser.TEXT, i);
-		}
-		public List<TerminalNode> PERCENT() { return getTokens(ABCMusicHeaderParser.PERCENT); }
-		public List<TerminalNode> TEXT() { return getTokens(ABCMusicHeaderParser.TEXT); }
+		public List<TerminalNode> TITLE_TEXT() { return getTokens(ABCMusicHeaderParser.TITLE_TEXT); }
 		public EolContext eol() {
 			return getRuleContext(EolContext.class,0);
 		}
-		public TerminalNode COLON(int i) {
-			return getToken(ABCMusicHeaderParser.COLON, i);
+		public TerminalNode TITLE_TEXT(int i) {
+			return getToken(ABCMusicHeaderParser.TITLE_TEXT, i);
 		}
 		public Field_titleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -261,11 +254,11 @@ public class ABCMusicHeaderParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_field_title; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).enterField_title(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).enterField_title(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).exitField_title(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).exitField_title(this);
 		}
 	}
 
@@ -274,34 +267,22 @@ public class ABCMusicHeaderParser extends Parser {
 		enterRule(_localctx, 6, RULE_field_title);
 		int _la;
 		try {
-			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(55); match(T);
 			setState(57); 
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
+			_la = _input.LA(1);
 			do {
-				switch (_alt) {
-				case 1:
-					{
-					{
-					setState(56);
-					_la = _input.LA(1);
-					if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << PERCENT) | (1L << TEXT) | (1L << COLON))) != 0)) ) {
-					_errHandler.recoverInline(this);
-					}
-					consume();
-					}
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
+				{
+				{
+				setState(56); match(TITLE_TEXT);
+				}
 				}
 				setState(59); 
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
-			} while ( _alt!=2 && _alt!=-1 );
+				_la = _input.LA(1);
+			} while ( _la==TITLE_TEXT );
 			setState(61); eol();
 			}
 		}
@@ -341,11 +322,11 @@ public class ABCMusicHeaderParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_other_fields; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).enterOther_fields(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).enterOther_fields(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).exitOther_fields(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).exitOther_fields(this);
 		}
 	}
 
@@ -407,33 +388,25 @@ public class ABCMusicHeaderParser extends Parser {
 	}
 
 	public static class Field_composerContext extends ParserRuleContext {
-		public List<TerminalNode> COLON() { return getTokens(ABCMusicHeaderParser.COLON); }
-		public TerminalNode PERCENT(int i) {
-			return getToken(ABCMusicHeaderParser.PERCENT, i);
+		public TerminalNode COMPOSER_TEXT(int i) {
+			return getToken(ABCMusicHeaderParser.COMPOSER_TEXT, i);
 		}
-		public TerminalNode TEXT(int i) {
-			return getToken(ABCMusicHeaderParser.TEXT, i);
-		}
-		public List<TerminalNode> PERCENT() { return getTokens(ABCMusicHeaderParser.PERCENT); }
-		public List<TerminalNode> TEXT() { return getTokens(ABCMusicHeaderParser.TEXT); }
 		public TerminalNode C() { return getToken(ABCMusicHeaderParser.C, 0); }
 		public EolContext eol() {
 			return getRuleContext(EolContext.class,0);
 		}
-		public TerminalNode COLON(int i) {
-			return getToken(ABCMusicHeaderParser.COLON, i);
-		}
+		public List<TerminalNode> COMPOSER_TEXT() { return getTokens(ABCMusicHeaderParser.COMPOSER_TEXT); }
 		public Field_composerContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_field_composer; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).enterField_composer(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).enterField_composer(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).exitField_composer(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).exitField_composer(this);
 		}
 	}
 
@@ -442,34 +415,22 @@ public class ABCMusicHeaderParser extends Parser {
 		enterRule(_localctx, 10, RULE_field_composer);
 		int _la;
 		try {
-			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(71); match(C);
 			setState(73); 
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,4,_ctx);
+			_la = _input.LA(1);
 			do {
-				switch (_alt) {
-				case 1:
-					{
-					{
-					setState(72);
-					_la = _input.LA(1);
-					if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << PERCENT) | (1L << TEXT) | (1L << COLON))) != 0)) ) {
-					_errHandler.recoverInline(this);
-					}
-					consume();
-					}
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
+				{
+				{
+				setState(72); match(COMPOSER_TEXT);
+				}
 				}
 				setState(75); 
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,4,_ctx);
-			} while ( _alt!=2 && _alt!=-1 );
+				_la = _input.LA(1);
+			} while ( _la==COMPOSER_TEXT );
 			setState(77); eol();
 			}
 		}
@@ -496,11 +457,11 @@ public class ABCMusicHeaderParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_field_default_length; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).enterField_default_length(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).enterField_default_length(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).exitField_default_length(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).exitField_default_length(this);
 		}
 	}
 
@@ -540,11 +501,11 @@ public class ABCMusicHeaderParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_field_meter; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).enterField_meter(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).enterField_meter(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).exitField_meter(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).exitField_meter(this);
 		}
 	}
 
@@ -582,11 +543,11 @@ public class ABCMusicHeaderParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_field_tempo; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).enterField_tempo(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).enterField_tempo(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).exitField_tempo(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).exitField_tempo(this);
 		}
 	}
 
@@ -613,21 +574,13 @@ public class ABCMusicHeaderParser extends Parser {
 	}
 
 	public static class Field_voiceContext extends ParserRuleContext {
-		public List<TerminalNode> COLON() { return getTokens(ABCMusicHeaderParser.COLON); }
+		public List<TerminalNode> VOICE_TEXT() { return getTokens(ABCMusicHeaderParser.VOICE_TEXT); }
 		public TerminalNode V() { return getToken(ABCMusicHeaderParser.V, 0); }
-		public TerminalNode PERCENT(int i) {
-			return getToken(ABCMusicHeaderParser.PERCENT, i);
+		public TerminalNode VOICE_TEXT(int i) {
+			return getToken(ABCMusicHeaderParser.VOICE_TEXT, i);
 		}
-		public TerminalNode TEXT(int i) {
-			return getToken(ABCMusicHeaderParser.TEXT, i);
-		}
-		public List<TerminalNode> PERCENT() { return getTokens(ABCMusicHeaderParser.PERCENT); }
-		public List<TerminalNode> TEXT() { return getTokens(ABCMusicHeaderParser.TEXT); }
 		public EolContext eol() {
 			return getRuleContext(EolContext.class,0);
-		}
-		public TerminalNode COLON(int i) {
-			return getToken(ABCMusicHeaderParser.COLON, i);
 		}
 		public Field_voiceContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -635,11 +588,11 @@ public class ABCMusicHeaderParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_field_voice; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).enterField_voice(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).enterField_voice(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).exitField_voice(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).exitField_voice(this);
 		}
 	}
 
@@ -648,34 +601,22 @@ public class ABCMusicHeaderParser extends Parser {
 		enterRule(_localctx, 18, RULE_field_voice);
 		int _la;
 		try {
-			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(91); match(V);
 			setState(93); 
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
+			_la = _input.LA(1);
 			do {
-				switch (_alt) {
-				case 1:
-					{
-					{
-					setState(92);
-					_la = _input.LA(1);
-					if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << PERCENT) | (1L << TEXT) | (1L << COLON))) != 0)) ) {
-					_errHandler.recoverInline(this);
-					}
-					consume();
-					}
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
+				{
+				{
+				setState(92); match(VOICE_TEXT);
+				}
 				}
 				setState(95); 
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
-			} while ( _alt!=2 && _alt!=-1 );
+				_la = _input.LA(1);
+			} while ( _la==VOICE_TEXT );
 			setState(97); eol();
 			}
 		}
@@ -704,11 +645,11 @@ public class ABCMusicHeaderParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_field_key; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).enterField_key(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).enterField_key(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).exitField_key(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).exitField_key(this);
 		}
 	}
 
@@ -745,11 +686,11 @@ public class ABCMusicHeaderParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_eol; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).enterEol(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).enterEol(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).exitEol(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).exitEol(this);
 		}
 	}
 
@@ -795,11 +736,11 @@ public class ABCMusicHeaderParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_meter; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).enterMeter(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).enterMeter(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).exitMeter(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).exitMeter(this);
 		}
 	}
 
@@ -840,11 +781,11 @@ public class ABCMusicHeaderParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_key; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).enterKey(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).enterKey(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).exitKey(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).exitKey(this);
 		}
 	}
 
@@ -886,11 +827,11 @@ public class ABCMusicHeaderParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_key_note; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).enterKey_note(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).enterKey_note(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).exitKey_note(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).exitKey_note(this);
 		}
 	}
 
@@ -924,22 +865,11 @@ public class ABCMusicHeaderParser extends Parser {
 	}
 
 	public static class CommentContext extends ParserRuleContext {
-		public List<TerminalNode> COLON() { return getTokens(ABCMusicHeaderParser.COLON); }
 		public TerminalNode LINE_FEED() { return getToken(ABCMusicHeaderParser.LINE_FEED, 0); }
-		public TerminalNode BASE_NOTE(int i) {
-			return getToken(ABCMusicHeaderParser.BASE_NOTE, i);
-		}
-		public TerminalNode TEXT(int i) {
-			return getToken(ABCMusicHeaderParser.TEXT, i);
-		}
-		public TerminalNode PERCENT(int i) {
-			return getToken(ABCMusicHeaderParser.PERCENT, i);
-		}
-		public List<TerminalNode> PERCENT() { return getTokens(ABCMusicHeaderParser.PERCENT); }
-		public List<TerminalNode> TEXT() { return getTokens(ABCMusicHeaderParser.TEXT); }
-		public List<TerminalNode> BASE_NOTE() { return getTokens(ABCMusicHeaderParser.BASE_NOTE); }
-		public TerminalNode COLON(int i) {
-			return getToken(ABCMusicHeaderParser.COLON, i);
+		public List<TerminalNode> COMMENT_TEXT() { return getTokens(ABCMusicHeaderParser.COMMENT_TEXT); }
+		public TerminalNode PERCENT() { return getToken(ABCMusicHeaderParser.PERCENT, 0); }
+		public TerminalNode COMMENT_TEXT(int i) {
+			return getToken(ABCMusicHeaderParser.COMMENT_TEXT, i);
 		}
 		public CommentContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -947,11 +877,11 @@ public class ABCMusicHeaderParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_comment; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).enterComment(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).enterComment(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderListener ) ((ABCMusicHeaderListener)listener).exitComment(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).exitComment(this);
 		}
 	}
 
@@ -966,15 +896,10 @@ public class ABCMusicHeaderParser extends Parser {
 			setState(121);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BASE_NOTE) | (1L << PERCENT) | (1L << TEXT) | (1L << COLON))) != 0)) {
+			while (_la==COMMENT_TEXT) {
 				{
 				{
-				setState(118);
-				_la = _input.LA(1);
-				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BASE_NOTE) | (1L << PERCENT) | (1L << TEXT) | (1L << COLON))) != 0)) ) {
-				_errHandler.recoverInline(this);
-				}
-				consume();
+				setState(118); match(COMMENT_TEXT);
 				}
 				}
 				setState(123);
@@ -996,7 +921,7 @@ public class ABCMusicHeaderParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\2\3\30\u0081\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b"+
+		"\2\3\33\u0081\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b"+
 		"\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t"+
 		"\20\4\21\t\21\3\2\3\2\3\2\3\3\3\3\7\3(\n\3\f\3\16\3+\13\3\3\3\3\3\7\3"+
 		"/\n\3\f\3\16\3\62\13\3\3\3\3\3\3\4\3\4\3\4\3\4\3\5\3\5\6\5<\n\5\r\5\16"+
@@ -1005,27 +930,27 @@ public class ABCMusicHeaderParser extends Parser {
 		"\13`\n\13\r\13\16\13a\3\13\3\13\3\f\3\f\3\f\3\f\3\r\3\r\5\rl\n\r\3\16"+
 		"\3\16\3\17\3\17\5\17r\n\17\3\20\3\20\5\20v\n\20\3\21\3\21\7\21z\n\21\f"+
 		"\21\16\21}\13\21\3\21\3\21\3\21\2\22\2\4\6\b\n\f\16\20\22\24\26\30\32"+
-		"\34\36 \2\7\4\23\23\26\27\4\23\23\26\27\4\23\23\26\27\3\24\25\5\f\f\23"+
-		"\23\26\27~\2\"\3\2\2\2\4%\3\2\2\2\6\65\3\2\2\2\b9\3\2\2\2\nG\3\2\2\2\f"+
-		"I\3\2\2\2\16Q\3\2\2\2\20U\3\2\2\2\22Y\3\2\2\2\24]\3\2\2\2\26e\3\2\2\2"+
-		"\30k\3\2\2\2\32m\3\2\2\2\34o\3\2\2\2\36s\3\2\2\2 w\3\2\2\2\"#\5\4\3\2"+
-		"#$\7\1\2\2$\3\3\2\2\2%)\5\6\4\2&(\5 \21\2\'&\3\2\2\2(+\3\2\2\2)\'\3\2"+
-		"\2\2)*\3\2\2\2*,\3\2\2\2+)\3\2\2\2,\60\5\b\5\2-/\5\n\6\2.-\3\2\2\2/\62"+
-		"\3\2\2\2\60.\3\2\2\2\60\61\3\2\2\2\61\63\3\2\2\2\62\60\3\2\2\2\63\64\5"+
-		"\26\f\2\64\5\3\2\2\2\65\66\7\3\2\2\66\67\7\21\2\2\678\5\30\r\28\7\3\2"+
-		"\2\29;\7\4\2\2:<\t\2\2\2;:\3\2\2\2<=\3\2\2\2=;\3\2\2\2=>\3\2\2\2>?\3\2"+
-		"\2\2?@\5\30\r\2@\t\3\2\2\2AH\5\f\7\2BH\5\16\b\2CH\5\20\t\2DH\5\22\n\2"+
-		"EH\5\24\13\2FH\5 \21\2GA\3\2\2\2GB\3\2\2\2GC\3\2\2\2GD\3\2\2\2GE\3\2\2"+
-		"\2GF\3\2\2\2H\13\3\2\2\2IK\7\5\2\2JL\t\3\2\2KJ\3\2\2\2LM\3\2\2\2MK\3\2"+
-		"\2\2MN\3\2\2\2NO\3\2\2\2OP\5\30\r\2P\r\3\2\2\2QR\7\6\2\2RS\7\25\2\2ST"+
-		"\5\30\r\2T\17\3\2\2\2UV\7\7\2\2VW\5\32\16\2WX\5\30\r\2X\21\3\2\2\2YZ\7"+
-		"\b\2\2Z[\7\30\2\2[\\\5\30\r\2\\\23\3\2\2\2]_\7\t\2\2^`\t\4\2\2_^\3\2\2"+
-		"\2`a\3\2\2\2a_\3\2\2\2ab\3\2\2\2bc\3\2\2\2cd\5\30\r\2d\25\3\2\2\2ef\7"+
-		"\n\2\2fg\5\34\17\2gh\5\30\r\2h\27\3\2\2\2il\5 \21\2jl\7\22\2\2ki\3\2\2"+
-		"\2kj\3\2\2\2l\31\3\2\2\2mn\t\5\2\2n\33\3\2\2\2oq\5\36\20\2pr\7\16\2\2"+
-		"qp\3\2\2\2qr\3\2\2\2r\35\3\2\2\2su\7\f\2\2tv\7\r\2\2ut\3\2\2\2uv\3\2\2"+
-		"\2v\37\3\2\2\2w{\7\23\2\2xz\t\6\2\2yx\3\2\2\2z}\3\2\2\2{y\3\2\2\2{|\3"+
-		"\2\2\2|~\3\2\2\2}{\3\2\2\2~\177\7\22\2\2\177!\3\2\2\2\f)\60=GMakqu{";
+		"\34\36 \2\3\3\24\25~\2\"\3\2\2\2\4%\3\2\2\2\6\65\3\2\2\2\b9\3\2\2\2\n"+
+		"G\3\2\2\2\fI\3\2\2\2\16Q\3\2\2\2\20U\3\2\2\2\22Y\3\2\2\2\24]\3\2\2\2\26"+
+		"e\3\2\2\2\30k\3\2\2\2\32m\3\2\2\2\34o\3\2\2\2\36s\3\2\2\2 w\3\2\2\2\""+
+		"#\5\4\3\2#$\7\1\2\2$\3\3\2\2\2%)\5\6\4\2&(\5 \21\2\'&\3\2\2\2(+\3\2\2"+
+		"\2)\'\3\2\2\2)*\3\2\2\2*,\3\2\2\2+)\3\2\2\2,\60\5\b\5\2-/\5\n\6\2.-\3"+
+		"\2\2\2/\62\3\2\2\2\60.\3\2\2\2\60\61\3\2\2\2\61\63\3\2\2\2\62\60\3\2\2"+
+		"\2\63\64\5\26\f\2\64\5\3\2\2\2\65\66\7\3\2\2\66\67\7\21\2\2\678\5\30\r"+
+		"\28\7\3\2\2\29;\7\4\2\2:<\7\30\2\2;:\3\2\2\2<=\3\2\2\2=;\3\2\2\2=>\3\2"+
+		"\2\2>?\3\2\2\2?@\5\30\r\2@\t\3\2\2\2AH\5\f\7\2BH\5\16\b\2CH\5\20\t\2D"+
+		"H\5\22\n\2EH\5\24\13\2FH\5 \21\2GA\3\2\2\2GB\3\2\2\2GC\3\2\2\2GD\3\2\2"+
+		"\2GE\3\2\2\2GF\3\2\2\2H\13\3\2\2\2IK\7\5\2\2JL\7\31\2\2KJ\3\2\2\2LM\3"+
+		"\2\2\2MK\3\2\2\2MN\3\2\2\2NO\3\2\2\2OP\5\30\r\2P\r\3\2\2\2QR\7\6\2\2R"+
+		"S\7\25\2\2ST\5\30\r\2T\17\3\2\2\2UV\7\7\2\2VW\5\32\16\2WX\5\30\r\2X\21"+
+		"\3\2\2\2YZ\7\b\2\2Z[\7\27\2\2[\\\5\30\r\2\\\23\3\2\2\2]_\7\t\2\2^`\7\32"+
+		"\2\2_^\3\2\2\2`a\3\2\2\2a_\3\2\2\2ab\3\2\2\2bc\3\2\2\2cd\5\30\r\2d\25"+
+		"\3\2\2\2ef\7\n\2\2fg\5\34\17\2gh\5\30\r\2h\27\3\2\2\2il\5 \21\2jl\7\22"+
+		"\2\2ki\3\2\2\2kj\3\2\2\2l\31\3\2\2\2mn\t\2\2\2n\33\3\2\2\2oq\5\36\20\2"+
+		"pr\7\16\2\2qp\3\2\2\2qr\3\2\2\2r\35\3\2\2\2su\7\f\2\2tv\7\r\2\2ut\3\2"+
+		"\2\2uv\3\2\2\2v\37\3\2\2\2w{\7\23\2\2xz\7\33\2\2yx\3\2\2\2z}\3\2\2\2{"+
+		"y\3\2\2\2{|\3\2\2\2|~\3\2\2\2}{\3\2\2\2~\177\7\22\2\2\177!\3\2\2\2\f)"+
+		"\60=GMakqu{";
 	public static final ATN _ATN =
 		ATNSimulator.deserialize(_serializedATN.toCharArray());
 	static {

@@ -1,11 +1,11 @@
-// Generated from ABCMusicBody.g4 by ANTLR 4.0
+// Generated from ABCMusicBodyParser.g4 by ANTLR 4.0
 
 package grammar;
 
 import org.antlr.v4.runtime.tree.*;
 import org.antlr.v4.runtime.Token;
 
-public interface ABCMusicBodyListener extends ParseTreeListener {
+public interface ABCMusicBodyParserListener extends ParseTreeListener {
 	void enterElement(ABCMusicBodyParser.ElementContext ctx);
 	void exitElement(ABCMusicBodyParser.ElementContext ctx);
 
@@ -45,6 +45,12 @@ public interface ABCMusicBodyListener extends ParseTreeListener {
 	void enterLyric(ABCMusicBodyParser.LyricContext ctx);
 	void exitLyric(ABCMusicBodyParser.LyricContext ctx);
 
+	void enterEol(ABCMusicBodyParser.EolContext ctx);
+	void exitEol(ABCMusicBodyParser.EolContext ctx);
+
+	void enterComment(ABCMusicBodyParser.CommentContext ctx);
+	void exitComment(ABCMusicBodyParser.CommentContext ctx);
+
 	void enterTuplet_element(ABCMusicBodyParser.Tuplet_elementContext ctx);
 	void exitTuplet_element(ABCMusicBodyParser.Tuplet_elementContext ctx);
 
@@ -56,4 +62,7 @@ public interface ABCMusicBodyListener extends ParseTreeListener {
 
 	void enterKey(ABCMusicBodyParser.KeyContext ctx);
 	void exitKey(ABCMusicBodyParser.KeyContext ctx);
+
+	void enterField_voice(ABCMusicBodyParser.Field_voiceContext ctx);
+	void exitField_voice(ABCMusicBodyParser.Field_voiceContext ctx);
 }

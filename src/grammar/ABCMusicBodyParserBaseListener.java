@@ -18,6 +18,9 @@ public class ABCMusicBodyParserBaseListener implements ABCMusicBodyParserListene
 	@Override public void enterAbc_music(ABCMusicBodyParser.Abc_musicContext ctx) { }
 	@Override public void exitAbc_music(ABCMusicBodyParser.Abc_musicContext ctx) { }
 
+	@Override public void enterMeasure(ABCMusicBodyParser.MeasureContext ctx) { }
+	@Override public void exitMeasure(ABCMusicBodyParser.MeasureContext ctx) { }
+
 	@Override public void enterMulti_note(ABCMusicBodyParser.Multi_noteContext ctx) { }
 	@Override public void exitMulti_note(ABCMusicBodyParser.Multi_noteContext ctx) { }
 
@@ -26,6 +29,9 @@ public class ABCMusicBodyParserBaseListener implements ABCMusicBodyParserListene
 
 	@Override public void enterAbc_line(ABCMusicBodyParser.Abc_lineContext ctx) { }
 	@Override public void exitAbc_line(ABCMusicBodyParser.Abc_lineContext ctx) { }
+
+	@Override public void enterBar_line(ABCMusicBodyParser.Bar_lineContext ctx) { }
+	@Override public void exitBar_line(ABCMusicBodyParser.Bar_lineContext ctx) { }
 
 	@Override public void enterNote_element(ABCMusicBodyParser.Note_elementContext ctx) { }
 	@Override public void exitNote_element(ABCMusicBodyParser.Note_elementContext ctx) { }
@@ -36,14 +42,14 @@ public class ABCMusicBodyParserBaseListener implements ABCMusicBodyParserListene
 	@Override public void enterNote_length(ABCMusicBodyParser.Note_lengthContext ctx) { }
 	@Override public void exitNote_length(ABCMusicBodyParser.Note_lengthContext ctx) { }
 
+	@Override public void enterSpace(ABCMusicBodyParser.SpaceContext ctx) { }
+	@Override public void exitSpace(ABCMusicBodyParser.SpaceContext ctx) { }
+
 	@Override public void enterNote_or_rest(ABCMusicBodyParser.Note_or_restContext ctx) { }
 	@Override public void exitNote_or_rest(ABCMusicBodyParser.Note_or_restContext ctx) { }
 
 	@Override public void enterAbc_tune_body(ABCMusicBodyParser.Abc_tune_bodyContext ctx) { }
 	@Override public void exitAbc_tune_body(ABCMusicBodyParser.Abc_tune_bodyContext ctx) { }
-
-	@Override public void enterMeter(ABCMusicBodyParser.MeterContext ctx) { }
-	@Override public void exitMeter(ABCMusicBodyParser.MeterContext ctx) { }
 
 	@Override public void enterLyric(ABCMusicBodyParser.LyricContext ctx) { }
 	@Override public void exitLyric(ABCMusicBodyParser.LyricContext ctx) { }
@@ -60,14 +66,17 @@ public class ABCMusicBodyParserBaseListener implements ABCMusicBodyParserListene
 	@Override public void enterPitch(ABCMusicBodyParser.PitchContext ctx) { }
 	@Override public void exitPitch(ABCMusicBodyParser.PitchContext ctx) { }
 
-	@Override public void enterNote(ABCMusicBodyParser.NoteContext ctx) { }
-	@Override public void exitNote(ABCMusicBodyParser.NoteContext ctx) { }
-
 	@Override public void enterKey(ABCMusicBodyParser.KeyContext ctx) { }
 	@Override public void exitKey(ABCMusicBodyParser.KeyContext ctx) { }
 
+	@Override public void enterNote(ABCMusicBodyParser.NoteContext ctx) { }
+	@Override public void exitNote(ABCMusicBodyParser.NoteContext ctx) { }
+
 	@Override public void enterField_voice(ABCMusicBodyParser.Field_voiceContext ctx) { }
 	@Override public void exitField_voice(ABCMusicBodyParser.Field_voiceContext ctx) { }
+
+	@Override public void enterNth_repeat(ABCMusicBodyParser.Nth_repeatContext ctx) { }
+	@Override public void exitNth_repeat(ABCMusicBodyParser.Nth_repeatContext ctx) { }
 
 	@Override public void enterEveryRule(ParserRuleContext ctx) { }
 	@Override public void exitEveryRule(ParserRuleContext ctx) { }

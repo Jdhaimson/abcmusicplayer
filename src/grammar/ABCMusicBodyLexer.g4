@@ -65,20 +65,16 @@ SPACE : ' ' ;
 LINE_FEED : '\n' | '\r' | '\r\n' ;
 PERCENT : '%' -> pushMode(enter_comment) ;
 
-METER_VARIANTS : 'C' | 'C|' ;
-METER_FRACTION : DIGIT+ '/' DIGIT+ ;
-
 BASE_NOTE : 'C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'B'
         | 'c' | 'd' | 'e' | 'f' | 'g' | 'a' | 'b' ;
 
-TEMPO : METER_FRACTION '=' DIGIT+ ;
-
 mode enter_comment;
 COMMENT_TEXT : ~[\r\n]+ -> popMode ;
+END_COMMENT : ('\n' | '\r' | '\r\n') -> popMode ;
 
 mode enter_lyrics;
 END_LYRIC : ('\n' | '\r' | '\r\n') -> popMode ;
-LYRIC_TEXT : ~[\r\n]+ ;
+LYRIC_TEXT : ~[_-*~\-| \r\n]+ ;
 LYRICAL_ELEMENTS : ' '+ | '_' | '-' | '*' | '~' | '\-' | '|' ;
 
 mode enter_voice;

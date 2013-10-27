@@ -46,9 +46,6 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 	@Override public void enterAbc_tune_body(ABCMusicBodyParser.Abc_tune_bodyContext ctx) { }
 	@Override public void exitAbc_tune_body(ABCMusicBodyParser.Abc_tune_bodyContext ctx) { }
 
-	@Override public void enterMeter(ABCMusicBodyParser.MeterContext ctx) { }
-	@Override public void exitMeter(ABCMusicBodyParser.MeterContext ctx) { }
-
 	@Override public void enterLyric(ABCMusicBodyParser.LyricContext ctx) { }
 	@Override public void exitLyric(ABCMusicBodyParser.LyricContext ctx) { }
 

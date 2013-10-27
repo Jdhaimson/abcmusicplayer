@@ -52,17 +52,22 @@ abc_tune_body : abc_music EOF;
 abc_music : abc_line+ ;
 abc_line : element+ LINE_FEED lyric? | mid_tune_field | comment ;
 
-element : note_element | tuplet_element | BAR_LINE | NTH_REPEAT | SPACE ;
+bar_line : BAR_LINE ;
+nth_repeat: NTH_REPEAT ;
+space: SPACE ;
+
+//element : note_element | tuplet_element | bar_line | NTH_REPEAT | SPACE ;
+element : measure | bar_line ;
 note_element : note | multi_note ;
 
 note_length : DIGIT+ | (DIGIT+ DIVIDE DIGIT+) | (DIVIDE DIGIT+) | (DIGIT+ DIVIDE) | DIVIDE ;
+
+measure : (note_element | tuplet_element | nth_repeat | space )+ ;
 
 note : note_or_rest note_length? ;
 multi_note : OPEN_BRACK note+ CLOSED_BRACK ;
 note_or_rest : pitch | REST ;
 pitch : ACCIDENTAL? BASE_NOTE OCTAVE? ;
-
-meter : METER_VARIANTS | METER_FRACTION ;
 
 key : key_note MODE_MINOR? ;
 key_note : BASE_NOTE KEY_ACCIDENTAL? ;
@@ -76,8 +81,8 @@ mid_tune_field : field_voice ;
 
 field_voice : V VOICE_TEXT+ eol ;
 
-lyric : W (LYRIC_TEXT | LYRICAL_ELEMENTS)* END_LYRIC;
+lyric : W (LYRIC_TEXT | LYRICAL_ELEMENTS)* END_LYRIC ;
 
-comment : PERCENT COMMENT_TEXT* LINE_FEED ;
+comment : PERCENT COMMENT_TEXT* (END_COMMENT | LINE_FEED) ;
 
 eol : comment | LINE_FEED ;

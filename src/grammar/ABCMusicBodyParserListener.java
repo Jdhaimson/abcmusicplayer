@@ -15,6 +15,9 @@ public interface ABCMusicBodyParserListener extends ParseTreeListener {
 	void enterAbc_music(ABCMusicBodyParser.Abc_musicContext ctx);
 	void exitAbc_music(ABCMusicBodyParser.Abc_musicContext ctx);
 
+	void enterMeasure(ABCMusicBodyParser.MeasureContext ctx);
+	void exitMeasure(ABCMusicBodyParser.MeasureContext ctx);
+
 	void enterMulti_note(ABCMusicBodyParser.Multi_noteContext ctx);
 	void exitMulti_note(ABCMusicBodyParser.Multi_noteContext ctx);
 
@@ -23,6 +26,9 @@ public interface ABCMusicBodyParserListener extends ParseTreeListener {
 
 	void enterAbc_line(ABCMusicBodyParser.Abc_lineContext ctx);
 	void exitAbc_line(ABCMusicBodyParser.Abc_lineContext ctx);
+
+	void enterBar_line(ABCMusicBodyParser.Bar_lineContext ctx);
+	void exitBar_line(ABCMusicBodyParser.Bar_lineContext ctx);
 
 	void enterNote_element(ABCMusicBodyParser.Note_elementContext ctx);
 	void exitNote_element(ABCMusicBodyParser.Note_elementContext ctx);
@@ -33,14 +39,14 @@ public interface ABCMusicBodyParserListener extends ParseTreeListener {
 	void enterNote_length(ABCMusicBodyParser.Note_lengthContext ctx);
 	void exitNote_length(ABCMusicBodyParser.Note_lengthContext ctx);
 
+	void enterSpace(ABCMusicBodyParser.SpaceContext ctx);
+	void exitSpace(ABCMusicBodyParser.SpaceContext ctx);
+
 	void enterNote_or_rest(ABCMusicBodyParser.Note_or_restContext ctx);
 	void exitNote_or_rest(ABCMusicBodyParser.Note_or_restContext ctx);
 
 	void enterAbc_tune_body(ABCMusicBodyParser.Abc_tune_bodyContext ctx);
 	void exitAbc_tune_body(ABCMusicBodyParser.Abc_tune_bodyContext ctx);
-
-	void enterMeter(ABCMusicBodyParser.MeterContext ctx);
-	void exitMeter(ABCMusicBodyParser.MeterContext ctx);
 
 	void enterLyric(ABCMusicBodyParser.LyricContext ctx);
 	void exitLyric(ABCMusicBodyParser.LyricContext ctx);
@@ -57,12 +63,15 @@ public interface ABCMusicBodyParserListener extends ParseTreeListener {
 	void enterPitch(ABCMusicBodyParser.PitchContext ctx);
 	void exitPitch(ABCMusicBodyParser.PitchContext ctx);
 
-	void enterNote(ABCMusicBodyParser.NoteContext ctx);
-	void exitNote(ABCMusicBodyParser.NoteContext ctx);
-
 	void enterKey(ABCMusicBodyParser.KeyContext ctx);
 	void exitKey(ABCMusicBodyParser.KeyContext ctx);
 
+	void enterNote(ABCMusicBodyParser.NoteContext ctx);
+	void exitNote(ABCMusicBodyParser.NoteContext ctx);
+
 	void enterField_voice(ABCMusicBodyParser.Field_voiceContext ctx);
 	void exitField_voice(ABCMusicBodyParser.Field_voiceContext ctx);
+
+	void enterNth_repeat(ABCMusicBodyParser.Nth_repeatContext ctx);
+	void exitNth_repeat(ABCMusicBodyParser.Nth_repeatContext ctx);
 }

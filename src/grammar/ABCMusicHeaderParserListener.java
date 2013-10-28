@@ -12,6 +12,9 @@ public interface ABCMusicHeaderParserListener extends ParseTreeListener {
 	void enterComposer_text(ABCMusicHeaderParser.Composer_textContext ctx);
 	void exitComposer_text(ABCMusicHeaderParser.Composer_textContext ctx);
 
+	void enterTempo_fraction(ABCMusicHeaderParser.Tempo_fractionContext ctx);
+	void exitTempo_fraction(ABCMusicHeaderParser.Tempo_fractionContext ctx);
+
 	void enterOther_fields(ABCMusicHeaderParser.Other_fieldsContext ctx);
 	void exitOther_fields(ABCMusicHeaderParser.Other_fieldsContext ctx);
 
@@ -35,6 +38,9 @@ public interface ABCMusicHeaderParserListener extends ParseTreeListener {
 
 	void enterMeter(ABCMusicHeaderParser.MeterContext ctx);
 	void exitMeter(ABCMusicHeaderParser.MeterContext ctx);
+
+	void enterTempo_number(ABCMusicHeaderParser.Tempo_numberContext ctx);
+	void exitTempo_number(ABCMusicHeaderParser.Tempo_numberContext ctx);
 
 	void enterField_default_length(ABCMusicHeaderParser.Field_default_lengthContext ctx);
 	void exitField_default_length(ABCMusicHeaderParser.Field_default_lengthContext ctx);

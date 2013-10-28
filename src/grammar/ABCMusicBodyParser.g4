@@ -79,8 +79,8 @@ tuplet_digit : TUPLET_DIGIT ;
 // A voice field might reappear in the middle of a piece to indicate the change of a voice
 mid_tune_field : field_voice ;
 
-field_voice : V voice eol ;
-voice: VOICE_TEXT+ ;
+field_voice : V voice (END_VOICE | eol) ;
+voice: VOICE_TEXT* ;
 
 lyric : W (lyric_text | lyric_element)* END_LYRIC ;
 lyric_text : LYRIC_TEXT ;

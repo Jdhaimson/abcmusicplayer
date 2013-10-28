@@ -76,6 +76,7 @@ LYRICAL_ELEMENTS : ' '+ | '_' | '-' | '*' | '~' | '\-' | '|' ;
 
 mode enter_voice;
 VOICE_TEXT : ~[\r\n]+ -> popMode ;
+END_VOICE : ('\n' | '\r' | '\r\n') -> popMode ;
 
 mode enter_tuplet;
 TUPLET_DIGIT : [0-9]+ -> popMode ;

@@ -50,6 +50,7 @@ public class MusicPlayerHeader {
 				"%Random Comment % * $ ()\n"+
 				"M:4/4\n"+
 				"L:1/8\n"+
+				"%\n"+
 				"Q:1/4=180\n"+
 				"V:1\n"+
 				"V:Austin\n"+

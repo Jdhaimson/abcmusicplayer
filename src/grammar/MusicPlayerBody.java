@@ -36,9 +36,9 @@ public class MusicPlayerBody {
       ((RuleContext)tree).inspect(parser);
 
         // Walk the tree with the listener.
-        ParseTreeWalker walker = new ParseTreeWalker();
-        ParseTreeListener listener = new BodyListener();
-        walker.walk(listener, tree);
+//        ParseTreeWalker walker = new ParseTreeWalker();
+//        ParseTreeListener listener = new BodyListener();
+//        walker.walk(listener, tree);
       
     }
     

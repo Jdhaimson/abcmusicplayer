@@ -7,22 +7,30 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import sound.*;
 import grammar.ABCMusicBodyParser;
 
 /**
  * BODY LISTENER
  */
 public class BodyListener extends ABCMusicBodyParserBaseListener {
-	//private ArrayList<Measure> MeasureStack = new ArrayList<Measure>();
-	private int currentMLowestMeasure = 0;
+	private ArrayList<Measure> MeasureStack = new ArrayList<Measure>();
+	private int currentLowestMeasure = 0;
+	private int currentMeasure = 0;
+	private Song song;
+	
+	public BodyListener(Song s) {
+		super();
+		this.song = s;
+	}
 
 	@Override public void enterLyric_element(ABCMusicBodyParser.Lyric_elementContext ctx) { }
 	@Override public void exitLyric_element(ABCMusicBodyParser.Lyric_elementContext ctx) { }
 
 	@Override 
 	public void enterMeasure(ABCMusicBodyParser.MeasureContext ctx) { 
-//		Measure measure = new Measure(ctx.getText());
-//		MeasureStack.add(measure);
+		Measure measure = new Measure(ctx.getText());
+		MeasureStack.add(measure);
 	}
 	@Override public void exitMeasure(ABCMusicBodyParser.MeasureContext ctx) { }
 
@@ -32,13 +40,13 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 	@Override public void enterVoice(ABCMusicBodyParser.VoiceContext ctx) { }
 	@Override 
 	public void exitVoice(ABCMusicBodyParser.VoiceContext ctx) {
-		//Voice voice = new Voice(ctx.getText());
-		//add Voice to corresponding Measure
+		Voice voice = new Voice(ctx.getText());
+//		add Voice to corresponding Measure
 	}
 
 	@Override 
 	public void enterMulti_note(ABCMusicBodyParser.Multi_noteContext ctx) {
-		//Chord chord = new Chord();
+		Chord chord = new Chord();
 	}
 	@Override public void exitMulti_note(ABCMusicBodyParser.Multi_noteContext ctx) { }
 

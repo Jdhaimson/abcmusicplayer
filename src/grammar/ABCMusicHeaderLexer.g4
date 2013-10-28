@@ -41,7 +41,7 @@ T: 'T:' -> pushMode(enter_title) ;
 C: 'C:' -> pushMode(enter_composer) ;
 L: 'L:' ;
 M: 'M:' ;
-Q: 'Q:' ;
+Q: 'Q:' -> pushMode(enter_tempo) ;
 V: 'V:' -> pushMode(enter_voice) ;
 K: 'K:' ;
 W: 'w:' ;
@@ -54,13 +54,10 @@ MODE_MINOR : 'm' ;
 
 KEY_NOTE : BASE_NOTE KEY_ACCIDENTAL? MODE_MINOR? ;
 
-//NOTE_LENGTH_STRICT : DIGIT+ DIVIDE DIGIT+;
-
 EQUALS : '=' ;
 
 OCTAVE : [',]+ ;
 
-//DIVIDE : '/' ;
 DIGIT : [0-9]+ ;
 LINE_FEED : '\n' | '\r' | '\r\n' ;
 PERCENT : '%' -> pushMode(enter_comment) ;
@@ -70,16 +67,23 @@ METER_FRACTION : [0-9]+ '/' [0-9]+ ;
 
 COLON : ':' ;
 
-TEMPO : METER_FRACTION EQUALS DIGIT+ ;
+mode enter_tempo;
+TEMPO_FRACTION : [0-9]+ '/' [0-9]+ ;
+TEMPO_EQUALS : '=' ;
+TEMPO_NUMBER : [0-9]+ -> popMode ;
 
 mode enter_title;
 TITLE_TEXT : ~[\r\n]+ -> popMode ;
+END_TITLE : ('\n' | '\r' | '\r\n') -> popMode ;
 
 mode enter_composer;
 COMPOSER_TEXT : ~[\r\n]+ -> popMode ;
+END_COMPOSER : ('\n' | '\r' | '\r\n') -> popMode ;
 
 mode enter_voice;
 VOICE_TEXT : ~[\r\n]+ -> popMode ;
+END_VOICE : ('\n' | '\r' | '\r\n') -> popMode ;
 
 mode enter_comment;
 COMMENT_TEXT : ~[\r\n]+ -> popMode ;
+END_COMMENT : ('\n' | '\r' | '\r\n') -> popMode ;

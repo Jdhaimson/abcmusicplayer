@@ -50,26 +50,28 @@ abc_tune_header : abc_header EOF;
 
 abc_header : field_number comment* field_title other_fields* field_key ;
 
-field_number : X number eol ;
-field_title : T title_text eol ;
+field_number : X number? eol ;
+field_title : T title_text? (END_TITLE | eol) ;
 other_fields : field_composer | field_default_length | field_meter | field_tempo | field_voice | comment ;
-field_composer : C composer_text eol ;
-field_default_length : L meter_fraction eol ;
-field_meter : M meter eol ;
-field_tempo : Q tempo eol ;
-field_voice : V voice_text eol ;
-field_key : K key_note eol ;
+field_composer : C composer_text? (END_COMPOSER | eol) ;
+field_default_length : L meter_fraction? eol ;
+field_meter : M meter? eol ;
+field_tempo : Q tempo? eol ;
+field_voice : V voice_text? (END_VOICE | eol) ;
+field_key : K key_note? eol ;
+
+tempo_fraction : TEMPO_FRACTION ;
+tempo_number : TEMPO_NUMBER ;
 
 eol : comment | LINE_FEED ;
 meter : METER_FRACTION | METER_VARIANTS  ;
-tempo : TEMPO ;
+tempo : tempo_fraction TEMPO_EQUALS tempo_number ;
 voice_text: VOICE_TEXT+ ;
 meter_fraction : METER_FRACTION ;
 composer_text : COMPOSER_TEXT+ ;
 title_text : TITLE_TEXT+ ;
 number : DIGIT ;
 
-//key : key_note MODE_MINOR? ;
 key_note : KEY_NOTE ;
 
-comment : PERCENT COMMENT_TEXT* LINE_FEED ;
+comment : PERCENT COMMENT_TEXT* (END_COMMENT | LINE_FEED) ;

@@ -15,6 +15,9 @@ public class ABCMusicHeaderParserBaseListener implements ABCMusicHeaderParserLis
 	@Override public void enterComposer_text(ABCMusicHeaderParser.Composer_textContext ctx) { }
 	@Override public void exitComposer_text(ABCMusicHeaderParser.Composer_textContext ctx) { }
 
+	@Override public void enterTempo_fraction(ABCMusicHeaderParser.Tempo_fractionContext ctx) { }
+	@Override public void exitTempo_fraction(ABCMusicHeaderParser.Tempo_fractionContext ctx) { }
+
 	@Override public void enterOther_fields(ABCMusicHeaderParser.Other_fieldsContext ctx) { }
 	@Override public void exitOther_fields(ABCMusicHeaderParser.Other_fieldsContext ctx) { }
 
@@ -38,6 +41,9 @@ public class ABCMusicHeaderParserBaseListener implements ABCMusicHeaderParserLis
 
 	@Override public void enterMeter(ABCMusicHeaderParser.MeterContext ctx) { }
 	@Override public void exitMeter(ABCMusicHeaderParser.MeterContext ctx) { }
+
+	@Override public void enterTempo_number(ABCMusicHeaderParser.Tempo_numberContext ctx) { }
+	@Override public void exitTempo_number(ABCMusicHeaderParser.Tempo_numberContext ctx) { }
 
 	@Override public void enterField_default_length(ABCMusicHeaderParser.Field_default_lengthContext ctx) { }
 	@Override public void exitField_default_length(ABCMusicHeaderParser.Field_default_lengthContext ctx) { }

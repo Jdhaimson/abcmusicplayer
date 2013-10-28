@@ -6,6 +6,7 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import sound.Key;
 import grammar.ABCMusicHeaderParser;
 
 /**
@@ -13,13 +14,14 @@ import grammar.ABCMusicHeaderParser;
  */
 public class HeaderListener extends ABCMusicHeaderParserBaseListener {
 	
-	private String field_number;
+	private int field_number;
 	private String field_title;
 	private String field_composer;
-	private String field_key;
-	private String field_meter;
-	private String field_default_length;
-	private String field_tempo;
+	private Key field_key;
+	private Fraction field_meter;
+	private Fraction field_default_length;
+	private Fraction field_tempo_fraction;
+	private int field_tempo_number;
 	
         
 	@Override 
@@ -27,19 +29,25 @@ public class HeaderListener extends ABCMusicHeaderParserBaseListener {
 		field_composer = ctx.getText();
 	}
 
+
 	@Override 
-	public void exitTempo(ABCMusicHeaderParser.TempoContext ctx) { 
-		field_tempo = ctx.getText();
+	public void exitTempo_fraction(ABCMusicHeaderParser.Tempo_fractionContext ctx) {
+		field_tempo_fraction = ctx.getText();
+	}
+	
+	@Override
+	public void exitTempo_number(ABCMusicHeaderParser.Tempo_numberContext ctx) {
+		field_tempo_number = Integer.parseInt(ctx.getText()) ;
 	}
 
 	@Override 
 	public void exitKey_note(ABCMusicHeaderParser.Key_noteContext ctx) { 
-		field_key = ctx.getText();
+		field_key = new Key(ctx.getText());
 	}
 
 	@Override 
 	public void exitNumber(ABCMusicHeaderParser.NumberContext ctx) { 
-		field_number = ctx.getText();
+		field_number = Integer.parseInt(ctx.getText());
 	}
 
 	@Override 

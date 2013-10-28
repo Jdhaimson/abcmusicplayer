@@ -5,13 +5,12 @@ import java.util.List;
 
 /**
  * Mutable object representing a measure of a piece.  Measure contains
- * voices, lyrics and a key which is used to keep track of accidentals.
+ * voices and a key which is used to keep track of accidentals.
  * @author Josh
  *
  */
 public class Measure {
 	private List<Voice> voices = new LinkedList<Voice>();
-	private List<Lyric> lyrics = new LinkedList<Lyric>();
 	private int measureNumber;
 	private Key accidentalKey = new Key();
 	private double notesPerMeasure;
@@ -24,8 +23,8 @@ public class Measure {
 	
 	
 	/**
-	 * Object representing a measure of a piece.  Contains Voices (which contain notes)
-	 * and Lyrics.  Also contains a key and stores the amount of notesPerMeasure.
+	 * Object representing a measure of a piece.  Contains Voices (which contain Musical elements)
+	 * Also contains a key and stores the amount of notesPerMeasure.
 	 * The sum of all of the ticks in every voice and in all lyrics should be <= ticksPerMeasure
 	 * @param key: key of measure, used to keep track of accidentals
 	 * @param notesPerMeasure: amount of notes in each measure
@@ -77,15 +76,6 @@ public class Measure {
 				throw new Exception("Voices must have same duration as measures");
 			}
 		} catch (Exception e) {}
-	}
-	
-	/**
-	 * Add a lyric to this measure
-	 * @param lyric: lyric to add to measure - sum of durations of lyrics should
-	 * be <= ticksPerMeasure
-	 */
-	public void addLyric(Lyric lyric) {
-		this.lyrics.add(lyric);
 	}
 	
 	/**
@@ -141,6 +131,34 @@ public class Measure {
 		return this.accidentalKey.getPitch(note);
 	}
 	
+	/**
+	 * Returns list of voices in measure
+	 * @return List<Voice>: voices in measure
+	 */
+	public List<Voice> getVoices() {
+		List<Voice> clonedVoices = new LinkedList<Voice>();
+		for (Voice v: this.voices) {
+			clonedVoices.add(v.clone());
+		}
+		return clonedVoices;
+	}
+	
+	/**
+	 * Returns the ticks per whole note required to play this measure
+	 * @return int: ticks per whole note
+	 */
+	public int getTicksPerWholeNote() {
+		int maxTicks = 0;
+		for (Voice v: this.voices) {
+			int ticks = v.getTicksPerWholeNote();
+			if (maxTicks > ticks) {
+				maxTicks = ticks;
+			}
+		}
+		
+		return maxTicks;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -161,7 +179,6 @@ public class Measure {
 				+ ((accidentalKey == null) ? 0 : accidentalKey.hashCode());
 		result = prime * result + alternateEnding;
 		result = prime * result + (hasAlternateEnding ? 1231 : 1237);
-		result = prime * result + ((lyrics == null) ? 0 : lyrics.hashCode());
 		result = prime * result + measureNumber;
 		long temp;
 		temp = Double.doubleToLongBits(notesPerMeasure);
@@ -198,13 +215,6 @@ public class Measure {
 			return false;
 		}
 		if (hasAlternateEnding != other.hasAlternateEnding) {
-			return false;
-		}
-		if (lyrics == null) {
-			if (other.lyrics != null) {
-				return false;
-			}
-		} else if (!lyrics.equals(other.lyrics)) {
 			return false;
 		}
 		if (measureNumber != other.measureNumber) {

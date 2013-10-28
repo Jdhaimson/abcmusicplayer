@@ -13,10 +13,10 @@ public interface MusicalElement {
 	public int getTicksPerWholeNote();
 	
 	/**
-	 * Returns the duration of the note (.25 => 1/4 note, .125 => 1/8 note, etc)
-	 * @return double: representing the duration of the note
+	 * Returns the duration of the note as a Fraction
+	 * @return Fraction: representing the duration of the note
 	 */
-	public double getDuration();
+	public Fraction getDuration();
 	
 	/**
 	 * Returns clone of the element

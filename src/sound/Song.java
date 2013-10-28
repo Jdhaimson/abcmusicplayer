@@ -15,8 +15,8 @@ public class Song {
 
 	// Header information
 	private String title, composer;
-	private double noteLength, meter;
-	private int index, tempo, ticksPerBeat;
+	private Fraction defaultLength, meter, tempoNoteType;
+	private int index, tempoNPM;
 	private Key key;
 	
 	private List<Measure> measures = new LinkedList<Measure>();
@@ -29,17 +29,19 @@ public class Song {
 	 * @param noteLength: default duration of note
 	 * @param meter: sum of durations of all notes within a bar
 	 * @param index: index number to determine play order if in playlist
-	 * @param tempo: number of given-length notes per minute
+	 * @param tempoNPM: Amount of notes of given type per minute
+	 * @param tempoNoteType: type of note that tempoNPM applies to
 	 * @param key: key signature of piece
 	 */
-	public Song(String title, String composer, double noteLength, double meter,
-			    int index, int tempo, Key key) {
+	public Song(String title, String composer, Fraction defaultLength, Fraction meter,
+			    int index, Fraction tempoNoteType, int tempoNPM, Key key) {
 		this.title = title;
 		this.composer = composer;
-		this.noteLength = noteLength;
+		this.defaultLength = defaultLength;
 		this.meter = meter;
 		this.index = index;
-		this.tempo = tempo;
+		this.tempoNoteType = tempoNoteType;
+		this.tempoNPM = tempoNPM;
 		this.key = key;
 	}
 
@@ -70,31 +72,74 @@ public class Song {
 	
 	/**
 	 * Play song object
+	 * @throws InvalidMidiDataException 
+	 * @throws MidiUnavailableException 
 	 */
-	public void playSong() {
+	public void playSong() throws MidiUnavailableException, InvalidMidiDataException {
+		LyricListener ll = this.getBasicLyricListener();
+		SequencePlayer sp = this.createSequencePlayer(ll);
+	}
+	
+	/**
+	 * Returns the smallest amount of ticks per whole note required of the sequence player
+	 * @return int: representing the smallest amount of ticks per note
+	 */
+	public int getTicksPerWholeNote() {
+		int maxTicks = 0;
+		for (Measure m: this.measures) {
+			int ticks = m.getTicksPerWholeNote();
+			if (maxTicks > ticks) {
+				maxTicks = ticks;
+			}
+		}
 		
+		return maxTicks;
+	}
+	
+	/**
+	 * Creates a basic lyric listener object
+	 * @return LyricListener: basic lyrici listener object
+	 */
+	public LyricListener getBasicLyricListener() {
+		LyricListener ll = new LyricListener() {
+            public void processLyricEvent(String text) {
+                System.out.println(text);
+            }
+        };
+        
+        return ll;
+	}
+	
+	/**
+	 * Creates a SequencePlayer with the right timing for ticks and tempo
+	 * @param ll: LyricListener to pass into the SequencePlayer
+	 * @return SequencePlayer object with the right tempo
+	 * @throws InvalidMidiDataException 
+	 * @throws MidiUnavailableException 
+	 */
+	public SequencePlayer createSequencePlayer(LyricListener ll)
+			throws MidiUnavailableException, InvalidMidiDataException {
+		
+		SequencePlayer sp;
+		/*
+	     * @param beatsPerMinute the number of beats per minute
+	     * @param ticksPerBeat the number of ticks per beat
+	     * 
+	     * @param meter
+	     * @param tempoNPM: Amount of notes of given type per minute
+	     * @param tempoNoteType: type of note that tempoNPM applies to
+		*/
+		
+		
+		sp = new SequencePlayer(100, 11, ll);
+		return sp;
 	}
 	
 	/**
 	 * Outputs SequencePlayer to be played by MIDI player
 	 * @return
 	 */
-	public SequencePlayer toSequence(SequencePlayer sp, LyricListener ll) {
-		//SequencePlayer sp;
-		try {
-			/*LyricListener ll = new LyricListener() {
-	            public void processLyricEvent(String text) {
-	                System.out.println(text);
-	            }
-	        };*/
-	        
-			sp = new SequencePlayer(tempo, ticksPerBeat, ll);
-		}  catch (MidiUnavailableException e) {
-            e.printStackTrace();
-        } catch (InvalidMidiDataException e) {
-            e.printStackTrace();
-        }
-		
-		return sp;
+	public void addToSequence(SequencePlayer sp) {
+
 	}
 }

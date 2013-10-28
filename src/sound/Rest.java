@@ -7,13 +7,13 @@ package sound;
  */
 public class Rest implements MusicalElement {
 
-	private double duration;
+	private Fraction duration;
 	
 	/**
 	 * Immutable object representing a Rest
-	 * @param duration: Length of rest (.25 => 1/4 note, .125 => 1/8, etc)
+	 * @param duration: Length of rest as Fraction
 	 */
-	public Rest(double duration) {
+	public Rest(Fraction duration) {
 		this.duration = duration;
 	}
 	
@@ -21,7 +21,7 @@ public class Rest implements MusicalElement {
 	 * (non-Javadoc)
 	 * @see sound.MusicalElement#getDuration()
 	 */
-	public double getDuration() {
+	public Fraction getDuration() {
 		return this.duration;
 	}
 
@@ -30,7 +30,9 @@ public class Rest implements MusicalElement {
 	 * @see sound.MusicalElement#getTicksPerWholeNote()
 	 */
 	public int getTicksPerWholeNote() {
-		return (int)(1.0/this.getDuration());
+		// Denominator is how many ticks need to be in this note - then multiply by ratio of 
+		// whole note to total size of this note to get ticks per whole note
+		return (this.getDuration().getDenominator())*(int)(1.0/this.getDuration().evaluate());
 	}
 	
 	/*
@@ -46,7 +48,7 @@ public class Rest implements MusicalElement {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		return "z:" + Double.toString(this.duration); 
+		return "z:" + this.duration.toString(); 
 	}
 
 	/* (non-Javadoc)
@@ -56,9 +58,8 @@ public class Rest implements MusicalElement {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		long temp;
-		temp = Double.doubleToLongBits(duration);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result
+				+ ((duration == null) ? 0 : duration.hashCode());
 		return result;
 	}
 
@@ -77,8 +78,11 @@ public class Rest implements MusicalElement {
 			return false;
 		}
 		Rest other = (Rest) obj;
-		if (Double.doubleToLongBits(duration) != Double
-				.doubleToLongBits(other.duration)) {
+		if (duration == null) {
+			if (other.duration != null) {
+				return false;
+			}
+		} else if (!duration.equals(other.duration)) {
 			return false;
 		}
 		return true;

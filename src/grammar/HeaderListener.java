@@ -6,7 +6,7 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import sound.Key;
+import sound.*;
 import grammar.ABCMusicHeaderParser;
 
 /**
@@ -14,6 +14,7 @@ import grammar.ABCMusicHeaderParser;
  */
 public class HeaderListener extends ABCMusicHeaderParserBaseListener {
 	
+	private Song song;
 	private int field_number;
 	private String field_title;
 	private String field_composer;
@@ -32,7 +33,8 @@ public class HeaderListener extends ABCMusicHeaderParserBaseListener {
 
 	@Override 
 	public void exitTempo_fraction(ABCMusicHeaderParser.Tempo_fractionContext ctx) {
-		field_tempo_fraction = ctx.getText();
+		String[] fraction = ctx.getText().split("/");
+		field_tempo_fraction = new Fraction(Integer.parseInt(fraction[0]), Integer.parseInt(fraction[1]));
 	}
 	
 	@Override
@@ -52,7 +54,8 @@ public class HeaderListener extends ABCMusicHeaderParserBaseListener {
 
 	@Override 
 	public void exitMeter(ABCMusicHeaderParser.MeterContext ctx) { 
-		field_meter = ctx.getText();
+		String[] fraction = ctx.getText().split("/");
+		field_meter = new Fraction(Integer.parseInt(fraction[0]), Integer.parseInt(fraction[1]));
 	}
 
 	@Override
@@ -62,7 +65,8 @@ public class HeaderListener extends ABCMusicHeaderParserBaseListener {
 
 	@Override 
 	public void exitMeter_fraction(ABCMusicHeaderParser.Meter_fractionContext ctx) { 
-		field_default_length = ctx.getText();
+		String[] fraction = ctx.getText().split("/");
+		field_default_length = new Fraction(Integer.parseInt(fraction[0]), Integer.parseInt(fraction[1]));
 	}
 	
 	//FOR NOW: IGNORE VOICES AND COMMENTS IN THE HEADER
@@ -75,13 +79,19 @@ public class HeaderListener extends ABCMusicHeaderParserBaseListener {
 
 	@Override 
 	public void exitAbc_tune_header(ABCMusicHeaderParser.Abc_tune_headerContext ctx) {
-		//Song song = new Song(...)
-		System.out.println("field_number: " + field_number);
-		System.out.println("field_title: " + field_title);
-		System.out.println("field_composer: " + field_composer);
-		System.out.println("field_key: " + field_key);
-		System.out.println("field_meter: " + field_meter);
-		System.out.println("field_default_length: " + field_default_length);
-		System.out.println("field_tempo: " + field_tempo);
+		song = new Song(field_title, field_composer, field_default_length, field_meter, field_number, 
+				field_tempo_fraction, field_tempo_number, field_key);
+//		System.out.println("field_number: " + field_number);
+//		System.out.println("field_title: " + field_title);
+//		System.out.println("field_composer: " + field_composer);
+//		System.out.println("field_key: " + field_key);
+//		System.out.println("field_meter: " + field_meter);
+//		System.out.println("field_default_length: " + field_default_length);
+//		System.out.println("field_tempo: " + field_tempo_fraction);
+//		System.out.println("field_tempo: " + field_tempo_number);
+	}
+	
+	public Song getSong(){
+		return this.song;
 	}
 }

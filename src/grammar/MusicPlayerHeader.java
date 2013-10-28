@@ -9,12 +9,13 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
+import sound.Song;
 import grammar.ABCMusicHeaderLexer;
 import grammar.ABCMusicHeaderParser;
 
 public class MusicPlayerHeader {
    
-    private void runListener(String input) {
+    public Song runListener(String input) {
         // Create a stream of tokens using the lexer.
         CharStream stream = new ANTLRInputStream(input);
         ABCMusicHeaderLexer lexer = new ABCMusicHeaderLexer(stream);
@@ -39,7 +40,9 @@ public class MusicPlayerHeader {
         ParseTreeWalker walker = new ParseTreeWalker();
         ParseTreeListener listener = new HeaderListener();
         walker.walk(listener, tree);
-      
+        
+        HeaderListener headListener = (HeaderListener) listener;
+        return headListener.getSong();
     }
     
     public static void main(String[] args) {
@@ -54,8 +57,8 @@ public class MusicPlayerHeader {
 				"Q:1/4=180\n"+
 				"V:1\n"+
 				"V:Austin\n"+
-				"K:G#m\n";
-		header.runListener(s);
+				"K:D\n";
+		Song song = header.runListener(s);
     }
     
 }

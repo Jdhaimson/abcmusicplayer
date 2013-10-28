@@ -14,7 +14,7 @@ import grammar.ABCMusicBodyParser;
  * BODY LISTENER
  */
 public class BodyListener extends ABCMusicBodyParserBaseListener {
-	private ArrayList<Measure> MeasureStack = new ArrayList<Measure>();
+	private ArrayList<Measure> measures = new ArrayList<Measure>();
 	private int currentLowestMeasure = 0;
 	private int currentMeasure = 0;
 	private Song song;

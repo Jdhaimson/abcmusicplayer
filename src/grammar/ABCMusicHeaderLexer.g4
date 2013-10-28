@@ -43,16 +43,13 @@ L: 'L:' ;
 M: 'M:' ;
 Q: 'Q:' -> pushMode(enter_tempo) ;
 V: 'V:' -> pushMode(enter_voice) ;
-K: 'K:' ;
-W: 'w:' ;
+K: 'K:' -> pushMode(enter_key);
 
 BASE_NOTE : 'C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'B'
         | 'c' | 'd' | 'e' | 'f' | 'g' | 'a' | 'b' ;
 
 KEY_ACCIDENTAL : '#' | 'b' ;
 MODE_MINOR : 'm' ;
-
-KEY_NOTE : BASE_NOTE KEY_ACCIDENTAL? MODE_MINOR? ;
 
 EQUALS : '=' ;
 
@@ -87,3 +84,6 @@ END_VOICE : ('\n' | '\r' | '\r\n') -> popMode ;
 mode enter_comment;
 COMMENT_TEXT : ~[\r\n]+ -> popMode ;
 END_COMMENT : ('\n' | '\r' | '\r\n') -> popMode ;
+
+mode enter_key;
+KEY_NOTE : BASE_NOTE KEY_ACCIDENTAL? MODE_MINOR? -> popMode ;

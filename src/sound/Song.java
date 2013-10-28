@@ -55,6 +55,14 @@ public class Song {
 	}
 	
 	/**
+	 * 
+	 * @return
+	 */
+	public double getNotesPerMeasure() {
+		return this.meter.evaluate();
+	}
+	
+	/**
 	 * Adds measure to end of current measures
 	 * @param measure
 	 */
@@ -130,13 +138,18 @@ public class Song {
 	     * @param tempoNoteType: type of note that tempoNPM applies to
 		*/
 		
+		int ticksPerWholeNote = this.getTicksPerWholeNote();
+		int ticksPerBeat = ticksPerWholeNote / this.meter.getDenominator();
+		
+		// FIX THIS CODE
 		
 		sp = new SequencePlayer(100, 11, ll);
 		return sp;
 	}
 	
 	/**
-	 * Outputs SequencePlayer to be played by MIDI player
+	 * Loops through entire song scheduling MIDI and lyric events in sequencePlayer
+	 * @param sp: SequencePlayer object to get scheduled on
 	 * @return
 	 */
 	public void addToSequence(SequencePlayer sp) {

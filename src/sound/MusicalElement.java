@@ -17,4 +17,10 @@ public interface MusicalElement {
 	 * @return double: representing the duration of the note
 	 */
 	public double getDuration();
+	
+	/**
+	 * Returns clone of the element
+	 * @return: Identical Musical Element 
+	 */
+	public MusicalElement clone();
 }

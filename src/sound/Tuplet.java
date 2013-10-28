@@ -78,4 +78,12 @@ public class Tuplet implements MusicalElement {
 			throw new IllegalArgumentException("ABC player only supports duplets, triplets and quadruplets");
 		}
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#clone()
+	 */
+	public Tuplet clone() {
+		return new Tuplet(this.getChords(), this.duration);
+	}
 }

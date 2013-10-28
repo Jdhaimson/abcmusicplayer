@@ -35,6 +35,14 @@ public class Rest implements MusicalElement {
 	
 	/*
 	 * (non-Javadoc)
+	 * @see java.lang.Object#clone()
+	 */
+	public Rest clone() {
+		return new Rest(this.duration);
+	}
+	
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {

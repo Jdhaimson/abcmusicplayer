@@ -49,6 +49,14 @@ public class Note implements MusicalElement {
 	
 	/*
 	 * (non-Javadoc)
+	 * @see java.lang.Object#clone()
+	 */
+	public Note clone() {
+		return new Note(this.chord, this.duration);
+	}
+	
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

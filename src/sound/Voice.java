@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Voice {
 	// Stores list of notes
-	private List<Note> notes = new LinkedList<Note>();
+	private List<MusicalElement> notes = new LinkedList<MusicalElement>();
 	private double maxNotes;
 	private double sumCurrentNotes = 0.0;
 	private String name;
@@ -26,14 +26,14 @@ public class Voice {
 	}
 	
 	/**
-	 * Add note to voice
-	 * @param note
+	 * Adds element  to voice
+	 * @param element
 	 * @throws Exception when note would make voice longer than maxNotes
 	 */
-	public void addNote(Note note) throws Exception {
-		if (this.sumCurrentNotes + note.getDuration() <= this.maxNotes) {
-			this.notes.add(note);
-			this.sumCurrentNotes += note.getDuration();
+	public void addMusicalElement(MusicalElement element) throws Exception {
+		if (this.sumCurrentNotes + element.getDuration() <= this.maxNotes) {
+			this.notes.add(element);
+			this.sumCurrentNotes += element.getDuration();
 		}
 		else {
 			throw new Exception("This voice cannot be longer than " + Double.toString(this.maxNotes) + " notes");
@@ -44,13 +44,13 @@ public class Voice {
 	 * Returns list of notes in voice
 	 * @return list of notes in voice in order they should be played
 	 */
-	public List<Note> getNotes() {
-		List<Note> clonedNotes = new LinkedList<Note>();
-		for (Note note: this.notes){
-			clonedNotes.add(note);
+	public List<MusicalElement> getMusicalElements() {
+		List<MusicalElement> clonedElements = new LinkedList<MusicalElement>();
+		for (MusicalElement element: this.notes){
+			clonedElements.add(element);
 		}
 		
-		return clonedNotes;
+		return clonedElements;
 	}
 	
 	/**

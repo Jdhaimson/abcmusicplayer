@@ -11,6 +11,7 @@ import java.util.List;
 public class Voice {
 	// Stores list of notes
 	private List<MusicalElement> notes = new LinkedList<MusicalElement>();
+	private List<Lyric> lyrics = new LinkedList<Lyric>();
 	private double maxNotes;
 	private double sumCurrentNotes = 0.0;
 	private String name;
@@ -31,14 +32,24 @@ public class Voice {
 	 * @throws Exception when note would make voice longer than maxNotes
 	 */
 	public void addMusicalElement(MusicalElement element) throws Exception {
-		if (this.sumCurrentNotes + element.getDuration() <= this.maxNotes) {
+		if (this.sumCurrentNotes + element.getDuration().evaluate() <= this.maxNotes) {
 			this.notes.add(element);
-			this.sumCurrentNotes += element.getDuration();
+			this.sumCurrentNotes += element.getDuration().evaluate();
 		}
 		else {
 			throw new Exception("This voice cannot be longer than " + Double.toString(this.maxNotes) + " notes");
 		}
 	}
+	
+	/**
+	 * Add a lyric to this voice
+	 * @param lyric: lyric to add to measure - sum of durations of lyrics should
+	 * be <= ticksPerMeasure
+	 */
+	public void addLyric(Lyric lyric) {
+		this.lyrics.add(lyric);
+	}
+	
 	
 	/**
 	 * Returns list of notes in voice
@@ -68,9 +79,9 @@ public class Voice {
 	@Override
 	public Voice clone() {
 		Voice clonedVoice = new Voice(this.name, this.maxNotes);
-		for(Note note: this.getNotes()) {
+		for(MusicalElement elem: this.getMusicalElements()) {
 			try {
-				clonedVoice.addNote(note);
+				clonedVoice.addMusicalElement(elem);
 			} catch (Exception e) { 
 				// Do nothing, Exception will never be hit because it would 
 				// have been hit first while constructing the initial object

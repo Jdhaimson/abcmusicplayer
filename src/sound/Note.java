@@ -1,8 +1,5 @@
 package sound;
 
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  * Note is an immutable object representing a note.  It contains a chord
  * and the duration to play it for
@@ -11,14 +8,14 @@ import java.util.List;
  */
 public class Note implements MusicalElement {
 	private Chord chord;
-	private double duration; // ie quarter note, whole note, etc
+	private Fraction duration; // ie quarter note, whole note, etc
 	
 	/**
 	 * Constructor of Note object
 	 * @param chord: Chord object to be played as note 
 	 * @param duration: Double representing type of note (ie .25 = quarter note)
 	 */
-	public Note(Chord chord, double duration) {
+	public Note(Chord chord, Fraction duration) {
 		this.chord = chord;
 		this.duration = duration;
 	}
@@ -35,7 +32,7 @@ public class Note implements MusicalElement {
 	 * (non-Javadoc)
 	 * @see sound.MusicalElement#getDuration()
 	 */
-	public double getDuration() {
+	public Fraction getDuration() {
 		return this.duration;
 	}
 	
@@ -44,7 +41,7 @@ public class Note implements MusicalElement {
 	 * @see sound.MusicalElement#getTicksPerWholeNote()
 	 */
 	public int getTicksPerWholeNote() {
-		return (int)(1.0/this.getDuration());
+		return (int)(1.0/this.getDuration().evaluate());
 	}
 	
 	/*
@@ -61,7 +58,7 @@ public class Note implements MusicalElement {
 	 */
 	@Override
 	public String toString() {
-		return this.chord.toString() + ":" + Double.toString(this.duration);
+		return this.chord.toString() + ":" + this.duration.toString();
 	}
 
 	/* (non-Javadoc)
@@ -72,9 +69,8 @@ public class Note implements MusicalElement {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((chord == null) ? 0 : chord.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(duration);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result
+				+ ((duration == null) ? 0 : duration.hashCode());
 		return result;
 	}
 
@@ -100,8 +96,11 @@ public class Note implements MusicalElement {
 		} else if (!chord.equals(other.chord)) {
 			return false;
 		}
-		if (Double.doubleToLongBits(duration) != Double
-				.doubleToLongBits(other.duration)) {
+		if (duration == null) {
+			if (other.duration != null) {
+				return false;
+			}
+		} else if (!duration.equals(other.duration)) {
 			return false;
 		}
 		return true;

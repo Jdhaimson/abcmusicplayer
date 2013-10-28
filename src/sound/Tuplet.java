@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Tuplet implements MusicalElement {
 	private List<Chord> chords;
-	private double duration;
+	private Fraction duration;
 	private int type;
 	
 	/**
@@ -18,9 +18,9 @@ public class Tuplet implements MusicalElement {
 	 * @param chords: List of chords in tuplet, length of list is type of tuplet
 	 * Currently only implements subset of ABC notation required, thus list
 	 * cannot be longer than 4 notes
-	 * @param duration: duration of tuplet (.25 => 1/4 note, etc)
+	 * @param duration: duration of tuplet as fraction
 	 */
-	public Tuplet(List<Chord> chords, double duration) {
+	public Tuplet(List<Chord> chords, Fraction duration) {
 		this.chords = chords;
 		this.duration = duration;
 		this.type = chords.size();
@@ -53,7 +53,7 @@ public class Tuplet implements MusicalElement {
 	 * (non-Javadoc)
 	 * @see sound.MusicalElement#getDuration()
 	 */
-	public double getDuration() {
+	public Fraction getDuration() {
 		return this.duration;
 	}
 	
@@ -67,13 +67,13 @@ public class Tuplet implements MusicalElement {
 			// Duplets equally distribute 2 notes into the length of 3
 			// Thus we have (2*3) ticks for the whole duplet
 			// We then multiply by (1/duration) to figure out how many ticks per whole note
-			return (int)((2*3)*(1/this.duration));
+			return (int)((2*3)*(1/this.duration.evaluate()));
 		} else if (type == 3) {
 			// Triplets distribute 3 notes into length of 2, by the same logic we get
-			return (int)((3*2)*(1/this.duration));
+			return (int)((3*2)*(1/this.duration.evaluate()));
 		} else if (type == 4) {
 			// Quadruplets distribute 4 notes into length of 3, by the same logic we get
-			return (int)((4*3)*(1/this.duration));
+			return (int)((4*3)*(1/this.duration.evaluate()));
 		} else {
 			throw new IllegalArgumentException("ABC player only supports duplets, triplets and quadruplets");
 		}

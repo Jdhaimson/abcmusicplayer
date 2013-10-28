@@ -41,7 +41,9 @@ public class Note implements MusicalElement {
 	 * @see sound.MusicalElement#getTicksPerWholeNote()
 	 */
 	public int getTicksPerWholeNote() {
-		return (int)(1.0/this.getDuration().evaluate());
+		// Denominator is how many ticks need to be in this note - then multiply by ratio of 
+		// whole note to total size of this note to get ticks per whole note
+		return (this.getDuration().getDenominator())*(int)(1.0/this.getDuration().evaluate());
 	}
 	
 	/*

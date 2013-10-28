@@ -54,7 +54,7 @@ public class MusicPlayerBody {
 //				"w: A-nd ask him for a half a crown\n";
 		
 		String s = "V:1\n"+
-				"z2 Gc eGce z2 Gc eGce| z2 Ad fAdf z2 Ad fAdf| z2 Gd fGdf z2 Gd fGdf|\n"+
+				"z2 Gc eGce (3abc z2 Gc eGce| z2 Ad fAdf z2 Ad fAdf| z2 Gd fGdf z2 Gd fGdf|\n"+
 				"V:2\n"+
 				"z E7 z E7|z D7 z D7|z D7 z D7|\n"+
 				"V:3\n"+

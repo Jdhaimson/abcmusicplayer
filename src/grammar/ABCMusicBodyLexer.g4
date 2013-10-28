@@ -47,26 +47,23 @@ REST : 'z';
 BAR_LINE : '|' | '||' | '[|' | '|]' | ':|' | '|:' ;
 NTH_REPEAT : '[1' | '[2' ;
 
-KEY_ACCIDENTAL : '#' | 'b' ;
-MODE_MINOR : 'm' ;
+NOTE_LENGTH : DIGIT | (DIGIT DIVIDE DIGIT) | (DIVIDE DIGIT) | (DIGIT DIVIDE) | DIVIDE ;
+NOTE_LENGTH_STRICT : DIGIT '/' DIGIT ;
 
-NOTE_LENGTH_STRICT : DIGIT+ '/' DIGIT+ ;
+//OCTAVE : [',]+ ;
 
-OCTAVE : [',]+ ;
-
-OPEN_PAREN : '(' ;
+OPEN_PAREN : '(' -> pushMode(enter_tuplet) ;
 
 OPEN_BRACK : '[' ; 
 CLOSED_BRACK : ']' ;
 
 DIVIDE : '/' ;
-DIGIT : [0-9] ;
+DIGIT : [0-9]+ ;
 SPACE : ' ' ;
 LINE_FEED : '\n' | '\r' | '\r\n' ;
 PERCENT : '%' -> pushMode(enter_comment) ;
 
-BASE_NOTE : 'C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'B'
-        | 'c' | 'd' | 'e' | 'f' | 'g' | 'a' | 'b' ;
+BASE_NOTE_OCTAVE : ('C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'B' | 'c' | 'd' | 'e' | 'f' | 'g' | 'a' | 'b') ([',]+)? ;
 
 mode enter_comment;
 COMMENT_TEXT : ~[\r\n]+ -> popMode ;
@@ -79,3 +76,6 @@ LYRICAL_ELEMENTS : ' '+ | '_' | '-' | '*' | '~' | '\-' | '|' ;
 
 mode enter_voice;
 VOICE_TEXT : ~[\r\n]+ -> popMode ;
+
+mode enter_tuplet;
+TUPLET_DIGIT : [0-9]+ -> popMode ;

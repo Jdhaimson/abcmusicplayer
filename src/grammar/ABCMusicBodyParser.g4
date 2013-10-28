@@ -57,31 +57,34 @@ nth_repeat: NTH_REPEAT ;
 space: SPACE ;
 
 //element : note_element | tuplet_element | bar_line | NTH_REPEAT | SPACE ;
+measure : (note_element | tuplet_element | nth_repeat | space )+ ;
 element : measure | bar_line ;
 note_element : note | multi_note ;
 
-note_length : DIGIT+ | (DIGIT+ DIVIDE DIGIT+) | (DIVIDE DIGIT+) | (DIGIT+ DIVIDE) | DIVIDE ;
-
-measure : (note_element | tuplet_element | nth_repeat | space )+ ;
+note_length : NOTE_LENGTH ;
 
 note : note_or_rest note_length? ;
 multi_note : OPEN_BRACK note+ CLOSED_BRACK ;
-note_or_rest : pitch | REST ;
-pitch : ACCIDENTAL? BASE_NOTE OCTAVE? ;
-
-key : key_note MODE_MINOR? ;
-key_note : BASE_NOTE KEY_ACCIDENTAL? ;
+note_or_rest : pitch | rest ;
+rest : REST ;
+pitch : accidental? base_note_octave ;
+base_note_octave : BASE_NOTE_OCTAVE ;
+accidental : ACCIDENTAL ;
 
 // tuplets
 tuplet_element : tuplet_spec note_element+;
-tuplet_spec : OPEN_PAREN DIGIT ;
+tuplet_spec : OPEN_PAREN tuplet_digit ;
+tuplet_digit : TUPLET_DIGIT ;
 
 // A voice field might reappear in the middle of a piece to indicate the change of a voice
 mid_tune_field : field_voice ;
 
-field_voice : V VOICE_TEXT+ eol ;
+field_voice : V voice eol ;
+voice: VOICE_TEXT+ ;
 
-lyric : W (LYRIC_TEXT | LYRICAL_ELEMENTS)* END_LYRIC ;
+lyric : W (lyric_text | lyric_element)* END_LYRIC ;
+lyric_text : LYRIC_TEXT ;
+lyric_element : LYRICAL_ELEMENTS ;
 
 comment : PERCENT COMMENT_TEXT* (END_COMMENT | LINE_FEED) ;
 

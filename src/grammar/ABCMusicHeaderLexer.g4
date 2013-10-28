@@ -52,6 +52,8 @@ BASE_NOTE : 'C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'B'
 KEY_ACCIDENTAL : '#' | 'b' ;
 MODE_MINOR : 'm' ;
 
+KEY_NOTE : BASE_NOTE KEY_ACCIDENTAL? MODE_MINOR? ;
+
 //NOTE_LENGTH_STRICT : DIGIT+ DIVIDE DIGIT+;
 
 EQUALS : '=' ;

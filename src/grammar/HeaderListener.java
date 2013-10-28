@@ -12,52 +12,68 @@ import grammar.ABCMusicHeaderParser;
  * HEADER LISTENER
  */
 public class HeaderListener extends ABCMusicHeaderParserBaseListener {
+	
+	private String field_number;
+	private String field_title;
+	private String field_composer;
+	private String field_key;
+	private String field_meter;
+	private String field_default_length;
+	private String field_tempo;
+	
         
-	@Override public void enterField_tempo(ABCMusicHeaderParser.Field_tempoContext ctx) { }
-	@Override public void exitField_tempo(ABCMusicHeaderParser.Field_tempoContext ctx) { }
+	@Override 
+	public void exitComposer_text(ABCMusicHeaderParser.Composer_textContext ctx) { 
+		field_composer = ctx.getText();
+	}
 
-	@Override public void enterOther_fields(ABCMusicHeaderParser.Other_fieldsContext ctx) { }
-	@Override public void exitOther_fields(ABCMusicHeaderParser.Other_fieldsContext ctx) { }
+	@Override 
+	public void exitTempo(ABCMusicHeaderParser.TempoContext ctx) { 
+		field_tempo = ctx.getText();
+	}
 
-	@Override public void enterAbc_header(ABCMusicHeaderParser.Abc_headerContext ctx) { }
-	@Override public void exitAbc_header(ABCMusicHeaderParser.Abc_headerContext ctx) { }
+	@Override 
+	public void exitKey_note(ABCMusicHeaderParser.Key_noteContext ctx) { 
+		field_key = ctx.getText();
+	}
 
-	@Override public void enterKey_note(ABCMusicHeaderParser.Key_noteContext ctx) { }
-	@Override public void exitKey_note(ABCMusicHeaderParser.Key_noteContext ctx) { }
+	@Override 
+	public void exitNumber(ABCMusicHeaderParser.NumberContext ctx) { 
+		field_number = ctx.getText();
+	}
 
-	@Override public void enterField_composer(ABCMusicHeaderParser.Field_composerContext ctx) { }
-	@Override public void exitField_composer(ABCMusicHeaderParser.Field_composerContext ctx) { }
+	@Override 
+	public void exitMeter(ABCMusicHeaderParser.MeterContext ctx) { 
+		field_meter = ctx.getText();
+	}
 
-	@Override public void enterField_key(ABCMusicHeaderParser.Field_keyContext ctx) { }
-	@Override public void exitField_key(ABCMusicHeaderParser.Field_keyContext ctx) { }
+	@Override
+	public void exitTitle_text(ABCMusicHeaderParser.Title_textContext ctx) { 
+		field_title = ctx.getText();
+	}
 
-	@Override public void enterMeter(ABCMusicHeaderParser.MeterContext ctx) { }
-	@Override public void exitMeter(ABCMusicHeaderParser.MeterContext ctx) { }
+	@Override 
+	public void exitMeter_fraction(ABCMusicHeaderParser.Meter_fractionContext ctx) { 
+		field_default_length = ctx.getText();
+	}
+	
+	//FOR NOW: IGNORE VOICES AND COMMENTS IN THE HEADER
+	
+//	@Override public void enterVoice_text(ABCMusicHeaderParser.Voice_textContext ctx) { }
+//	@Override public void exitVoice_text(ABCMusicHeaderParser.Voice_textContext ctx) { }
 
-	@Override public void enterField_default_length(ABCMusicHeaderParser.Field_default_lengthContext ctx) { }
-	@Override public void exitField_default_length(ABCMusicHeaderParser.Field_default_lengthContext ctx) { }
+//	@Override public void enterComment(ABCMusicHeaderParser.CommentContext ctx) { }
+//	@Override public void exitComment(ABCMusicHeaderParser.CommentContext ctx) { }
 
-	@Override public void enterField_meter(ABCMusicHeaderParser.Field_meterContext ctx) { }
-	@Override public void exitField_meter(ABCMusicHeaderParser.Field_meterContext ctx) { }
-
-	@Override public void enterEol(ABCMusicHeaderParser.EolContext ctx) { }
-	@Override public void exitEol(ABCMusicHeaderParser.EolContext ctx) { }
-
-	@Override public void enterField_number(ABCMusicHeaderParser.Field_numberContext ctx) { }
-	@Override public void exitField_number(ABCMusicHeaderParser.Field_numberContext ctx) { }
-
-	@Override public void enterComment(ABCMusicHeaderParser.CommentContext ctx) { }
-	@Override public void exitComment(ABCMusicHeaderParser.CommentContext ctx) { }
-
-	@Override public void enterField_title(ABCMusicHeaderParser.Field_titleContext ctx) { }
-	@Override public void exitField_title(ABCMusicHeaderParser.Field_titleContext ctx) { }
-
-	@Override public void enterAbc_tune_header(ABCMusicHeaderParser.Abc_tune_headerContext ctx) { }
-	@Override public void exitAbc_tune_header(ABCMusicHeaderParser.Abc_tune_headerContext ctx) { }
-
-	@Override public void enterKey(ABCMusicHeaderParser.KeyContext ctx) { }
-	@Override public void exitKey(ABCMusicHeaderParser.KeyContext ctx) { }
-
-	@Override public void enterField_voice(ABCMusicHeaderParser.Field_voiceContext ctx) { }
-	@Override public void exitField_voice(ABCMusicHeaderParser.Field_voiceContext ctx) { }
+	@Override 
+	public void exitAbc_tune_header(ABCMusicHeaderParser.Abc_tune_headerContext ctx) {
+		//Song song = new Song(...)
+		System.out.println("field_number: " + field_number);
+		System.out.println("field_title: " + field_title);
+		System.out.println("field_composer: " + field_composer);
+		System.out.println("field_key: " + field_key);
+		System.out.println("field_meter: " + field_meter);
+		System.out.println("field_default_length: " + field_default_length);
+		System.out.println("field_tempo: " + field_tempo);
+	}
 }

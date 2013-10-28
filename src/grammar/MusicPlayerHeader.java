@@ -46,11 +46,14 @@ public class MusicPlayerHeader {
 		MusicPlayerHeader header = new MusicPlayerHeader();
 		String s = "X:2167\n"+
 				"T:Waxie's: Dargle\n"+
+				"C:Josh\n"+
 				"%Random Comment % * $ ()\n"+
 				"M:4/4\n"+
 				"L:1/8\n"+
 				"Q:1/4=180\n"+
-				"K:G\n";
+				"V:1\n"+
+				"V:Austin\n"+
+				"K:G#m\n";
 		header.runListener(s);
     }
     

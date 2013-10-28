@@ -105,6 +105,14 @@ public class Song {
 	}
 	
 	/**
+	 * Returns default note length for the song
+	 * @return
+	 */
+	public Fraction getDefaultNoteLen() {
+		return this.defaultLength;
+	}
+	
+	/**
 	 * Creates a basic lyric listener object
 	 * @return LyricListener: basic lyrici listener object
 	 */

@@ -40,7 +40,6 @@ public class Key {
 		Pitch currentPitch;
 		if (this.keySignature.containsKey(note)) {
 			currentPitch = this.keySignature.get(note);
-			
 		} else {
 			currentPitch = new Pitch(note);
 		}
@@ -71,7 +70,7 @@ public class Key {
 			// Remove octave notation leaving only the base note
 			String baseNote = noteName.replaceAll("[^A-G]", "");
 			Pitch basePitch = this.keySignature.get(baseNote);
-			// Make new pitch in the right octave with the basenote's accidental
+			// Make new pitch in the right octave with the basenote's accidental 	
 			return new Pitch(noteName).accidentalTranspose(basePitch.getAccidental());
 		}
 	}

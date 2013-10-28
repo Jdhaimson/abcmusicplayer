@@ -1,4 +1,4 @@
-package sound;
+	package sound;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -6,6 +6,11 @@ import java.util.List;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
 
+/**
+ * Mutable Song object which represents an entire piece of ABC music
+ * @author Josh
+ *
+ */
 public class Song {
 
 	// Header information
@@ -17,24 +22,22 @@ public class Song {
 	private List<Measure> measures = new LinkedList<Measure>();
 	
 	
-	/**
+	/**	
 	 * Song object
 	 * @param title
 	 * @param composer
 	 * @param noteLength: default duration of note
 	 * @param meter: sum of durations of all notes within a bar
-	 * @param ticksPerBeat: Amount of ticks for each beat used by MIDI sequence player
 	 * @param index: index number to determine play order if in playlist
 	 * @param tempo: number of given-length notes per minute
 	 * @param key: key signature of piece
 	 */
 	public Song(String title, String composer, double noteLength, double meter,
-				int ticksPerBeat, int index, int tempo, Key key) {
+			    int index, int tempo, Key key) {
 		this.title = title;
 		this.composer = composer;
 		this.noteLength = noteLength;
 		this.meter = meter;
-		this.ticksPerBeat = ticksPerBeat; 
 		this.index = index;
 		this.tempo = tempo;
 		this.key = key;

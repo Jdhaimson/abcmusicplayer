@@ -14,7 +14,7 @@ public class Measure {
 	private List<Lyric> lyrics = new LinkedList<Lyric>();
 	private int measureNumber;
 	private Key accidentalKey = new Key();
-	private int ticksPerMeasure;
+	private double notesPerMeasure;
 	
 	// Keep track of repeats and alternate endings
 	private int repeatStartMeasure;
@@ -25,25 +25,25 @@ public class Measure {
 	
 	/**
 	 * Object representing a measure of a piece.  Contains Voices (which contain notes)
-	 * and Lyrics.  Also contains a key and stores the amount of ticksPerMeasure.
+	 * and Lyrics.  Also contains a key and stores the amount of notesPerMeasure.
 	 * The sum of all of the ticks in every voice and in all lyrics should be <= ticksPerMeasure
 	 * @param key: key of measure, used to keep track of accidentals
-	 * @param ticksPerMeasure: amount of ticks in each measure
+	 * @param notesPerMeasure: amount of notes in each measure
 	 */
-	public Measure(int ticksPerMeasure, int measureNumber) {
-		this.ticksPerMeasure = ticksPerMeasure;
+	public Measure(double notesPerMeasure, int measureNumber) {
+		this.notesPerMeasure = notesPerMeasure;
 		this.measureNumber = measureNumber;
 	}
 
 	/**
 	 * Object representing a measure of a piece.  Contains Voices (which contain notes)
-	 * and Lyrics.  Also contains a key and stores the amount of ticksPerMeasure.
-	 * The sum of all of the ticks in every voice and in all lyrics should be <= ticksPerMeasure
-	 * @param ticksPerMeasure: amount of ticks in each measure
+	 * and Lyrics.  Also contains a key and stores the amount of notesPerMeasure.
+	 * The sum of all of the ticks in every voice and in all lyrics should be <= notesPerMeasure
+	 * @param notesPerMeasure: amount of notes in each measure
 	 * @param startRepeat: measure to repeat from
 	 */
-	public Measure(int ticksPerMeasure, int measureNumber, int repeatStartMeasure) {
-		this.ticksPerMeasure = ticksPerMeasure;
+	public Measure(double notesPerMeasure, int measureNumber, int repeatStartMeasure) {
+		this.notesPerMeasure = notesPerMeasure;
 		this.measureNumber = measureNumber;
 		this.repeatStartMeasure = repeatStartMeasure;
 	}
@@ -52,12 +52,12 @@ public class Measure {
 	 * Object representing a measure of a piece.  Contains Voices (which contain notes)
 	 * and Lyrics.  Also contains a key and stores the amount of ticksPerMeasure.
 	 * The sum of all of the ticks in every voice and in all lyrics should be <= ticksPerMeasure
-	 * @param ticksPerMeasure: amount of ticks in each measure
+	 * @param notesPerMeasure: amount of notes in each measure
 	 * @param startRepeat: measure to repeat from
 	 * @param alternateEnding: measure to go to on alternate ending
 	 */
-	public Measure(int ticksPerMeasure, int measureNumber, int repeatStartMeasure, int alternateEnding) {
-		this.ticksPerMeasure = ticksPerMeasure;
+	public Measure(double notesPerMeasure, int measureNumber, int repeatStartMeasure, int alternateEnding) {
+		this.notesPerMeasure = notesPerMeasure;
 		this.measureNumber = measureNumber;
 		this.repeatStartMeasure = repeatStartMeasure;
 		this.alternateEnding = alternateEnding;
@@ -71,7 +71,7 @@ public class Measure {
 	 */
 	public void addVoice(Voice voice) {
 		try {
-			if (voice.getTicksPerVoice() == this.ticksPerMeasure) {
+			if (voice.getNotesPerVoice() == this.notesPerMeasure) {
 				this.voices.add(voice.clone());
 			} else {
 				throw new Exception("Voices must have same duration as measures");
@@ -163,9 +163,11 @@ public class Measure {
 		result = prime * result + (hasAlternateEnding ? 1231 : 1237);
 		result = prime * result + ((lyrics == null) ? 0 : lyrics.hashCode());
 		result = prime * result + measureNumber;
+		long temp;
+		temp = Double.doubleToLongBits(notesPerMeasure);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + repeatStartMeasure;
 		result = prime * result + (repeated ? 1231 : 1237);
-		result = prime * result + ticksPerMeasure;
 		result = prime * result + ((voices == null) ? 0 : voices.hashCode());
 		return result;
 	}
@@ -208,13 +210,14 @@ public class Measure {
 		if (measureNumber != other.measureNumber) {
 			return false;
 		}
+		if (Double.doubleToLongBits(notesPerMeasure) != Double
+				.doubleToLongBits(other.notesPerMeasure)) {
+			return false;
+		}
 		if (repeatStartMeasure != other.repeatStartMeasure) {
 			return false;
 		}
 		if (repeated != other.repeated) {
-			return false;
-		}
-		if (ticksPerMeasure != other.ticksPerMeasure) {
 			return false;
 		}
 		if (voices == null) {
@@ -226,6 +229,5 @@ public class Measure {
 		}
 		return true;
 	}
-	
 	
 }

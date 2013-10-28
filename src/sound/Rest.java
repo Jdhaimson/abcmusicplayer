@@ -1,34 +1,20 @@
 package sound;
 
-import java.util.LinkedList;
-import java.util.List;
-
 /**
- * Note is an immutable object representing a note.  It contains a chord
- * and the duration to play it for
+ * Immutable object representing a Rest in a piece
  * @author Josh
  *
  */
-public class Note implements MusicalElement {
-	private Chord chord;
-	private double duration; // ie quarter note, whole note, etc
+public class Rest implements MusicalElement {
+
+	private double duration;
 	
 	/**
-	 * Constructor of Note object
-	 * @param chord: Chord object to be played as note 
-	 * @param duration: Double representing type of note (ie .25 = quarter note)
+	 * Immutable object representing a Rest
+	 * @param duration: Length of rest (.25 => 1/4 note, .125 => 1/8, etc)
 	 */
-	public Note(Chord chord, double duration) {
-		this.chord = chord;
+	public Rest(double duration) {
 		this.duration = duration;
-	}
-	
-	/**
-	 * Gets list of all pitches in note
-	 * @return chord for note
-	 */
-	public Chord getChord() {
-		return this.chord;
 	}
 	
 	/*
@@ -38,7 +24,7 @@ public class Note implements MusicalElement {
 	public double getDuration() {
 		return this.duration;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * @see sound.MusicalElement#getTicksPerWholeNote()
@@ -51,9 +37,8 @@ public class Note implements MusicalElement {
 	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
-	@Override
 	public String toString() {
-		return this.chord.toString() + ":" + Double.toString(this.duration);
+		return "z:" + Double.toString(this.duration); 
 	}
 
 	/* (non-Javadoc)
@@ -63,7 +48,6 @@ public class Note implements MusicalElement {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((chord == null) ? 0 : chord.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(duration);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -81,22 +65,15 @@ public class Note implements MusicalElement {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof Note)) {
+		if (!(obj instanceof Rest)) {
 			return false;
 		}
-		Note other = (Note) obj;
-		if (chord == null) {
-			if (other.chord != null) {
-				return false;
-			}
-		} else if (!chord.equals(other.chord)) {
-			return false;
-		}
+		Rest other = (Rest) obj;
 		if (Double.doubleToLongBits(duration) != Double
 				.doubleToLongBits(other.duration)) {
 			return false;
 		}
 		return true;
 	}
-
+	
 }

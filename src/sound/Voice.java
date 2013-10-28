@@ -11,32 +11,32 @@ import java.util.List;
 public class Voice {
 	// Stores list of notes
 	private List<Note> notes = new LinkedList<Note>();
-	private int ticksPerVoice;
-	private int sumCurrentTicks = 0;
+	private double maxNotes;
+	private double sumCurrentNotes = 0.0;
 	private String name;
 	
 	/**
 	 * Represents a voice in a measure
 	 * @param name: Name of voice
-	 * @param ticksPerVoice: Total amount of "ticks" in the measure
+	 * @param maxNotes: Max amount of notes in measure (ie, in 3/4 time should be .75)
 	 */
-	public Voice(String name, int ticksPerVoice) {
+	public Voice(String name, double maxNotes) {
 		this.name = name;
-		this.ticksPerVoice = ticksPerVoice;
+		this.maxNotes = maxNotes;
 	}
 	
 	/**
 	 * Add note to voice
 	 * @param note
-	 * @throws Exception when note would make voice longer than ticksPerVoice
+	 * @throws Exception when note would make voice longer than maxNotes
 	 */
 	public void addNote(Note note) throws Exception {
-		if (this.sumCurrentTicks + note.getDuration() <= this.ticksPerVoice) {
+		if (this.sumCurrentNotes + note.getDuration() <= this.maxNotes) {
 			this.notes.add(note);
-			this.sumCurrentTicks += note.getDuration();
+			this.sumCurrentNotes += note.getDuration();
 		}
 		else {
-			throw new Exception("This voice cannot be longer than " + Integer.toString(this.ticksPerVoice) + " ticks");
+			throw new Exception("This voice cannot be longer than " + Double.toString(this.maxNotes) + " notes");
 		}
 	}
 	
@@ -54,11 +54,11 @@ public class Voice {
 	}
 	
 	/**
-	 * Returns max amount of ticks in voice
-	 * @return max amount of ticks in voice
+	 * Returns max amount of notes in voice
+	 * @return max amount of notes in voice
 	 */
-	public int getTicksPerVoice() {
-		return this.ticksPerVoice;
+	public double getNotesPerVoice() {
+		return this.maxNotes;
 	}
 	
 	/*
@@ -67,7 +67,7 @@ public class Voice {
 	 */
 	@Override
 	public Voice clone() {
-		Voice clonedVoice = new Voice(this.name, this.ticksPerVoice);
+		Voice clonedVoice = new Voice(this.name, this.maxNotes);
 		for(Note note: this.getNotes()) {
 			try {
 				clonedVoice.addNote(note);
@@ -96,10 +96,13 @@ public class Voice {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(maxNotes);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((notes == null) ? 0 : notes.hashCode());
-		result = prime * result + sumCurrentTicks;
-		result = prime * result + ticksPerVoice;
+		temp = Double.doubleToLongBits(sumCurrentNotes);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -118,6 +121,10 @@ public class Voice {
 			return false;
 		}
 		Voice other = (Voice) obj;
+		if (Double.doubleToLongBits(maxNotes) != Double
+				.doubleToLongBits(other.maxNotes)) {
+			return false;
+		}
 		if (name == null) {
 			if (other.name != null) {
 				return false;
@@ -132,15 +139,12 @@ public class Voice {
 		} else if (!notes.equals(other.notes)) {
 			return false;
 		}
-		if (sumCurrentTicks != other.sumCurrentTicks) {
-			return false;
-		}
-		if (ticksPerVoice != other.ticksPerVoice) {
+		if (Double.doubleToLongBits(sumCurrentNotes) != Double
+				.doubleToLongBits(other.sumCurrentNotes)) {
 			return false;
 		}
 		return true;
 	}
-	
 	
 	
 }

@@ -15,18 +15,18 @@ public class VoiceTest {
 
 	@Test
 	public void testVoiceConstructor() {
-		Voice v = new Voice("Test", 100);
+		Voice v = new Voice("Test", 1.0);
 		assertEquals("Test", v.toString());
 	}
 
 	
 	@Test
 	public void testVoiceEquals() {
-	    Voice voice1 = new Voice("Bass", 100);
-	    Voice voice2 = new Voice("Bass", 100);
-	    Voice voice3 = new Voice("Soprano", 100);
-	    Voice voice4 = new Voice("Bass", 150);
-	    Voice voice5 = new Voice("Soprano", 200);
+	    Voice voice1 = new Voice("Bass", 1.0);
+	    Voice voice2 = new Voice("Bass", 1.0);
+	    Voice voice3 = new Voice("Soprano", 1.0);
+	    Voice voice4 = new Voice("Bass", 1.5);
+	    Voice voice5 = new Voice("Soprano", 2.0);
 	    
 	    assertEquals(true, voice1.equals(voice2));
 	    assertEquals(true, voice1.equals(voice1));
@@ -37,8 +37,8 @@ public class VoiceTest {
 	
 	@Test
 	public void testVoiceHashCode(){
-	    Voice voice1 = new Voice("Bass", 100);
-        Voice voice2 = new Voice("Bass", 100);
+	    Voice voice1 = new Voice("Bass", 1.0);
+        Voice voice2 = new Voice("Bass", 1.0);
         
         assertEquals(true, voice1.hashCode() == voice1.hashCode());
         assertEquals(true, voice1.hashCode() == voice2.hashCode());
@@ -47,11 +47,11 @@ public class VoiceTest {
 	
 	@Test
 	public void testVoiceToString() {
-	    Voice voice1 = new Voice("Bass", 100);
-        Voice voice2 = new Voice("Bass", 100);
-        Voice voice3 = new Voice("Soprano", 100);
-        Voice voice4 = new Voice("Bass", 150);
-        Voice voice5 = new Voice("Soprano", 200);
+	    Voice voice1 = new Voice("Bass", 1.0);
+        Voice voice2 = new Voice("Bass", 1.0);
+        Voice voice3 = new Voice("Soprano", 1.0);
+        Voice voice4 = new Voice("Bass", 1.5);
+        Voice voice5 = new Voice("Soprano", 2.0);
         
         assertEquals(true, voice1.toString().equals(voice2.toString()));
         assertEquals(true, voice1.toString().equals(voice1.toString()));
@@ -62,27 +62,27 @@ public class VoiceTest {
 	
 	@Test
 	public void testVoiceTestGetTicksPerVoice() {
-	    Voice voice1 = new Voice("Bass", 100);
-        Voice voice2 = new Voice("Bass", 100);
-        Voice voice3 = new Voice("Soprano", 100);
-        Voice voice4 = new Voice("Bass", 150);
-        Voice voice5 = new Voice("Soprano", 200);
+	    Voice voice1 = new Voice("Bass", 1.0);
+        Voice voice2 = new Voice("Bass", 1.0);
+        Voice voice3 = new Voice("Soprano", 1.0);
+        Voice voice4 = new Voice("Bass", 1.5);
+        Voice voice5 = new Voice("Soprano", 2.0);
         
-        assertEquals(true, voice1.getTicksPerVoice() == 100);
-        assertEquals(false, voice1.getTicksPerVoice() == 150);
-        assertEquals(true, voice1.getTicksPerVoice() == voice2.getTicksPerVoice());
-        assertEquals(true, voice1.getTicksPerVoice() == voice3.getTicksPerVoice());
-        assertEquals(false, voice1.getTicksPerVoice() == voice4.getTicksPerVoice());
-        assertEquals(false, voice1.getTicksPerVoice() == voice5.getTicksPerVoice());
+        assertEquals(true, voice1.getNotesPerVoice() == 1.0);
+        assertEquals(false, voice1.getNotesPerVoice() == 1.5);
+        assertEquals(true, voice1.getNotesPerVoice() == voice2.getNotesPerVoice());
+        assertEquals(true, voice1.getNotesPerVoice() == voice3.getNotesPerVoice());
+        assertEquals(false, voice1.getNotesPerVoice() == voice4.getNotesPerVoice());
+        assertEquals(false, voice1.getNotesPerVoice() == voice5.getNotesPerVoice());
 	}
 	
 	@Test
 	public void testVoiceClone() {
-	    Voice voice1 = new Voice("Bass", 100);
-        Voice voice2 = new Voice("Bass", 100);
-        Voice voice3 = new Voice("Soprano", 100);
-        Voice voice4 = new Voice("Bass", 150);
-        Voice voice5 = new Voice("Soprano", 200);
+	    Voice voice1 = new Voice("Bass", 1.0);
+        Voice voice2 = new Voice("Bass", 1.0);
+        Voice voice3 = new Voice("Soprano", 1.0);
+        Voice voice4 = new Voice("Bass", 1.5);
+        Voice voice5 = new Voice("Soprano", 2.0);
         Voice voice6 = voice1.clone();
         
         assertEquals(true, voice6.equals(voice2));
@@ -95,7 +95,7 @@ public class VoiceTest {
 	
 	
 	public void testVoiceAddNote() {
-	    Voice voice1 = new Voice("Bass", 20);
+	    Voice voice1 = new Voice("Bass", 1.0);
 	    
 	    List<Note> notesToCheck = new LinkedList<Note>();
 	    
@@ -109,9 +109,9 @@ public class VoiceTest {
         pitches2.add(new Pitch('F'));
         pitches2.add(new Pitch('G'));
         
-        Note note1 = new Note(pitches1, 2);
-        Note note2 = new Note(pitches1, 4);
-        Note note3 = new Note(pitches2, 2);
+        Note note1 = new Note(pitches1, .25);
+        Note note2 = new Note(pitches1, .5);
+        Note note3 = new Note(pitches2, .25);
         
         try {
             voice1.addNote(note1);
@@ -143,7 +143,7 @@ public class VoiceTest {
 	
 	@Test(expected = Exception.class) 
 	public void testVoiceException() throws Exception{
-	    Voice voice1 = new Voice("Bass", 2);
+	    Voice voice1 = new Voice("Bass", .25);
         
         List<Pitch> pitches1 = new LinkedList<Pitch>();
         pitches1.add(new Pitch('C'));
@@ -155,7 +155,7 @@ public class VoiceTest {
         pitches2.add(new Pitch('F'));
         pitches2.add(new Pitch('G'));
         
-        Note note2 = new Note(pitches1, 4);
+        Note note2 = new Note(pitches1, .5);
         
         voice1.addNote(note2);
 

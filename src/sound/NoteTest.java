@@ -23,8 +23,8 @@ public class NoteTest {
 		pitches.add(new Pitch('E'));
 		pitches.add(new Pitch('G'));
 		
-		Note n = new Note(pitches, 2);
-		assertEquals("CEG:2", n.toString());
+		Note n = new Note(pitches, .25);
+		assertEquals("CEG:0.25", n.toString());
 	}
 	
 	@Test
@@ -39,11 +39,11 @@ public class NoteTest {
         pitches2.add(new Pitch('F'));
         pitches2.add(new Pitch('G'));
         
-        Note note1 = new Note(pitches1, 2);
-        Note note2 = new Note(pitches1, 4);
-        Note note3 = new Note(pitches2, 2);
+        Note note1 = new Note(pitches1, .25);
+        Note note2 = new Note(pitches1, .5);
+        Note note3 = new Note(pitches2, .25);
         
-        assertEquals(true, note1.toString().equals("CEG:2"));
+        assertEquals(true, note1.toString().equals("CEG:0.25"));
         assertEquals(false, note1.toString().equals(note2.toString()));
         assertEquals(false, note1.toString().equals(note3.toString()));
 	}
@@ -60,11 +60,11 @@ public class NoteTest {
         pitches2.add(new Pitch('F'));
         pitches2.add(new Pitch('G'));
         
-        Note note1 = new Note(pitches1, 2);
-        Note note2 = new Note(pitches1, 4);
-        Note note3 = new Note(pitches2, 2);
-        Note note4 = new Note(pitches1, 2);
-        Note note5 = new Note(pitches2, 4);
+        Note note1 = new Note(pitches1, .25);
+        Note note2 = new Note(pitches1, .5);
+        Note note3 = new Note(pitches2, .25);
+        Note note4 = new Note(pitches1, .25);
+        Note note5 = new Note(pitches2, .5);
         
         assertEquals(true, note1.equals(note1));
         assertEquals(false, note1.equals(note2));
@@ -85,8 +85,8 @@ public class NoteTest {
         pitches2.add(new Pitch('F'));
         pitches2.add(new Pitch('G'));
         
-        Note note1 = new Note(pitches1, 2);
-        Note note4 = new Note(pitches1, 2);
+        Note note1 = new Note(pitches1, .25);
+        Note note4 = new Note(pitches1, .25);
         
         assertEquals(true, note1.hashCode() == note1.hashCode());
         assertEquals(true, note1.hashCode() == note4.hashCode());
@@ -100,7 +100,7 @@ public class NoteTest {
         pitches1.add(new Pitch('E'));
         pitches1.add(new Pitch('G'));
         
-        Note note1 = new Note(pitches1, 2);
+        Note note1 = new Note(pitches1, .25);
         Note note2 = note1.clone();
         
         assertEquals(true, note1.equals(note2));
@@ -115,11 +115,11 @@ public class NoteTest {
         pitches1.add(new Pitch('E'));
         pitches1.add(new Pitch('G'));
         
-        Note note1 = new Note(pitches1, 4);
-        Note note2 = new Note(pitches1, 2);
+        Note note1 = new Note(pitches1, .5);
+        Note note2 = new Note(pitches1, .25);
         
-        assertEquals(true, note1.getDuration() == 4);
-        assertEquals(true, note2.getDuration() == 2);
+        assertEquals(true, note1.getDuration() == .5);
+        assertEquals(true, note2.getDuration() == .25);
         assertEquals(false, note1.getDuration() == note2.getDuration());
 	}
 	
@@ -140,7 +140,7 @@ public class NoteTest {
         pitches3.add(new Pitch('E'));
         pitches3.add(new Pitch('F'));
         
-        Note note1 = new Note(pitches1, 4);
+        Note note1 = new Note(pitches1, .5);
         
         assertEquals(true, note1.getPitches().equals(pitches1));
         assertEquals(true, note1.getPitches().equals(pitches2));

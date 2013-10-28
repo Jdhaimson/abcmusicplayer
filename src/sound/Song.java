@@ -142,4 +142,12 @@ public class Song {
 	public void addToSequence(SequencePlayer sp) {
 
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		return this.title;
+	}
 }

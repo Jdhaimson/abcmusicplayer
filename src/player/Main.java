@@ -1,9 +1,13 @@
 package player;
 
+import grammar.MusicPlayerHeader;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import sound.Song;
 
 /**
  * Main entry point of your application.
@@ -21,8 +25,8 @@ public class Main {
      * @throws FileNotFoundException 
      */
     public static void play(String file) throws FileNotFoundException {
-    	File song = new File(file);
-    	String content = new Scanner(song).useDelimiter("\\Z").next();
+    	File songFile = new File(file);
+    	String content = new Scanner(songFile).useDelimiter("\\Z").next();
     	String[] lines = content.split("\\r?\\n");
     	ArrayList<String> header = new ArrayList<String>();
     	ArrayList<String> body = new ArrayList<String>();
@@ -38,14 +42,24 @@ public class Main {
     			inHead = false;
     		}
     	}
-    	System.out.println(header.toString());
-    	System.out.println(body.toString());
+    	
+    	MusicPlayerHeader headPlayer = new MusicPlayerHeader();
+    	Song song = headPlayer.runListener(join(header,"\n"));
+    	System.out.println(song);
     }
 
     public static void main(String[] args) throws FileNotFoundException {
         // CALL play() HERE
     	String file = "sample_abc/abc_song.abc";
     	play(file);
+    }
+    
+    public static String join(ArrayList<String> strings, String separator){
+    	StringBuilder newStrings = new StringBuilder();
+    	for(String line : strings){
+    		newStrings.append(line+separator);
+    	}
+    	return newStrings.toString();
     }
     
 }

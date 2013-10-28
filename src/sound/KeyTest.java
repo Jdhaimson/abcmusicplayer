@@ -5,6 +5,12 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class KeyTest {
+    
+    /*
+     * Testing Strategy
+     * 
+     * 
+     */
 
 	@Test
 	public void testeMinor() {

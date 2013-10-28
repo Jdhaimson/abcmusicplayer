@@ -5,6 +5,12 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class SongTest {
+    
+    /*
+     * Testing Strategy
+     * 
+     * 
+     */
 
 	/*
 	 * public Song(String title, String composer, double noteLength, double meter,

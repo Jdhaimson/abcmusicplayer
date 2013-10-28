@@ -72,6 +72,22 @@ public class Voice {
 		return this.maxNotes;
 	}
 	
+	/**
+	 * Returns the ticks per whole note required to play this voice
+	 * @return int: ticks per whole note
+	 */
+	public int getTicksPerWholeNote() {
+		int maxTicks = 0;
+		for (MusicalElement elem: this.getMusicalElements()) {
+			int ticks = elem.getTicksPerWholeNote();
+			if (maxTicks > ticks) {
+				maxTicks = ticks;
+			}
+		}
+		
+		return maxTicks;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#clone()

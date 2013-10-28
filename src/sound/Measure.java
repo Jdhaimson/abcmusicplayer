@@ -131,6 +131,34 @@ public class Measure {
 		return this.accidentalKey.getPitch(note);
 	}
 	
+	/**
+	 * Returns list of voices in measure
+	 * @return List<Voice>: voices in measure
+	 */
+	public List<Voice> getVoices() {
+		List<Voice> clonedVoices = new LinkedList<Voice>();
+		for (Voice v: this.voices) {
+			clonedVoices.add(v.clone());
+		}
+		return clonedVoices;
+	}
+	
+	/**
+	 * Returns the ticks per whole note required to play this measure
+	 * @return int: ticks per whole note
+	 */
+	public int getTicksPerWholeNote() {
+		int maxTicks = 0;
+		for (Voice v: this.voices) {
+			int ticks = v.getTicksPerWholeNote();
+			if (maxTicks > ticks) {
+				maxTicks = ticks;
+			}
+		}
+		
+		return maxTicks;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()

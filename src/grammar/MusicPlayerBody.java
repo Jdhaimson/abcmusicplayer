@@ -9,12 +9,24 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
+import sound.Song;
 import grammar.ABCMusicHeaderLexer;
 import grammar.ABCMusicHeaderParser;
 
 public class MusicPlayerBody {
-   
-    private void runListener(String input) {
+	private Song song;
+	
+	/**
+	 * Constructor for BodyListener object - requires that a pre-initialized song created by
+	 * Header Listener be passed in as parameter
+	 * @param s: Song created by HeaderListener
+	 */
+	public MusicPlayerBody(Song s) {
+		super();
+		this.song = s;
+	}
+	
+    public Song runListener(String input) {
         // Create a stream of tokens using the lexer.
         CharStream stream = new ANTLRInputStream(input);
         ABCMusicBodyLexer lexer = new ABCMusicBodyLexer(stream);
@@ -33,17 +45,18 @@ public class MusicPlayerBody {
 //      System.err.println(tree.toStringTree(parser));
 
       // debugging option #2: show the tree in a window
-      ((RuleContext)tree).inspect(parser);
+//      ((RuleContext)tree).inspect(parser);
 
         // Walk the tree with the listener.
-//        ParseTreeWalker walker = new ParseTreeWalker();
-//        ParseTreeListener listener = new BodyListener();
-//        walker.walk(listener, tree);
+        ParseTreeWalker walker = new ParseTreeWalker();
+        ParseTreeListener listener = new BodyListener(this.song);
+        walker.walk(listener, tree);
       
+        return this.song;
     }
     
     public static void main(String[] args) {
-		MusicPlayerBody body = new MusicPlayerBody();
+//		MusicPlayerBody body = new MusicPlayerBody();
 //		String s = "gf|e2dc B2A2|B2G2 E2D2|G2G2 GABc|d4 B2gf|\n"+
 //				"w: Sa-ys my aul' wan to your aul' wan\n"+
 //				"e2dc B2A2|B2G2 E2G2|F2A2 D2EF|G2z2 G4|\n"+
@@ -137,7 +150,7 @@ public class MusicPlayerBody {
 				"V:3\n"+
 				"C,,16|C,,16|]\n";
 				
-		body.runListener(s);
+//		body.runListener(s);
     }
     
 }

@@ -131,6 +131,68 @@ public class Song {
 	}
 	
 	/**
+	 * Returns default note length for the song
+	 * @return
+	 */
+	public Fraction getDefaultNoteLen() {
+		return this.defaultLength;
+	}
+	
+	public List<Measure> getMeasures() {
+		return this.measures;
+	}
+	
+	/**
+	 * Returns the duration which is the fraction represented by the string s 
+	 * times default note length
+	 * @param s: string representing note duration (A1/4, s would be "1/4" and 
+	 * @return Fraction which is input fraction * default length
+	 */
+	public Fraction parseDurationFromString(String s) {
+		Fraction def = this.defaultLength;
+
+		if (s.matches("[0-9]*/[0-9]*")) {
+			// We know it is a fraction
+			String[] split = s.split("/");
+		
+			if (split.length == 0) {
+				// The string was just "/" we default to 1/2
+				return new Fraction(def.getNumerator(), 2*def.getDenominator());
+			} 
+			else if(split.length == 1) {
+				// "1/" => ["1"] - 
+				// default denominator to 2, numerator comes from string		
+				int num = Integer.parseInt(split[0]);
+				return new Fraction(num*def.getNumerator(), 2*def.getDenominator());
+			} 
+			else if(split.length == 2) {
+				if (split[0].equals("")) {				
+					// "/2" => ["", "2"]
+					// Default numerator to 1, get denom froms tring
+					int denom = Integer.parseInt(split[1]);
+					return new Fraction(def.getNumerator(), denom*def.getDenominator());
+				} 
+				else {
+					// "1/4" => ["1","4"]
+					// get fraction from string
+					int num = Integer.parseInt(split[0]);
+					int denom = Integer.parseInt(split[1]);
+					return new Fraction(num*def.getNumerator(), denom*def.getDenominator());
+				}
+			} 
+			else {
+				throw new IllegalArgumentException("The duration can only have one / in it");
+			}
+		} 
+		else {
+			// String is just a number
+			int num = Integer.parseInt(s);
+			return new Fraction(num*def.getNumerator(), def.getDenominator());
+		}
+	}
+	
+	
+	/**
 	 * Creates a basic lyric listener object
 	 * @return LyricListener: basic lyrici listener object
 	 */

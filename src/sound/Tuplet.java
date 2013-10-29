@@ -9,7 +9,7 @@ import java.util.List;
  *
  */
 public class Tuplet implements MusicalElement {
-	private List<Chord> chords;
+	private List<MusicalElement> elements;
 	private Fraction duration;
 	private int type;
 	
@@ -20,25 +20,25 @@ public class Tuplet implements MusicalElement {
 	 * cannot be longer than 4 notes
 	 * @param duration: duration of tuplet as fraction
 	 */
-	public Tuplet(List<Chord> chords, Fraction duration) {
-		this.chords = chords;
+	public Tuplet(List<MusicalElement> elements, Fraction duration) {
+		this.elements = elements;
 		this.duration = duration;
-		this.type = chords.size();
+		this.type = elements.size();
 		if (this.type > 4) {
 			throw new IllegalArgumentException("Only supports Duplets, Triplets or Quadruplets");
 		}
 	}
 	
 	/**
-	 * Returns list of chords in tuplet
-	 * @return: list of chords in tuplet
+	 * Returns list of elements in tuplet
+	 * @return: list of elements in tuplet
 	 */
-	public List<Chord> getChords() {
-		List<Chord> clonedChords= new LinkedList<Chord>();
-		for (Chord chord: this.chords){
-			clonedChords.add(chord);
+	public List<MusicalElement> getElements() {
+		List<MusicalElement> clonedElements= new LinkedList<MusicalElement>();
+		for (MusicalElement element: this.elements){
+			clonedElements.add(element);
 		}
-		return clonedChords;
+		return clonedElements;
 	}
 	
 	/**
@@ -84,6 +84,6 @@ public class Tuplet implements MusicalElement {
 	 * @see java.lang.Object#clone()
 	 */
 	public Tuplet clone() {
-		return new Tuplet(this.getChords(), this.duration);
+		return new Tuplet(this.getElements(), this.duration);
 	}
 }

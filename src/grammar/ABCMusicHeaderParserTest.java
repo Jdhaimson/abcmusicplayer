@@ -206,7 +206,60 @@ public class ABCMusicHeaderParserTest {
         assertEquals(true, new MusicPlayerHeader().parse(s).equals(expectedOutput));
     }
     
+    @Test(expected = Exception.class)
+    public void testHeaderParserNoTitle() throws Exception{
+        String s = "X:2167\n"+
+                "C:Josh\n"+
+                "%Random Comment % * $ ()\n"+
+                "M:C\n"+
+                "L:1/8\n"+
+                "%\n"+
+                "Q:1/4=180\n"+
+                "V:1\n"+
+                "V:Austin\n"+
+                "K:D\n";
+        
+        Song expectedOutput = new Song("Waxie's: Dargle", "Josh", new Fraction(1,8), new Fraction(4,4), 2167, new Fraction(1, 4), 180, new Key("D") );
+        
+        assertEquals(true, new MusicPlayerHeader().parse(s).equals(expectedOutput));
+    }
     
+    @Test(expected = Exception.class)
+    public void testHeaderParserNoIndex() throws Exception{
+        String s =
+                "T:Waxie's Darge\n"+
+                "C:Josh\n"+
+                "%Random Comment % * $ ()\n"+
+                "M:C\n"+
+                "L:1/8\n"+
+                "%\n"+
+                "Q:1/4=180\n"+
+                "V:1\n"+
+                "V:Austin\n"+
+                "K:D\n";
+        
+        Song expectedOutput = new Song("Waxie's: Dargle", "Josh", new Fraction(1,8), new Fraction(4,4), 2167, new Fraction(1, 4), 180, new Key("D") );
+        
+        assertEquals(true, new MusicPlayerHeader().parse(s).equals(expectedOutput));
+    }
+    
+    @Test(expected = Exception.class)
+    public void testHeaderParserNoKey() throws Exception{
+        String s = "X:2167\n"+
+                "T:Waxie's Darge\n"+
+                "C:Josh\n"+
+                "%Random Comment % * $ ()\n"+
+                "M:C\n"+
+                "L:1/8\n"+
+                "%\n"+
+                "Q:1/4=180\n"+
+                "V:1\n"+
+                "V:Austin\n";
+        
+        Song expectedOutput = new Song("Waxie's: Dargle", "Josh", new Fraction(1,8), new Fraction(4,4), 2167, new Fraction(1, 4), 180, new Key("D") );
+        
+        assertEquals(true, new MusicPlayerHeader().parse(s).equals(expectedOutput));
+    }
     
 
 }

@@ -53,23 +53,22 @@ public class MusicPlayerHeader {
         
         HeaderListener headListener = (HeaderListener) listener;
         return headListener;
-        //return headListener.getSong();
     }
     
     public static void main(String[] args) {
 		MusicPlayerHeader header = new MusicPlayerHeader();
 		String s = "X:2167\n"+
 				"T:Waxie's: Dargle\n"+
-				"C:Josh\n"+
-				"%Random Comment % * $ ()\n"+
-				"M:C\n"+
-				"L:1/8\n"+
-				"%\n"+
-				"Q:1/4=180\n"+
-				"V:1\n"+
-				"V:Austin\n"+
+				//"C:Josh\n"+
+				"M:2/4\n"+
+//				"L:1/8\n"+
+//				"%\n"+
+//				"Q:1/4=180\n"+
+//				"V:1\n"+
+//				"V:Austin\n"+
 				"K:D\n";
 		Song song = header.runListener(s).getSong();
+		System.out.println(song.toString());
     }
     
 }

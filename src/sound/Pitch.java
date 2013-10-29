@@ -66,6 +66,39 @@ public class Pitch {
     }
 
     /**
+     * Make a Pitch.
+     * @param s: a note in abc form (ex. a'' or a or A or A, )
+     * @return Pitch representing s
+     */
+    public Pitch(String s) {
+    	String baseNote = s.replaceAll("[^A-Ga-g]", "");
+    	if (baseNote.length() != 1) {
+    		throw new IllegalArgumentException(s + " must be a valid abc note");
+    	}
+    	
+    	// Handle octaves properly
+    	int octave = 0;
+    	// Lowercase letters are an octave above middle C
+    	if (baseNote.matches("[a-g]")) {
+    		octave += 1;
+    	}
+    	octave -= s.replaceAll("[^,]", "").length();
+    	octave += s.replaceAll("[^']", "").length();
+    	this.octave = octave;
+    	
+    	// Get value from scale
+    	this.value = scale[baseNote.toUpperCase().toCharArray()[0] - 'A'];
+    	
+    	//Handle accidentals
+    	int accidental = 0;
+      	accidental += s.replaceAll("[^^]", "").length();
+    	accidental -= s.replaceAll("[^_]", "").length();
+    	this.accidental = accidental;
+    	
+        checkRep();
+    }
+    
+    /**
      * Number of pitches in an octave.
      */
     public static final int OCTAVE = 12;
@@ -150,7 +183,29 @@ public class Pitch {
     public boolean lessThan(Pitch that) {
         return this.difference(that) < 0;
     }
+    
+    /**
+     * Returns the accidental of the Pitch
+     * @return int representing the accidental of the pitch
+     */
+    public int getAccidental() {
+    	return this.accidental;
+    }
+    
 
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public Pitch clone() {
+    	return new Pitch(this.value, this.accidental, this.octave);
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null)
@@ -163,6 +218,10 @@ public class Pitch {
             && this.octave == that.octave;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         return value + accidental;

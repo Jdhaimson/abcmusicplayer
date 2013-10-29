@@ -9,6 +9,16 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
 import org.junit.Test;
 
+/*
+ * TESTING STRATEGY:
+ * 
+ * -> Empty String
+ * -> Individual Element Tests (Composer, Key, Length, Meter, Tempo, Title, Index)
+ * -> Comments (empty comment included)
+ * -> Full Header
+ * -> Empty Elements (i.e. "T:\n")
+ */
+
 public class ABCMusicHeaderLexerTest {
 
 	@Test
@@ -50,7 +60,7 @@ public class ABCMusicHeaderLexerTest {
     @Test
     //Title Test
     public void testTitleLexer() {
-        verifyLexer("T:Symphony No.1 Test", new String[] {"T:","Symphony No.1 Test"});
+        verifyLexer("T:Symphony No.1 Test\n", new String[] {"T:","Symphony No.1 Test", "\n"});
     }
     
     @Test
@@ -60,12 +70,19 @@ public class ABCMusicHeaderLexerTest {
     }
     
     @Test
+    //Comment Test
+    public void testCommentLexer() {
+        verifyLexer("%I'm a comment!!! :)\n", new String[] {"%","I'm a comment!!! :)","\n"});
+    }
+    
+    @Test
     //Header Test
     public void testHeaderLexer() {
         verifyLexer("X:1\n"
         		+ "T:Simple scale\n"
         		+ "C:Unknown\n"
         		+ "M:4/4\n"
+        		+ "%Hi\n"
         		+ "L:1/4\n"
         		+ "Q:1/4=120\n"
         		+ "K:C\n",
@@ -74,9 +91,32 @@ public class ABCMusicHeaderLexerTest {
         				"T:","Simple scale", "\n",
         				"C:","Unknown", "\n",
         				"M:","4/4", "\n",
+        				"%","Hi","\n",
         				"L:","1/4", "\n",
         				"Q:","1/4=120", "\n",
         				"K:","C","\n"});
+    }
+    
+    @Test
+    //Header Test (with empty comment)
+    public void testEmptyHeaderLexer() {
+        verifyLexer("X:\n"
+        		+ "T:\n"
+        		+ "C:\n"
+        		+ "M:\n"
+        		+ "%\n"
+        		+ "L:\n"
+        		+ "Q:\n"
+        		+ "K:\n",
+        		new String[] {
+        				"X:","\n",
+        				"T:", "\n",
+        				"C:", "\n",
+        				"M:", "\n",
+        				"%", "\n",
+        				"L:", "\n",
+        				"Q:", "\n",
+        				"K:", "\n"});
     }
     
 

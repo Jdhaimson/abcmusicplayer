@@ -9,12 +9,23 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
+import sound.Song;
 import grammar.ABCMusicHeaderLexer;
 import grammar.ABCMusicHeaderParser;
 
 public class MusicPlayerHeader {
+	
+	public Song parse(String song) {
+    	try{
+    		HeaderListener listener = runListener(song);
+    		return listener.getSong();
+    	}
+    	catch(Exception e){
+    		throw new RuntimeException("Invalid input!");
+    	}
+    }
    
-    private void runListener(String input) {
+    public HeaderListener runListener(String input) {
         // Create a stream of tokens using the lexer.
         CharStream stream = new ANTLRInputStream(input);
         ABCMusicHeaderLexer lexer = new ABCMusicHeaderLexer(stream);
@@ -35,25 +46,29 @@ public class MusicPlayerHeader {
       // debugging option #2: show the tree in a window
 //      ((RuleContext)tree).inspect(parser);
 
-      // debugging option #3: walk the tree with a listener
-//      new ParseTreeWalker().walk(new FormulaListener_PrintEverything(), tree);
-        
         // Walk the tree with the listener.
         ParseTreeWalker walker = new ParseTreeWalker();
         ParseTreeListener listener = new HeaderListener();
         walker.walk(listener, tree);
-      
+        
+        HeaderListener headListener = (HeaderListener) listener;
+        return headListener;
     }
     
     public static void main(String[] args) {
 		MusicPlayerHeader header = new MusicPlayerHeader();
 		String s = "X:2167\n"+
-				"T:Waxie's Dargle\n"+
-				"M:4/4\n"+
-				"L:1/8"+
-				"Q:1/4=180"+
-				"K:G";
-		header.runListener(s);
+				"T:Waxie's: Dargle\n"+
+				//"C:Josh\n"+
+				"M:2/4\n"+
+//				"L:1/8\n"+
+//				"%\n"+
+//				"Q:1/4=180\n"+
+//				"V:1\n"+
+//				"V:Austin\n"+
+				"K:D\n";
+		Song song = header.runListener(s).getSong();
+		System.out.println(song.toString());
     }
     
 }

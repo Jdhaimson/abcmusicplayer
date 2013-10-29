@@ -66,7 +66,7 @@ public class Fraction {
 	}
 
 	/**
-	 * Gets numerator of fracction
+	 * Gets numerator of fraction
 	 * @return int: numerator of fraction
 	 */
 	public int getNumerator() {

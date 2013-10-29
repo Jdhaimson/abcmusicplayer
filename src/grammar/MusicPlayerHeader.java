@@ -51,7 +51,7 @@ public class MusicPlayerHeader {
 				"T:Waxie's: Dargle\n"+
 				"C:Josh\n"+
 				"%Random Comment % * $ ()\n"+
-				"M:4/4\n"+
+				"M:C\n"+
 				"L:1/8\n"+
 				"%\n"+
 				"Q:1/4=180\n"+

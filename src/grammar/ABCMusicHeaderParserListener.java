@@ -30,6 +30,9 @@ public interface ABCMusicHeaderParserListener extends ParseTreeListener {
 	void enterNumber(ABCMusicHeaderParser.NumberContext ctx);
 	void exitNumber(ABCMusicHeaderParser.NumberContext ctx);
 
+	void enterLength_fraction(ABCMusicHeaderParser.Length_fractionContext ctx);
+	void exitLength_fraction(ABCMusicHeaderParser.Length_fractionContext ctx);
+
 	void enterField_composer(ABCMusicHeaderParser.Field_composerContext ctx);
 	void exitField_composer(ABCMusicHeaderParser.Field_composerContext ctx);
 
@@ -53,9 +56,6 @@ public interface ABCMusicHeaderParserListener extends ParseTreeListener {
 
 	void enterEol(ABCMusicHeaderParser.EolContext ctx);
 	void exitEol(ABCMusicHeaderParser.EolContext ctx);
-
-	void enterMeter_fraction(ABCMusicHeaderParser.Meter_fractionContext ctx);
-	void exitMeter_fraction(ABCMusicHeaderParser.Meter_fractionContext ctx);
 
 	void enterVoice_text(ABCMusicHeaderParser.Voice_textContext ctx);
 	void exitVoice_text(ABCMusicHeaderParser.Voice_textContext ctx);

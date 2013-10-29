@@ -54,7 +54,7 @@ field_number : X number? eol ;
 field_title : T title_text? (END_TITLE | eol) ;
 other_fields : field_composer | field_default_length | field_meter | field_tempo | field_voice | comment ;
 field_composer : C composer_text? (END_COMPOSER | eol) ;
-field_default_length : L meter_fraction? eol ;
+field_default_length : L length_fraction? eol ;
 field_meter : M meter? eol ;
 field_tempo : Q tempo? eol ;
 field_voice : V voice_text? (END_VOICE | eol) ;
@@ -67,10 +67,10 @@ eol : comment | LINE_FEED ;
 meter : METER_FRACTION | METER_VARIANTS  ;
 tempo : tempo_fraction TEMPO_EQUALS tempo_number ;
 voice_text: VOICE_TEXT+ ;
-meter_fraction : METER_FRACTION ;
+length_fraction : LENGTH_FRACTION ;
 composer_text : COMPOSER_TEXT+ ;
 title_text : TITLE_TEXT+ ;
-number : DIGIT ;
+number : INDEX ;
 
 key_note : KEY_NOTE ;
 

@@ -17,18 +17,21 @@ public class ABCMusicHeaderParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		VOICE_TEXT=27, PERCENT=16, C=3, BASE_NOTE=9, L=4, END_COMMENT=30, M=5, 
-		TEMPO_FRACTION=20, K=8, TEMPO_NUMBER=22, T=2, OCTAVE=13, V=7, EQUALS=12, 
-		Q=6, KEY_NOTE=31, METER_VARIANTS=17, COMMENT_TEXT=29, KEY_ACCIDENTAL=10, 
-		METER_FRACTION=18, TEMPO_EQUALS=21, MODE_MINOR=11, X=1, COLON=19, END_COMPOSER=26, 
-		END_TITLE=24, COMPOSER_TEXT=25, END_VOICE=28, LINE_FEED=15, DIGIT=14, 
+		WS_METER=35, VOICE_TEXT=27, LENGTH_FRACTION=39, PERCENT=17, C=3, BASE_NOTE=9, 
+		L=4, END_COMMENT=30, M=5, TEMPO_FRACTION=20, WS_TEMPO=19, K=8, TEMPO_NUMBER=22, 
+		WS_KEY=31, T=2, OCTAVE=14, V=7, EQUALS=12, Q=6, METER_VARIANTS=36, WS_INDEX=33, 
+		KEY_NOTE=32, COMMENT_TEXT=29, METER_FRACTION=37, KEY_ACCIDENTAL=10, TEMPO_EQUALS=21, 
+		MODE_MINOR=11, SPACE=13, X=1, COLON=18, INDEX=34, END_COMPOSER=26, END_TITLE=24, 
+		COMPOSER_TEXT=25, END_VOICE=28, LINE_FEED=16, WS_LENGTH=38, DIGIT=15, 
 		TITLE_TEXT=23;
 	public static final String[] tokenNames = {
 		"<INVALID>", "'X:'", "'T:'", "'C:'", "'L:'", "'M:'", "'Q:'", "'V:'", "'K:'", 
-		"BASE_NOTE", "KEY_ACCIDENTAL", "'m'", "EQUALS", "OCTAVE", "DIGIT", "LINE_FEED", 
-		"'%'", "METER_VARIANTS", "METER_FRACTION", "':'", "TEMPO_FRACTION", "TEMPO_EQUALS", 
+		"BASE_NOTE", "KEY_ACCIDENTAL", "'m'", "EQUALS", "' '", "OCTAVE", "DIGIT", 
+		"LINE_FEED", "'%'", "':'", "WS_TEMPO", "TEMPO_FRACTION", "TEMPO_EQUALS", 
 		"TEMPO_NUMBER", "TITLE_TEXT", "END_TITLE", "COMPOSER_TEXT", "END_COMPOSER", 
-		"VOICE_TEXT", "END_VOICE", "COMMENT_TEXT", "END_COMMENT", "KEY_NOTE"
+		"VOICE_TEXT", "END_VOICE", "COMMENT_TEXT", "END_COMMENT", "WS_KEY", "KEY_NOTE", 
+		"WS_INDEX", "INDEX", "WS_METER", "METER_VARIANTS", "METER_FRACTION", "WS_LENGTH", 
+		"LENGTH_FRACTION"
 	};
 	public static final int
 		RULE_abc_tune_header = 0, RULE_abc_header = 1, RULE_field_number = 2, 
@@ -36,13 +39,13 @@ public class ABCMusicHeaderParser extends Parser {
 		RULE_field_default_length = 6, RULE_field_meter = 7, RULE_field_tempo = 8, 
 		RULE_field_voice = 9, RULE_field_key = 10, RULE_tempo_fraction = 11, RULE_tempo_number = 12, 
 		RULE_eol = 13, RULE_meter = 14, RULE_tempo = 15, RULE_voice_text = 16, 
-		RULE_meter_fraction = 17, RULE_composer_text = 18, RULE_title_text = 19, 
+		RULE_length_fraction = 17, RULE_composer_text = 18, RULE_title_text = 19, 
 		RULE_number = 20, RULE_key_note = 21, RULE_comment = 22;
 	public static final String[] ruleNames = {
 		"abc_tune_header", "abc_header", "field_number", "field_title", "other_fields", 
 		"field_composer", "field_default_length", "field_meter", "field_tempo", 
 		"field_voice", "field_key", "tempo_fraction", "tempo_number", "eol", "meter", 
-		"tempo", "voice_text", "meter_fraction", "composer_text", "title_text", 
+		"tempo", "voice_text", "length_fraction", "composer_text", "title_text", 
 		"number", "key_note", "comment"
 	};
 
@@ -236,7 +239,7 @@ public class ABCMusicHeaderParser extends Parser {
 			setState(65); match(X);
 			setState(67);
 			_la = _input.LA(1);
-			if (_la==DIGIT) {
+			if (_la==INDEX) {
 				{
 				setState(66); number();
 				}
@@ -487,8 +490,8 @@ public class ABCMusicHeaderParser extends Parser {
 		public EolContext eol() {
 			return getRuleContext(EolContext.class,0);
 		}
-		public Meter_fractionContext meter_fraction() {
-			return getRuleContext(Meter_fractionContext.class,0);
+		public Length_fractionContext length_fraction() {
+			return getRuleContext(Length_fractionContext.class,0);
 		}
 		public Field_default_lengthContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -514,9 +517,9 @@ public class ABCMusicHeaderParser extends Parser {
 			setState(95); match(L);
 			setState(97);
 			_la = _input.LA(1);
-			if (_la==METER_FRACTION) {
+			if (_la==LENGTH_FRACTION) {
 				{
-				setState(96); meter_fraction();
+				setState(96); length_fraction();
 				}
 			}
 
@@ -1021,29 +1024,29 @@ public class ABCMusicHeaderParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Meter_fractionContext extends ParserRuleContext {
-		public TerminalNode METER_FRACTION() { return getToken(ABCMusicHeaderParser.METER_FRACTION, 0); }
-		public Meter_fractionContext(ParserRuleContext parent, int invokingState) {
+	public static class Length_fractionContext extends ParserRuleContext {
+		public TerminalNode LENGTH_FRACTION() { return getToken(ABCMusicHeaderParser.LENGTH_FRACTION, 0); }
+		public Length_fractionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_meter_fraction; }
+		@Override public int getRuleIndex() { return RULE_length_fraction; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).enterMeter_fraction(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).enterLength_fraction(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).exitMeter_fraction(this);
+			if ( listener instanceof ABCMusicHeaderParserListener ) ((ABCMusicHeaderParserListener)listener).exitLength_fraction(this);
 		}
 	}
 
-	public final Meter_fractionContext meter_fraction() throws RecognitionException {
-		Meter_fractionContext _localctx = new Meter_fractionContext(_ctx, getState());
-		enterRule(_localctx, 34, RULE_meter_fraction);
+	public final Length_fractionContext length_fraction() throws RecognitionException {
+		Length_fractionContext _localctx = new Length_fractionContext(_ctx, getState());
+		enterRule(_localctx, 34, RULE_length_fraction);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(146); match(METER_FRACTION);
+			setState(146); match(LENGTH_FRACTION);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1162,7 +1165,7 @@ public class ABCMusicHeaderParser extends Parser {
 	}
 
 	public static class NumberContext extends ParserRuleContext {
-		public TerminalNode DIGIT() { return getToken(ABCMusicHeaderParser.DIGIT, 0); }
+		public TerminalNode INDEX() { return getToken(ABCMusicHeaderParser.INDEX, 0); }
 		public NumberContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1183,7 +1186,7 @@ public class ABCMusicHeaderParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(158); match(DIGIT);
+			setState(158); match(INDEX);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1296,7 +1299,7 @@ public class ABCMusicHeaderParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\2\3!\u00ae\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4"+
+		"\2\3)\u00ae\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4"+
 		"\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20"+
 		"\4\21\t\21\4\22\t\22\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27"+
 		"\4\30\t\30\3\2\3\2\3\2\3\3\3\3\7\3\66\n\3\f\3\16\39\13\3\3\3\3\3\7\3="+
@@ -1309,41 +1312,41 @@ public class ABCMusicHeaderParser extends Parser {
 		"\3\24\6\24\u0098\n\24\r\24\16\24\u0099\3\25\6\25\u009d\n\25\r\25\16\25"+
 		"\u009e\3\26\3\26\3\27\3\27\3\30\3\30\7\30\u00a7\n\30\f\30\16\30\u00aa"+
 		"\13\30\3\30\3\30\3\30\2\31\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$"+
-		"&(*,.\2\4\3\23\24\4\21\21  \u00ad\2\60\3\2\2\2\4\63\3\2\2\2\6C\3\2\2\2"+
-		"\bI\3\2\2\2\nW\3\2\2\2\fY\3\2\2\2\16a\3\2\2\2\20g\3\2\2\2\22m\3\2\2\2"+
-		"\24s\3\2\2\2\26{\3\2\2\2\30\u0081\3\2\2\2\32\u0083\3\2\2\2\34\u0087\3"+
-		"\2\2\2\36\u0089\3\2\2\2 \u008b\3\2\2\2\"\u0090\3\2\2\2$\u0094\3\2\2\2"+
-		"&\u0097\3\2\2\2(\u009c\3\2\2\2*\u00a0\3\2\2\2,\u00a2\3\2\2\2.\u00a4\3"+
-		"\2\2\2\60\61\5\4\3\2\61\62\7\1\2\2\62\3\3\2\2\2\63\67\5\6\4\2\64\66\5"+
-		".\30\2\65\64\3\2\2\2\669\3\2\2\2\67\65\3\2\2\2\678\3\2\2\28:\3\2\2\29"+
-		"\67\3\2\2\2:>\5\b\5\2;=\5\n\6\2<;\3\2\2\2=@\3\2\2\2><\3\2\2\2>?\3\2\2"+
-		"\2?A\3\2\2\2@>\3\2\2\2AB\5\26\f\2B\5\3\2\2\2CE\7\3\2\2DF\5*\26\2ED\3\2"+
-		"\2\2EF\3\2\2\2FG\3\2\2\2GH\5\34\17\2H\7\3\2\2\2IK\7\4\2\2JL\5(\25\2KJ"+
-		"\3\2\2\2KL\3\2\2\2LO\3\2\2\2MP\7\32\2\2NP\5\34\17\2OM\3\2\2\2ON\3\2\2"+
-		"\2P\t\3\2\2\2QX\5\f\7\2RX\5\16\b\2SX\5\20\t\2TX\5\22\n\2UX\5\24\13\2V"+
-		"X\5.\30\2WQ\3\2\2\2WR\3\2\2\2WS\3\2\2\2WT\3\2\2\2WU\3\2\2\2WV\3\2\2\2"+
-		"X\13\3\2\2\2Y[\7\5\2\2Z\\\5&\24\2[Z\3\2\2\2[\\\3\2\2\2\\_\3\2\2\2]`\7"+
-		"\34\2\2^`\5\34\17\2_]\3\2\2\2_^\3\2\2\2`\r\3\2\2\2ac\7\6\2\2bd\5$\23\2"+
-		"cb\3\2\2\2cd\3\2\2\2de\3\2\2\2ef\5\34\17\2f\17\3\2\2\2gi\7\7\2\2hj\5\36"+
-		"\20\2ih\3\2\2\2ij\3\2\2\2jk\3\2\2\2kl\5\34\17\2l\21\3\2\2\2mo\7\b\2\2"+
-		"np\5 \21\2on\3\2\2\2op\3\2\2\2pq\3\2\2\2qr\5\34\17\2r\23\3\2\2\2su\7\t"+
-		"\2\2tv\5\"\22\2ut\3\2\2\2uv\3\2\2\2vy\3\2\2\2wz\7\36\2\2xz\5\34\17\2y"+
-		"w\3\2\2\2yx\3\2\2\2z\25\3\2\2\2{}\7\n\2\2|~\5,\27\2}|\3\2\2\2}~\3\2\2"+
-		"\2~\177\3\2\2\2\177\u0080\5\34\17\2\u0080\27\3\2\2\2\u0081\u0082\7\26"+
-		"\2\2\u0082\31\3\2\2\2\u0083\u0084\7\30\2\2\u0084\33\3\2\2\2\u0085\u0088"+
-		"\5.\30\2\u0086\u0088\7\21\2\2\u0087\u0085\3\2\2\2\u0087\u0086\3\2\2\2"+
-		"\u0088\35\3\2\2\2\u0089\u008a\t\2\2\2\u008a\37\3\2\2\2\u008b\u008c\5\30"+
-		"\r\2\u008c\u008d\7\27\2\2\u008d\u008e\5\32\16\2\u008e!\3\2\2\2\u008f\u0091"+
-		"\7\35\2\2\u0090\u008f\3\2\2\2\u0091\u0092\3\2\2\2\u0092\u0090\3\2\2\2"+
-		"\u0092\u0093\3\2\2\2\u0093#\3\2\2\2\u0094\u0095\7\24\2\2\u0095%\3\2\2"+
-		"\2\u0096\u0098\7\33\2\2\u0097\u0096\3\2\2\2\u0098\u0099\3\2\2\2\u0099"+
-		"\u0097\3\2\2\2\u0099\u009a\3\2\2\2\u009a\'\3\2\2\2\u009b\u009d\7\31\2"+
-		"\2\u009c\u009b\3\2\2\2\u009d\u009e\3\2\2\2\u009e\u009c\3\2\2\2\u009e\u009f"+
-		"\3\2\2\2\u009f)\3\2\2\2\u00a0\u00a1\7\20\2\2\u00a1+\3\2\2\2\u00a2\u00a3"+
-		"\7!\2\2\u00a3-\3\2\2\2\u00a4\u00a8\7\22\2\2\u00a5\u00a7\7\37\2\2\u00a6"+
-		"\u00a5\3\2\2\2\u00a7\u00aa\3\2\2\2\u00a8\u00a6\3\2\2\2\u00a8\u00a9\3\2"+
-		"\2\2\u00a9\u00ab\3\2\2\2\u00aa\u00a8\3\2\2\2\u00ab\u00ac\t\3\2\2\u00ac"+
-		"/\3\2\2\2\25\67>EKOW[_ciouy}\u0087\u0092\u0099\u009e\u00a8";
+		"&(*,.\2\4\3&\'\4\22\22  \u00ad\2\60\3\2\2\2\4\63\3\2\2\2\6C\3\2\2\2\b"+
+		"I\3\2\2\2\nW\3\2\2\2\fY\3\2\2\2\16a\3\2\2\2\20g\3\2\2\2\22m\3\2\2\2\24"+
+		"s\3\2\2\2\26{\3\2\2\2\30\u0081\3\2\2\2\32\u0083\3\2\2\2\34\u0087\3\2\2"+
+		"\2\36\u0089\3\2\2\2 \u008b\3\2\2\2\"\u0090\3\2\2\2$\u0094\3\2\2\2&\u0097"+
+		"\3\2\2\2(\u009c\3\2\2\2*\u00a0\3\2\2\2,\u00a2\3\2\2\2.\u00a4\3\2\2\2\60"+
+		"\61\5\4\3\2\61\62\7\1\2\2\62\3\3\2\2\2\63\67\5\6\4\2\64\66\5.\30\2\65"+
+		"\64\3\2\2\2\669\3\2\2\2\67\65\3\2\2\2\678\3\2\2\28:\3\2\2\29\67\3\2\2"+
+		"\2:>\5\b\5\2;=\5\n\6\2<;\3\2\2\2=@\3\2\2\2><\3\2\2\2>?\3\2\2\2?A\3\2\2"+
+		"\2@>\3\2\2\2AB\5\26\f\2B\5\3\2\2\2CE\7\3\2\2DF\5*\26\2ED\3\2\2\2EF\3\2"+
+		"\2\2FG\3\2\2\2GH\5\34\17\2H\7\3\2\2\2IK\7\4\2\2JL\5(\25\2KJ\3\2\2\2KL"+
+		"\3\2\2\2LO\3\2\2\2MP\7\32\2\2NP\5\34\17\2OM\3\2\2\2ON\3\2\2\2P\t\3\2\2"+
+		"\2QX\5\f\7\2RX\5\16\b\2SX\5\20\t\2TX\5\22\n\2UX\5\24\13\2VX\5.\30\2WQ"+
+		"\3\2\2\2WR\3\2\2\2WS\3\2\2\2WT\3\2\2\2WU\3\2\2\2WV\3\2\2\2X\13\3\2\2\2"+
+		"Y[\7\5\2\2Z\\\5&\24\2[Z\3\2\2\2[\\\3\2\2\2\\_\3\2\2\2]`\7\34\2\2^`\5\34"+
+		"\17\2_]\3\2\2\2_^\3\2\2\2`\r\3\2\2\2ac\7\6\2\2bd\5$\23\2cb\3\2\2\2cd\3"+
+		"\2\2\2de\3\2\2\2ef\5\34\17\2f\17\3\2\2\2gi\7\7\2\2hj\5\36\20\2ih\3\2\2"+
+		"\2ij\3\2\2\2jk\3\2\2\2kl\5\34\17\2l\21\3\2\2\2mo\7\b\2\2np\5 \21\2on\3"+
+		"\2\2\2op\3\2\2\2pq\3\2\2\2qr\5\34\17\2r\23\3\2\2\2su\7\t\2\2tv\5\"\22"+
+		"\2ut\3\2\2\2uv\3\2\2\2vy\3\2\2\2wz\7\36\2\2xz\5\34\17\2yw\3\2\2\2yx\3"+
+		"\2\2\2z\25\3\2\2\2{}\7\n\2\2|~\5,\27\2}|\3\2\2\2}~\3\2\2\2~\177\3\2\2"+
+		"\2\177\u0080\5\34\17\2\u0080\27\3\2\2\2\u0081\u0082\7\26\2\2\u0082\31"+
+		"\3\2\2\2\u0083\u0084\7\30\2\2\u0084\33\3\2\2\2\u0085\u0088\5.\30\2\u0086"+
+		"\u0088\7\22\2\2\u0087\u0085\3\2\2\2\u0087\u0086\3\2\2\2\u0088\35\3\2\2"+
+		"\2\u0089\u008a\t\2\2\2\u008a\37\3\2\2\2\u008b\u008c\5\30\r\2\u008c\u008d"+
+		"\7\27\2\2\u008d\u008e\5\32\16\2\u008e!\3\2\2\2\u008f\u0091\7\35\2\2\u0090"+
+		"\u008f\3\2\2\2\u0091\u0092\3\2\2\2\u0092\u0090\3\2\2\2\u0092\u0093\3\2"+
+		"\2\2\u0093#\3\2\2\2\u0094\u0095\7)\2\2\u0095%\3\2\2\2\u0096\u0098\7\33"+
+		"\2\2\u0097\u0096\3\2\2\2\u0098\u0099\3\2\2\2\u0099\u0097\3\2\2\2\u0099"+
+		"\u009a\3\2\2\2\u009a\'\3\2\2\2\u009b\u009d\7\31\2\2\u009c\u009b\3\2\2"+
+		"\2\u009d\u009e\3\2\2\2\u009e\u009c\3\2\2\2\u009e\u009f\3\2\2\2\u009f)"+
+		"\3\2\2\2\u00a0\u00a1\7$\2\2\u00a1+\3\2\2\2\u00a2\u00a3\7\"\2\2\u00a3-"+
+		"\3\2\2\2\u00a4\u00a8\7\23\2\2\u00a5\u00a7\7\37\2\2\u00a6\u00a5\3\2\2\2"+
+		"\u00a7\u00aa\3\2\2\2\u00a8\u00a6\3\2\2\2\u00a8\u00a9\3\2\2\2\u00a9\u00ab"+
+		"\3\2\2\2\u00aa\u00a8\3\2\2\2\u00ab\u00ac\t\3\2\2\u00ac/\3\2\2\2\25\67"+
+		">EKOW[_ciouy}\u0087\u0092\u0099\u009e\u00a8";
 	public static final ATN _ATN =
 		ATNSimulator.deserialize(_serializedATN.toCharArray());
 	static {

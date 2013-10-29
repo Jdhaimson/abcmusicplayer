@@ -53,9 +53,18 @@ public class HeaderListener extends ABCMusicHeaderParserBaseListener {
 	}
 
 	@Override 
-	public void exitMeter(ABCMusicHeaderParser.MeterContext ctx) { 
-		String[] fraction = ctx.getText().split("/");
-		field_meter = new Fraction(Integer.parseInt(fraction[0]), Integer.parseInt(fraction[1]));
+	public void exitMeter(ABCMusicHeaderParser.MeterContext ctx) {
+		String context = ctx.getText();
+		if (context.equals("C")){
+			field_meter = new Fraction(4,4);
+		}
+		else if (context.equals("C|")){
+			field_meter = new Fraction(2,2);
+		}
+		else{
+			String[] fraction = context.split("/");
+			field_meter = new Fraction(Integer.parseInt(fraction[0]), Integer.parseInt(fraction[1]));
+		}
 	}
 
 	@Override
@@ -64,7 +73,7 @@ public class HeaderListener extends ABCMusicHeaderParserBaseListener {
 	}
 
 	@Override 
-	public void exitMeter_fraction(ABCMusicHeaderParser.Meter_fractionContext ctx) { 
+	public void exitLength_fraction(ABCMusicHeaderParser.Length_fractionContext ctx) { 
 		String[] fraction = ctx.getText().split("/");
 		field_default_length = new Fraction(Integer.parseInt(fraction[0]), Integer.parseInt(fraction[1]));
 	}

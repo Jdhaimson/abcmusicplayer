@@ -7,25 +7,25 @@ package sound;
  *
  */
 public class Note implements MusicalElement {
-	private Chord chord;
+	private Pitch pitch;
 	private Fraction duration; // ie quarter note, whole note, etc
 	
 	/**
 	 * Constructor of Note object
-	 * @param chord: Chord object to be played as note 
-	 * @param duration: Double representing type of note (ie .25 = quarter note)
+	 * @param pitch: Pitch object of the note 
+	 * @param duration: Fraction representing type of note
 	 */
-	public Note(Chord chord, Fraction duration) {
-		this.chord = chord;
+	public Note(Pitch pitch, Fraction duration) {
+		this.pitch = pitch;
 		this.duration = duration;
 	}
 	
 	/**
-	 * Gets list of all pitches in note
-	 * @return chord for note
+	 * Gets pitch of note
+	 * @return pitch for note
 	 */
-	public Chord getChord() {
-		return this.chord;
+	public Pitch getPitch() {
+		return this.pitch;
 	}
 	
 	/*
@@ -51,7 +51,7 @@ public class Note implements MusicalElement {
 	 * @see java.lang.Object#clone()
 	 */
 	public Note clone() {
-		return new Note(this.chord, this.duration);
+		return new Note(this.pitch, this.duration);
 	}
 	
 	/*
@@ -60,7 +60,7 @@ public class Note implements MusicalElement {
 	 */
 	@Override
 	public String toString() {
-		return this.chord.toString() + ":" + this.duration.toString();
+		return this.pitch.toString() + ":" + this.duration.toString();
 	}
 
 	/* (non-Javadoc)
@@ -70,9 +70,9 @@ public class Note implements MusicalElement {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((chord == null) ? 0 : chord.hashCode());
 		result = prime * result
 				+ ((duration == null) ? 0 : duration.hashCode());
+		result = prime * result + ((pitch == null) ? 0 : pitch.hashCode());
 		return result;
 	}
 
@@ -91,18 +91,18 @@ public class Note implements MusicalElement {
 			return false;
 		}
 		Note other = (Note) obj;
-		if (chord == null) {
-			if (other.chord != null) {
-				return false;
-			}
-		} else if (!chord.equals(other.chord)) {
-			return false;
-		}
 		if (duration == null) {
 			if (other.duration != null) {
 				return false;
 			}
 		} else if (!duration.equals(other.duration)) {
+			return false;
+		}
+		if (pitch == null) {
+			if (other.pitch != null) {
+				return false;
+			}
+		} else if (!pitch.equals(other.pitch)) {
 			return false;
 		}
 		return true;

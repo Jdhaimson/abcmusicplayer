@@ -32,16 +32,16 @@ public class ABCMusicBodyParser extends Parser {
 	public static final int
 		RULE_abc_tune_body = 0, RULE_abc_music = 1, RULE_abc_line = 2, RULE_bar_line = 3, 
 		RULE_nth_repeat = 4, RULE_space = 5, RULE_measure = 6, RULE_element = 7, 
-		RULE_note_element = 8, RULE_note_length = 9, RULE_note = 10, RULE_multi_note = 11, 
-		RULE_note_or_rest = 12, RULE_rest = 13, RULE_pitch = 14, RULE_base_note_octave = 15, 
-		RULE_accidental = 16, RULE_tuplet_element = 17, RULE_tuplet_spec = 18, 
+		RULE_note_element = 8, RULE_note = 9, RULE_multi_note = 10, RULE_note_or_rest = 11, 
+		RULE_rest = 12, RULE_pitch = 13, RULE_base_note_octave = 14, RULE_accidental = 15, 
+		RULE_note_length = 16, RULE_tuplet_element = 17, RULE_tuplet_spec = 18, 
 		RULE_tuplet_digit = 19, RULE_mid_tune_field = 20, RULE_field_voice = 21, 
 		RULE_voice = 22, RULE_lyric = 23, RULE_lyric_text = 24, RULE_lyric_element = 25, 
 		RULE_comment = 26, RULE_eol = 27;
 	public static final String[] ruleNames = {
 		"abc_tune_body", "abc_music", "abc_line", "bar_line", "nth_repeat", "space", 
-		"measure", "element", "note_element", "note_length", "note", "multi_note", 
-		"note_or_rest", "rest", "pitch", "base_note_octave", "accidental", "tuplet_element", 
+		"measure", "element", "note_element", "note", "multi_note", "note_or_rest", 
+		"rest", "pitch", "base_note_octave", "accidental", "note_length", "tuplet_element", 
 		"tuplet_spec", "tuplet_digit", "mid_tune_field", "field_voice", "voice", 
 		"lyric", "lyric_text", "lyric_element", "comment", "eol"
 	};
@@ -598,42 +598,6 @@ public class ABCMusicBodyParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Note_lengthContext extends ParserRuleContext {
-		public TerminalNode NOTE_LENGTH() { return getToken(ABCMusicBodyParser.NOTE_LENGTH, 0); }
-		public Note_lengthContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_note_length; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicBodyParserListener ) ((ABCMusicBodyParserListener)listener).enterNote_length(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ABCMusicBodyParserListener ) ((ABCMusicBodyParserListener)listener).exitNote_length(this);
-		}
-	}
-
-	public final Note_lengthContext note_length() throws RecognitionException {
-		Note_lengthContext _localctx = new Note_lengthContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_note_length);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(99); match(NOTE_LENGTH);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
 	public static class NoteContext extends ParserRuleContext {
 		public Note_or_restContext note_or_rest() {
 			return getRuleContext(Note_or_restContext.class,0);
@@ -657,17 +621,17 @@ public class ABCMusicBodyParser extends Parser {
 
 	public final NoteContext note() throws RecognitionException {
 		NoteContext _localctx = new NoteContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_note);
+		enterRule(_localctx, 18, RULE_note);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(101); note_or_rest();
-			setState(103);
+			setState(99); note_or_rest();
+			setState(101);
 			_la = _input.LA(1);
 			if (_la==NOTE_LENGTH) {
 				{
-				setState(102); note_length();
+				setState(100); note_length();
 				}
 			}
 
@@ -709,26 +673,26 @@ public class ABCMusicBodyParser extends Parser {
 
 	public final Multi_noteContext multi_note() throws RecognitionException {
 		Multi_noteContext _localctx = new Multi_noteContext(_ctx, getState());
-		enterRule(_localctx, 22, RULE_multi_note);
+		enterRule(_localctx, 20, RULE_multi_note);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(105); match(OPEN_BRACK);
-			setState(107); 
+			setState(103); match(OPEN_BRACK);
+			setState(105); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(106); note();
+				setState(104); note();
 				}
 				}
-				setState(109); 
+				setState(107); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ACCIDENTAL) | (1L << REST) | (1L << BASE_NOTE_OCTAVE))) != 0) );
-			setState(111); match(CLOSED_BRACK);
+			setState(109); match(CLOSED_BRACK);
 			}
 		}
 		catch (RecognitionException re) {
@@ -765,21 +729,21 @@ public class ABCMusicBodyParser extends Parser {
 
 	public final Note_or_restContext note_or_rest() throws RecognitionException {
 		Note_or_restContext _localctx = new Note_or_restContext(_ctx, getState());
-		enterRule(_localctx, 24, RULE_note_or_rest);
+		enterRule(_localctx, 22, RULE_note_or_rest);
 		try {
-			setState(115);
+			setState(113);
 			switch (_input.LA(1)) {
 			case ACCIDENTAL:
 			case BASE_NOTE_OCTAVE:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(113); pitch();
+				setState(111); pitch();
 				}
 				break;
 			case REST:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(114); rest();
+				setState(112); rest();
 				}
 				break;
 			default:
@@ -815,11 +779,11 @@ public class ABCMusicBodyParser extends Parser {
 
 	public final RestContext rest() throws RecognitionException {
 		RestContext _localctx = new RestContext(_ctx, getState());
-		enterRule(_localctx, 26, RULE_rest);
+		enterRule(_localctx, 24, RULE_rest);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(117); match(REST);
+			setState(115); match(REST);
 			}
 		}
 		catch (RecognitionException re) {
@@ -856,20 +820,20 @@ public class ABCMusicBodyParser extends Parser {
 
 	public final PitchContext pitch() throws RecognitionException {
 		PitchContext _localctx = new PitchContext(_ctx, getState());
-		enterRule(_localctx, 28, RULE_pitch);
+		enterRule(_localctx, 26, RULE_pitch);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(120);
+			setState(118);
 			_la = _input.LA(1);
 			if (_la==ACCIDENTAL) {
 				{
-				setState(119); accidental();
+				setState(117); accidental();
 				}
 			}
 
-			setState(122); base_note_octave();
+			setState(120); base_note_octave();
 			}
 		}
 		catch (RecognitionException re) {
@@ -901,11 +865,11 @@ public class ABCMusicBodyParser extends Parser {
 
 	public final Base_note_octaveContext base_note_octave() throws RecognitionException {
 		Base_note_octaveContext _localctx = new Base_note_octaveContext(_ctx, getState());
-		enterRule(_localctx, 30, RULE_base_note_octave);
+		enterRule(_localctx, 28, RULE_base_note_octave);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(124); match(BASE_NOTE_OCTAVE);
+			setState(122); match(BASE_NOTE_OCTAVE);
 			}
 		}
 		catch (RecognitionException re) {
@@ -937,11 +901,47 @@ public class ABCMusicBodyParser extends Parser {
 
 	public final AccidentalContext accidental() throws RecognitionException {
 		AccidentalContext _localctx = new AccidentalContext(_ctx, getState());
-		enterRule(_localctx, 32, RULE_accidental);
+		enterRule(_localctx, 30, RULE_accidental);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(126); match(ACCIDENTAL);
+			setState(124); match(ACCIDENTAL);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class Note_lengthContext extends ParserRuleContext {
+		public TerminalNode NOTE_LENGTH() { return getToken(ABCMusicBodyParser.NOTE_LENGTH, 0); }
+		public Note_lengthContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_note_length; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ABCMusicBodyParserListener ) ((ABCMusicBodyParserListener)listener).enterNote_length(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ABCMusicBodyParserListener ) ((ABCMusicBodyParserListener)listener).exitNote_length(this);
+		}
+	}
+
+	public final Note_lengthContext note_length() throws RecognitionException {
+		Note_lengthContext _localctx = new Note_lengthContext(_ctx, getState());
+		enterRule(_localctx, 32, RULE_note_length);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(126); match(NOTE_LENGTH);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1534,19 +1534,19 @@ public class ABCMusicBodyParser extends Parser {
 		"\27\4\30\t\30\4\31\t\31\4\32\t\32\4\33\t\33\4\34\t\34\4\35\t\35\3\2\3"+
 		"\2\3\2\3\3\6\3?\n\3\r\3\16\3@\3\4\6\4D\n\4\r\4\16\4E\3\4\3\4\5\4J\n\4"+
 		"\3\4\3\4\5\4N\n\4\3\5\3\5\3\6\3\6\3\7\3\7\3\b\3\b\3\b\6\bY\n\b\r\b\16"+
-		"\bZ\3\t\3\t\5\t_\n\t\3\n\3\n\3\n\5\nd\n\n\3\13\3\13\3\f\3\f\5\fj\n\f\3"+
-		"\r\3\r\6\rn\n\r\r\r\16\ro\3\r\3\r\3\16\3\16\5\16v\n\16\3\17\3\17\3\20"+
-		"\5\20{\n\20\3\20\3\20\3\21\3\21\3\22\3\22\3\23\3\23\3\23\6\23\u0086\n"+
-		"\23\r\23\16\23\u0087\3\24\3\24\3\24\3\25\3\25\3\26\3\26\3\27\3\27\3\27"+
-		"\3\27\5\27\u0095\n\27\3\30\7\30\u0098\n\30\f\30\16\30\u009b\13\30\3\31"+
-		"\3\31\3\31\7\31\u00a0\n\31\f\31\16\31\u00a3\13\31\3\31\3\31\3\32\3\32"+
-		"\3\33\3\33\3\34\3\34\7\34\u00ad\n\34\f\34\16\34\u00b0\13\34\3\34\3\34"+
-		"\3\35\3\35\5\35\u00b6\n\35\3\35\2\36\2\4\6\b\n\f\16\20\22\24\26\30\32"+
-		"\34\36 \"$&(*,.\60\62\64\668\2\3\4\21\21\25\25\u00b2\2:\3\2\2\2\4>\3\2"+
-		"\2\2\6M\3\2\2\2\bO\3\2\2\2\nQ\3\2\2\2\fS\3\2\2\2\16X\3\2\2\2\20^\3\2\2"+
-		"\2\22c\3\2\2\2\24e\3\2\2\2\26g\3\2\2\2\30k\3\2\2\2\32u\3\2\2\2\34w\3\2"+
-		"\2\2\36z\3\2\2\2 ~\3\2\2\2\"\u0080\3\2\2\2$\u0082\3\2\2\2&\u0089\3\2\2"+
-		"\2(\u008c\3\2\2\2*\u008e\3\2\2\2,\u0090\3\2\2\2.\u0099\3\2\2\2\60\u009c"+
+		"\bZ\3\t\3\t\5\t_\n\t\3\n\3\n\3\n\5\nd\n\n\3\13\3\13\5\13h\n\13\3\f\3\f"+
+		"\6\fl\n\f\r\f\16\fm\3\f\3\f\3\r\3\r\5\rt\n\r\3\16\3\16\3\17\5\17y\n\17"+
+		"\3\17\3\17\3\20\3\20\3\21\3\21\3\22\3\22\3\23\3\23\3\23\6\23\u0086\n\23"+
+		"\r\23\16\23\u0087\3\24\3\24\3\24\3\25\3\25\3\26\3\26\3\27\3\27\3\27\3"+
+		"\27\5\27\u0095\n\27\3\30\7\30\u0098\n\30\f\30\16\30\u009b\13\30\3\31\3"+
+		"\31\3\31\7\31\u00a0\n\31\f\31\16\31\u00a3\13\31\3\31\3\31\3\32\3\32\3"+
+		"\33\3\33\3\34\3\34\7\34\u00ad\n\34\f\34\16\34\u00b0\13\34\3\34\3\34\3"+
+		"\35\3\35\5\35\u00b6\n\35\3\35\2\36\2\4\6\b\n\f\16\20\22\24\26\30\32\34"+
+		"\36 \"$&(*,.\60\62\64\668\2\3\4\21\21\25\25\u00b2\2:\3\2\2\2\4>\3\2\2"+
+		"\2\6M\3\2\2\2\bO\3\2\2\2\nQ\3\2\2\2\fS\3\2\2\2\16X\3\2\2\2\20^\3\2\2\2"+
+		"\22c\3\2\2\2\24e\3\2\2\2\26i\3\2\2\2\30s\3\2\2\2\32u\3\2\2\2\34x\3\2\2"+
+		"\2\36|\3\2\2\2 ~\3\2\2\2\"\u0080\3\2\2\2$\u0082\3\2\2\2&\u0089\3\2\2\2"+
+		"(\u008c\3\2\2\2*\u008e\3\2\2\2,\u0090\3\2\2\2.\u0099\3\2\2\2\60\u009c"+
 		"\3\2\2\2\62\u00a6\3\2\2\2\64\u00a8\3\2\2\2\66\u00aa\3\2\2\28\u00b5\3\2"+
 		"\2\2:;\5\4\3\2;<\7\1\2\2<\3\3\2\2\2=?\5\6\4\2>=\3\2\2\2?@\3\2\2\2@>\3"+
 		"\2\2\2@A\3\2\2\2A\5\3\2\2\2BD\5\20\t\2CB\3\2\2\2DE\3\2\2\2EC\3\2\2\2E"+
@@ -1555,16 +1555,16 @@ public class ABCMusicBodyParser extends Parser {
 		"\7\2\2P\t\3\2\2\2QR\7\b\2\2R\13\3\2\2\2ST\7\20\2\2T\r\3\2\2\2UY\5\22\n"+
 		"\2VY\5\n\6\2WY\5\f\7\2XU\3\2\2\2XV\3\2\2\2XW\3\2\2\2YZ\3\2\2\2ZX\3\2\2"+
 		"\2Z[\3\2\2\2[\17\3\2\2\2\\_\5\16\b\2]_\5\b\5\2^\\\3\2\2\2^]\3\2\2\2_\21"+
-		"\3\2\2\2`d\5\26\f\2ad\5\30\r\2bd\5$\23\2c`\3\2\2\2ca\3\2\2\2cb\3\2\2\2"+
-		"d\23\3\2\2\2ef\7\t\2\2f\25\3\2\2\2gi\5\32\16\2hj\5\24\13\2ih\3\2\2\2i"+
-		"j\3\2\2\2j\27\3\2\2\2km\7\f\2\2ln\5\26\f\2ml\3\2\2\2no\3\2\2\2om\3\2\2"+
-		"\2op\3\2\2\2pq\3\2\2\2qr\7\r\2\2r\31\3\2\2\2sv\5\36\20\2tv\5\34\17\2u"+
-		"s\3\2\2\2ut\3\2\2\2v\33\3\2\2\2wx\7\6\2\2x\35\3\2\2\2y{\5\"\22\2zy\3\2"+
-		"\2\2z{\3\2\2\2{|\3\2\2\2|}\5 \21\2}\37\3\2\2\2~\177\7\23\2\2\177!\3\2"+
-		"\2\2\u0080\u0081\7\5\2\2\u0081#\3\2\2\2\u0082\u0085\5&\24\2\u0083\u0086"+
-		"\5\26\f\2\u0084\u0086\5\30\r\2\u0085\u0083\3\2\2\2\u0085\u0084\3\2\2\2"+
-		"\u0086\u0087\3\2\2\2\u0087\u0085\3\2\2\2\u0087\u0088\3\2\2\2\u0088%\3"+
-		"\2\2\2\u0089\u008a\7\13\2\2\u008a\u008b\5(\25\2\u008b\'\3\2\2\2\u008c"+
+		"\3\2\2\2`d\5\24\13\2ad\5\26\f\2bd\5$\23\2c`\3\2\2\2ca\3\2\2\2cb\3\2\2"+
+		"\2d\23\3\2\2\2eg\5\30\r\2fh\5\"\22\2gf\3\2\2\2gh\3\2\2\2h\25\3\2\2\2i"+
+		"k\7\f\2\2jl\5\24\13\2kj\3\2\2\2lm\3\2\2\2mk\3\2\2\2mn\3\2\2\2no\3\2\2"+
+		"\2op\7\r\2\2p\27\3\2\2\2qt\5\34\17\2rt\5\32\16\2sq\3\2\2\2sr\3\2\2\2t"+
+		"\31\3\2\2\2uv\7\6\2\2v\33\3\2\2\2wy\5 \21\2xw\3\2\2\2xy\3\2\2\2yz\3\2"+
+		"\2\2z{\5\36\20\2{\35\3\2\2\2|}\7\23\2\2}\37\3\2\2\2~\177\7\5\2\2\177!"+
+		"\3\2\2\2\u0080\u0081\7\t\2\2\u0081#\3\2\2\2\u0082\u0085\5&\24\2\u0083"+
+		"\u0086\5\24\13\2\u0084\u0086\5\26\f\2\u0085\u0083\3\2\2\2\u0085\u0084"+
+		"\3\2\2\2\u0086\u0087\3\2\2\2\u0087\u0085\3\2\2\2\u0087\u0088\3\2\2\2\u0088"+
+		"%\3\2\2\2\u0089\u008a\7\13\2\2\u008a\u008b\5(\25\2\u008b\'\3\2\2\2\u008c"+
 		"\u008d\7\33\2\2\u008d)\3\2\2\2\u008e\u008f\5,\27\2\u008f+\3\2\2\2\u0090"+
 		"\u0091\7\4\2\2\u0091\u0094\5.\30\2\u0092\u0095\7\32\2\2\u0093\u0095\5"+
 		"8\35\2\u0094\u0092\3\2\2\2\u0094\u0093\3\2\2\2\u0095-\3\2\2\2\u0096\u0098"+
@@ -1578,7 +1578,7 @@ public class ABCMusicBodyParser extends Parser {
 		"\u00ab\3\2\2\2\u00ad\u00b0\3\2\2\2\u00ae\u00ac\3\2\2\2\u00ae\u00af\3\2"+
 		"\2\2\u00af\u00b1\3\2\2\2\u00b0\u00ae\3\2\2\2\u00b1\u00b2\t\2\2\2\u00b2"+
 		"\67\3\2\2\2\u00b3\u00b6\5\66\34\2\u00b4\u00b6\7\21\2\2\u00b5\u00b3\3\2"+
-		"\2\2\u00b5\u00b4\3\2\2\2\u00b69\3\2\2\2\26@EIMXZ^ciouz\u0085\u0087\u0094"+
+		"\2\2\u00b5\u00b4\3\2\2\2\u00b69\3\2\2\2\26@EIMXZ^cgmsx\u0085\u0087\u0094"+
 		"\u0099\u009f\u00a1\u00ae\u00b5";
 	public static final ATN _ATN =
 		ATNSimulator.deserialize(_serializedATN.toCharArray());

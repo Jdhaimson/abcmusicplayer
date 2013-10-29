@@ -69,8 +69,12 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException, MidiUnavailableException, InvalidMidiDataException {
         // CALL play() HERE
+<<<<<<< Updated upstream
     	
     	String file = "sample_abc/fur_elise.abc";
+=======
+    	String file = "sample_abc/waxies_dargle.abc";
+>>>>>>> Stashed changes
     	play(file);
     }
     

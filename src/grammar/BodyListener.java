@@ -29,7 +29,10 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 	private HashMap<String, Boolean> voicesAdded = new HashMap<String, Boolean>();
 	
 	private List<MusicalElement> currentElements = new LinkedList<MusicalElement>();
-
+	private List<MusicalElement> chordElements = new LinkedList<MusicalElement>();
+	private boolean inChord = false;
+	
+	
 	private String currentPitchStr;
 	private Fraction currentLen;
 	private String currentAccidental = "";
@@ -103,8 +106,9 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 	@Override public void enterNote(ABCMusicBodyParser.NoteContext ctx) { }
 	@Override 
 	public void exitNote(ABCMusicBodyParser.NoteContext ctx) {
+		MusicalElement newElement;
 		if (this.currentPitchStr.equals("z")) {
-			this.currentElements.add(new Rest(this.currentLen));
+			newElement = new Rest(this.currentLen);
 		} else {
 			// add new note to currentElements
 			Pitch pitch;
@@ -113,8 +117,16 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 			} else {
 				pitch = this.song.getPitchInKey(this.currentPitchStr);
 			}
-			this.currentElements.add(new Note(pitch, this.currentLen));
+			newElement = new Note(pitch, this.currentLen);
 		}
+		
+		//If we're constructing a chord, add to chord list instead of normal list 
+		if(this.inChord) {
+			this.chordElements.add(newElement);
+		} else {
+			this.currentElements.add(newElement);
+		}
+		
 		this.currentLen = this.song.getDefaultNoteLen();
 	}
 	
@@ -154,13 +166,16 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 	
 	
 	@Override 
-	public void enterMulti_note(ABCMusicBodyParser.Multi_noteContext ctx) {}
+	public void enterMulti_note(ABCMusicBodyParser.Multi_noteContext ctx) {
+		this.inChord = true;
+	}
 	@Override public void exitMulti_note(ABCMusicBodyParser.Multi_noteContext ctx) {
 		List<Note> chordNotes = new LinkedList<Note>();
-		for (int i=0; i<this.currentElements.size(); i++) {
-			chordNotes.add((Note) this.currentElements.remove(0));
+		for (int i=0; i<this.chordElements.size(); i++) {
+			chordNotes.add((Note) this.chordElements.remove(0));
 		}
 		this.currentElements.add(new Chord(chordNotes));
+		this.inChord = false;
 	}
 
 	@Override public void enterTuplet_element(ABCMusicBodyParser.Tuplet_elementContext ctx) { }

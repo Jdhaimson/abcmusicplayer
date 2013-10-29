@@ -15,18 +15,29 @@ public class Tuplet implements MusicalElement {
 	
 	/**
 	 * Object representing Tuplet
-	 * @param chords: List of chords in tuplet, length of list is type of tuplet
+	 * @param elements: List of elements in tuplet, length of list is type of tuplet
 	 * Currently only implements subset of ABC notation required, thus list
 	 * cannot be longer than 4 notes
-	 * @param duration: duration of tuplet as fraction
 	 */
-	public Tuplet(List<MusicalElement> elements, Fraction duration) {
+	public Tuplet(List<MusicalElement> elements) {
 		this.elements = elements;
-		this.duration = duration;
 		this.type = elements.size();
-		if (this.type > 4) {
+		if (this.type > 4 || this.type < 2) {
 			throw new IllegalArgumentException("Only supports Duplets, Triplets or Quadruplets");
 		}
+		Fraction elementDuration = this.elements.get(0).getDuration();
+		int numeratorModifier = 1;
+		if (this.type == 4) {
+			// Quadruplets last for 3* the length of each individual note
+			numeratorModifier = 3;	
+		} else if (this.type == 3) {
+			// Triplets last for 2* the length of each individual note
+			numeratorModifier = 2;
+		} else { // type == 2 
+			// Duplets last for 3* the length of each individual note
+			numeratorModifier = 3;
+		}
+		this.duration = new Fraction(elementDuration.getNumerator()*numeratorModifier, elementDuration.getDenominator());
 	}
 	
 	/**
@@ -84,6 +95,6 @@ public class Tuplet implements MusicalElement {
 	 * @see java.lang.Object#clone()
 	 */
 	public Tuplet clone() {
-		return new Tuplet(this.getElements(), this.duration);
+		return new Tuplet(this.getElements());
 	}
 }

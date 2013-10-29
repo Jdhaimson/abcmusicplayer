@@ -106,9 +106,12 @@ public class Measure {
 	/**
 	 * Modify key as we go along in case we hit an accidental
 	 * @param note
-	 * @param accidental
+	 * @param accidentalString
 	 */
-	public void modifyKey(String note, int semitonesUp) {
+	public void modifyKey(String note, String accidentalString) {
+		int semitonesUp = 0;
+      	semitonesUp += accidentalString.replaceAll("[^^]", "").length();
+    	semitonesUp -= accidentalString.replaceAll("[^_]", "").length();
 		this.accidentalKey.alterKey(note, semitonesUp);
 	}
 	

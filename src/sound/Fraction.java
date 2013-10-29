@@ -7,7 +7,7 @@ import java.io.*;
 /** The Fraction class implements non-negative fractions, i.e., rational 
  * numbers.   
  */
-class Fraction {
+public class Fraction {
 	
 	/* private fields within a Fraction.           */ 
 	private int numerator;
@@ -17,7 +17,7 @@ class Fraction {
 	 *  @param n is the numerator, assumed non-negative.
 	 *  @param d is the denominator, assumed positive.
 	 */
-	Fraction(int n, int d) {
+	public Fraction(int n, int d) {
 		numerator = n; 
 		denominator = d;
 	}
@@ -66,7 +66,7 @@ class Fraction {
 	}
 
 	/**
-	 * Gets numerator of fracction
+	 * Gets numerator of fraction
 	 * @return int: numerator of fraction
 	 */
 	public int getNumerator() {

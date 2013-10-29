@@ -109,36 +109,36 @@ public class VoiceTest {
         pitches2.add(new Pitch('F'));
         pitches2.add(new Pitch('G'));
         
-        Note note1 = new Note(pitches1, .25);
-        Note note2 = new Note(pitches1, .5);
-        Note note3 = new Note(pitches2, .25);
+        Note note1 = new Note(new Pitch('C'), new Fraction(1, 4));
+        Note note2 = new Note(new Pitch('E'), new Fraction(1, 2));
+        Note note3 = new Note(new Pitch('G'), new Fraction(1, 4));
         
         try {
-            voice1.addNote(note1);
+            voice1.addMusicalElement(note1);
         } catch (Exception e) {
             e.printStackTrace();
         }
         
         notesToCheck.add(note1);
-        assertEquals(true, voice1.getNotes().equals(notesToCheck));
+        assertEquals(true, voice1.getMusicalElements().equals(notesToCheck));
         
         try {
-            voice1.addNote(note1);
+            voice1.addMusicalElement(note1);
         } catch (Exception e) {
             e.printStackTrace();
         }
         
         notesToCheck.add(note1);
-        assertEquals(true, voice1.getNotes().equals(notesToCheck));
+        assertEquals(true, voice1.getMusicalElements().equals(notesToCheck));
         
         try {
-            voice1.addNote(note2);
+            voice1.addMusicalElement(note2);
         } catch (Exception e) {
             e.printStackTrace();
         }
         
         notesToCheck.add(note2);
-        assertEquals(true, voice1.getNotes().equals(notesToCheck));
+        assertEquals(true, voice1.getMusicalElements().equals(notesToCheck));
 	}
 	
 	@Test(expected = Exception.class) 
@@ -155,10 +155,8 @@ public class VoiceTest {
         pitches2.add(new Pitch('F'));
         pitches2.add(new Pitch('G'));
         
-        Note note2 = new Note(pitches1, .5);
+        Note note2 = new Note(new Pitch('C'), new Fraction(1, 2));
         
-        voice1.addNote(note2);
-
-        
+        voice1.addMusicalElement(note2);   
 	}
 }

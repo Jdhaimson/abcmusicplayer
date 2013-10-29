@@ -143,7 +143,7 @@ public class Song {
 			else if(split.length == 2) {
 				if (split[0].equals("")) {				
 					// "/2" => ["", "2"]
-					// Default numerator to 1, get denom froms tring
+					// Default numerator to 1, get denom from string
 					int denom = Integer.parseInt(split[1]);
 					return new Fraction(def.getNumerator(), denom*def.getDenominator());
 				} 
@@ -199,7 +199,7 @@ public class Song {
 	
 	/**
 	 * Creates a basic lyric listener object
-	 * @return LyricListener: basic lyrici listener object
+	 * @return LyricListener: basic lyric listener object
 	 */
 	public LyricListener getBasicLyricListener() {
 		LyricListener ll = new LyricListener() {
@@ -244,13 +244,13 @@ public class Song {
 	
 	public void scheduleBasicElement(SequencePlayer sp, MusicalElement element, int voiceTicks) {
 		if (element instanceof Rest) {
-			System.out.println("Scheduled Rest at tick #" + voiceTicks);
+			//System.out.println("Scheduled Rest at tick #" + voiceTicks);
 		}
 		else if (element instanceof Note) {
 			Note note = (Note) element;
 			int noteDuration = (int) ((double)note.getDuration().evaluate()*this.getTicksPerWholeNote());
 			sp.addNote(note.getPitch().toMidiNote(), voiceTicks, noteDuration);
-			System.out.println("Scheduled " + note.toString() + " at tick #" + voiceTicks);
+			//System.out.println("Scheduled " + note.toString() + " at tick #" + voiceTicks);
 
 		} 
 		else if (element instanceof Chord) {
@@ -259,7 +259,7 @@ public class Song {
 			for (Note note: notes) {
 				int noteDuration = (int) ((double)note.getDuration().evaluate()*this.getTicksPerWholeNote());
 				sp.addNote(note.getPitch().toMidiNote(), voiceTicks, noteDuration);
-				System.out.println("Scheduled " + note.toString() + " at tick #" + voiceTicks);
+				//System.out.println("Scheduled " + note.toString() + " at tick #" + voiceTicks);
 			}	
 		}
 	}
@@ -305,4 +305,102 @@ public class Song {
 		return this.title + "\n" + this.composer + "\n" + this.meter + "\n" + this.defaultLength
 				+ "\n" + this.tempoNoteType + "\n" + this.tempoNPM + "\n" + this.key;
 	}
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result
+                + ((composer == null) ? 0 : composer.hashCode());
+        result = prime * result
+                + ((defaultLength == null) ? 0 : defaultLength.hashCode());
+        result = prime * result + index;
+        result = prime * result + ((key == null) ? 0 : key.hashCode());
+        result = prime * result
+                + ((measures == null) ? 0 : measures.hashCode());
+        result = prime * result + ((meter == null) ? 0 : meter.hashCode());
+        result = prime * result + tempoNPM;
+        result = prime * result
+                + ((tempoNoteType == null) ? 0 : tempoNoteType.hashCode());
+        result = prime * result + ((title == null) ? 0 : title.hashCode());
+        return result;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Song)) {
+            return false;
+        }
+        Song other = (Song) obj;
+        if (composer == null) {
+            if (other.composer != null) {
+                return false;
+            }
+        } else if (!composer.equals(other.composer)) {
+            return false;
+        }
+        if (defaultLength == null) {
+            if (other.defaultLength != null) {
+                return false;
+            }
+        } else if (!defaultLength.equals(other.defaultLength)) {
+            return false;
+        }
+        if (index != other.index) {
+            return false;
+        }
+        if (key == null) {
+            if (other.key != null) {
+                return false;
+            }
+        } else if (!key.equals(other.key)) {
+            return false;
+        }
+        if (measures == null) {
+            if (other.measures != null) {
+                return false;
+            }
+        } else if (!measures.equals(other.measures)) {
+            return false;
+        }
+        if (meter == null) {
+            if (other.meter != null) {
+                return false;
+            }
+        } else if (!meter.equals(other.meter)) {
+            return false;
+        }
+        if (tempoNPM != other.tempoNPM) {
+            return false;
+        }
+        if (tempoNoteType == null) {
+            if (other.tempoNoteType != null) {
+                return false;
+            }
+        } else if (!tempoNoteType.equals(other.tempoNoteType)) {
+            return false;
+        }
+        if (title == null) {
+            if (other.title != null) {
+                return false;
+            }
+        } else if (!title.equals(other.title)) {
+            return false;
+        }
+        return true;
+    }
+	
+	
 }

@@ -87,8 +87,14 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 	@Override 
 	public void enterMeasure(ABCMusicBodyParser.MeasureContext ctx) { 
 		// Add new measure to list
-		Measure measure = new Measure(this.song.getNotesPerMeasure(), currentMeasureNum);
-		this.measures.add(measure);
+		Measure measure;
+		if (this.currentMeasureNum < this.measures.size()) {
+			measure = this.measures.get(currentMeasureNum);
+		} else {
+			// Create new measure
+			measure = new Measure(this.song.getNotesPerMeasure(), currentMeasureNum);
+			this.measures.add(measure);	
+		}
 		this.currentMeasure = measure;
 		// create current voice
 		this.currentVoice = new Voice(this.currentVoiceName, this.song.getNotesPerMeasure());	

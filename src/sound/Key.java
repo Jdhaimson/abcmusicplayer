@@ -34,17 +34,16 @@ public class Key {
 	 * Alters Key with accidental on note
 	 * Ex. alterKey('C', 1) makes all C's a C#
 	 * @param note: Note to be altered in Key signature
-	 * @param semitonesUp: Accidental in semitones up to apply to note
+	 * @param accidentalString: string of accidentals to apply to note
 	 */
-	public void alterKey(String note, int semitonesUp) {
-		Pitch currentPitch;
-		if (this.keySignature.containsKey(note)) {
-			currentPitch = this.keySignature.get(note);
-		} else {
-			currentPitch = new Pitch(note);
-		}
-		currentPitch.accidentalTranspose(semitonesUp);
-		this.keySignature.put(note, currentPitch);
+	public void alterKey(String note, String accidentalString) {
+		int semitonesUp = 0;
+      	semitonesUp += accidentalString.replaceAll("[^^]", "").length();
+    	semitonesUp -= accidentalString.replaceAll("[^_]", "").length();
+    	
+		Pitch currentPitch = new Pitch(note);
+		Pitch transPitch = currentPitch.accidentalTranspose(semitonesUp);
+		this.keySignature.put(note, transPitch);
 	}
 	
 	/**
@@ -68,7 +67,7 @@ public class Key {
 		}
 		else {
 			// Remove octave notation leaving only the base note
-			String baseNote = noteName.replaceAll("[^A-G]", "");
+			String baseNote = noteName.toUpperCase().replaceAll("[^A-G]", "");
 			Pitch basePitch = this.keySignature.get(baseNote);
 			// Make new pitch in the right octave with the basenote's accidental 	
 			return new Pitch(noteName).accidentalTranspose(basePitch.getAccidental());
@@ -167,7 +166,7 @@ public class Key {
 	 */
 	@Override
 	public String toString() {
-		return this.keySignature.toString();
+		return this.keyName + " " + this.keySignature.toString();
 	}
 
 	/* (non-Javadoc)

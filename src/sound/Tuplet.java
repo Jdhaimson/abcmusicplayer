@@ -101,4 +101,15 @@ public class Tuplet implements MusicalElement {
 	public Tuplet clone() {
 		return new Tuplet(this.getElements());
 	}
+	
+	@Override
+	public String toString(){
+		StringBuilder tupletStrings = new StringBuilder();
+    	for(MusicalElement element : this.elements){
+    		tupletStrings.append(element.toString());
+    	}
+    	tupletStrings.insert(0, "(" + this.type); 
+    	tupletStrings.append(":" + this.duration.toString());
+    	return tupletStrings.toString();
+	}
 }

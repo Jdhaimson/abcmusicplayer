@@ -6,12 +6,15 @@ import grammar.MusicPlayerHeader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
 
-import sound.Song;
+import sound.*;
+
 
 /**
  * Main entry point of your application.
@@ -55,13 +58,17 @@ public class Main {
     	
     	MusicPlayerBody bodyPlayer = new MusicPlayerBody(song);
     	song = bodyPlayer.runListener(join(body, "\n"));
-    	System.out.println(song.getMeasures().size());
-    	song.play();
+
+    	List<Measure> measures = song.getMeasures();
+    	for (Measure measure : measures){
+    		System.out.println(measure.toString());
+    	}
+
     }
 
     public static void main(String[] args) throws FileNotFoundException, MidiUnavailableException, InvalidMidiDataException {
         // CALL play() HERE
-    	String file = "sample_abc/abc_song.abc";
+    	String file = "sample_abc/piece2.abc";
     	play(file);
     }
     

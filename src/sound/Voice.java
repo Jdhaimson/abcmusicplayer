@@ -32,13 +32,14 @@ public class Voice {
 	 * @throws Exception when note would make voice longer than maxNotes
 	 */
 	public void addMusicalElement(MusicalElement element) throws Exception {
-		if (this.sumCurrentNotes + element.getDuration().evaluate() <= this.maxNotes) {
+	//	if (this.sumCurrentNotes + element.getDuration().evaluate() <= this.maxNotes) {
 			this.notes.add(element);
 			this.sumCurrentNotes += element.getDuration().evaluate();
-		}
+	/*	}
 		else {
 			throw new Exception("This voice cannot be longer than " + Double.toString(this.maxNotes) + " notes");
 		}
+		*/
 	}
 	
 	/**
@@ -114,7 +115,13 @@ public class Voice {
 	 */
 	@Override
 	public String toString() {
-		return this.name;
+		//return this.name;
+		StringBuilder voiceStrings = new StringBuilder();
+    	for(MusicalElement note : this.notes){
+    		voiceStrings.append(note.toString()+" ");
+    	}
+    	voiceStrings.insert(0, this.name+"   ");
+    	return voiceStrings.toString();
 	}
 
 	/* (non-Javadoc)

@@ -143,7 +143,7 @@ public class Song {
 			else if(split.length == 2) {
 				if (split[0].equals("")) {				
 					// "/2" => ["", "2"]
-					// Default numerator to 1, get denom froms tring
+					// Default numerator to 1, get denom from string
 					int denom = Integer.parseInt(split[1]);
 					return new Fraction(def.getNumerator(), denom*def.getDenominator());
 				} 
@@ -199,7 +199,7 @@ public class Song {
 	
 	/**
 	 * Creates a basic lyric listener object
-	 * @return LyricListener: basic lyrici listener object
+	 * @return LyricListener: basic lyric listener object
 	 */
 	public LyricListener getBasicLyricListener() {
 		LyricListener ll = new LyricListener() {

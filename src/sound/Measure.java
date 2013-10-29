@@ -168,7 +168,12 @@ public class Measure {
 	 */
 	@Override
 	public String toString() {
-		return Integer.toString(this.measureNumber);
+		//return Integer.toString(this.measureNumber);
+		StringBuilder measureStrings = new StringBuilder();
+    	for(Voice voice : this.voices){
+    		measureStrings.append(voice.toString()+"\n");
+    	}
+    	return measureStrings.toString();
 	}
 
 	/* (non-Javadoc)

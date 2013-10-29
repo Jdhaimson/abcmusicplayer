@@ -68,7 +68,7 @@ public class Key {
 		}
 		else {
 			// Remove octave notation leaving only the base note
-			String baseNote = noteName.replaceAll("[^A-G]", "");
+			String baseNote = noteName.toUpperCase().replaceAll("[^A-G]", "");
 			Pitch basePitch = this.keySignature.get(baseNote);
 			// Make new pitch in the right octave with the basenote's accidental 	
 			return new Pitch(noteName).accidentalTranspose(basePitch.getAccidental());

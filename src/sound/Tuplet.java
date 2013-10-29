@@ -68,6 +68,10 @@ public class Tuplet implements MusicalElement {
 		return this.duration;
 	}
 	
+	public int getTicksPerElement(int ticksPerWholeNote) {
+			return (int)(((double)ticksPerWholeNote*this.duration.evaluate())/(double)this.type);
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * @see sound.MusicalElement#getTicksPerWholeNote()

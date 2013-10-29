@@ -206,6 +206,12 @@ public class SequencePlayer {
             System.out.println("Hello");
             player = new SequencePlayer(120, 2, listener);
             player.addLyricEvent("Up!", 0);
+            
+            player.addNote(new Pitch("C").toMidiNote(), 0, 4);
+            player.addNote(new Pitch("E").toMidiNote(), 0, 4);
+            player.addNote(new Pitch("G").toMidiNote(), 0, 4);
+            
+            /*
             player.addNote(new Pitch("C").toMidiNote(), 0, 1);
             player.addNote(new Pitch("^C").toMidiNote(), 1, 1);
             player.addNote(new Pitch("D").toMidiNote(), 2, 1);

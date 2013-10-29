@@ -242,6 +242,28 @@ public class Song {
 		return sp;
 	}
 	
+	public void scheduleBasicElement(SequencePlayer sp, MusicalElement element, int voiceTicks) {
+		if (element instanceof Rest) {
+			System.out.println("Scheduled Rest at tick #" + voiceTicks);
+		}
+		else if (element instanceof Note) {
+			Note note = (Note) element;
+			int noteDuration = (int) ((double)note.getDuration().evaluate()*this.getTicksPerWholeNote());
+			sp.addNote(note.getPitch().toMidiNote(), voiceTicks, noteDuration);
+			System.out.println("Scheduled " + note.toString() + " at tick #" + voiceTicks);
+
+		} 
+		else if (element instanceof Chord) {
+			Chord chord = (Chord) element;
+			List<Note> notes = chord.getNotes();
+			for (Note note: notes) {
+				int noteDuration = (int) ((double)note.getDuration().evaluate()*this.getTicksPerWholeNote());
+				sp.addNote(note.getPitch().toMidiNote(), voiceTicks, noteDuration);
+				System.out.println("Scheduled " + note.toString() + " at tick #" + voiceTicks);
+			}	
+		}
+	}
+	
 	/**
 	 * Loops through entire song scheduling MIDI and lyric events in sequencePlayer
 	 * @param sp: SequencePlayer object to get scheduled on
@@ -256,23 +278,18 @@ public class Song {
 				for(MusicalElement element: voice.getMusicalElements()) {
 					int ticks = (int)((double) this.ticksPerWholeNote*element.getDuration().evaluate());
 
-					if (element instanceof Note) {
-						Note note = (Note) element;
-						sp.addNote(note.getPitch().toMidiNote(), voiceTicks, ticks);
-						System.out.println("Scheduled " + note.toString() + " at tick #" + voiceTicks);
-					} 
-					else if (element instanceof Chord) {
-						Chord chord = (Chord) element;
-						List<Note> notes = chord.getNotes();
-						for (Note note: notes) {
-							int noteDuration = (int) note.getDuration().evaluate()*this.getTicksPerWholeNote();
-							sp.addNote(note.getPitch().toMidiNote(), voiceTicks, noteDuration);
+					if (element instanceof Tuplet) {
+						Tuplet tuplet = (Tuplet) element;
+						int ticksPerElem = tuplet.getTicksPerElement(ticksPerWholeNote);
+						List<MusicalElement> tupletElements = tuplet.getElements();
+						for(MusicalElement tElement: tupletElements) {
+							this.scheduleBasicElement(sp, tElement, voiceTicks);								
+							voiceTicks += ticksPerElem;
 						}
-						System.out.println("Scheduled " + chord.toString() + " at tick #" + voiceTicks);
+					} else {
+						this.scheduleBasicElement(sp, element, voiceTicks);
+						voiceTicks += ticks;
 					}
-					
-					
-					voiceTicks += ticks;
 				}
 			}
 			

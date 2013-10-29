@@ -154,7 +154,7 @@ public class Measure {
 		int maxTicks = 0;
 		for (Voice v: this.voices) {
 			int ticks = v.getTicksPerWholeNote();
-			if (maxTicks > ticks) {
+			if (ticks > maxTicks) {
 				maxTicks = ticks;
 			}
 		}

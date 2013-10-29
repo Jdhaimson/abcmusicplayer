@@ -16,7 +16,7 @@ public class Song {
 	// Header information
 	private String title, composer;
 	private Fraction defaultLength, meter, tempoNoteType;
-	private int index, tempoNPM;
+	private int index, tempoNPM, ticksPerWholeNote;
 	private Key key;
 	
 	private List<Measure> measures = new LinkedList<Measure>();
@@ -104,31 +104,6 @@ public class Song {
 		this.measures.addAll(measures);
 	}
 	
-	/**
-	 * Play song object
-	 * @throws InvalidMidiDataException 
-	 * @throws MidiUnavailableException 
-	 */
-	public void playSong() throws MidiUnavailableException, InvalidMidiDataException {
-		LyricListener ll = this.getBasicLyricListener();
-		SequencePlayer sp = this.createSequencePlayer(ll);
-	}
-	
-	/**
-	 * Returns the smallest amount of ticks per whole note required of the sequence player
-	 * @return int: representing the smallest amount of ticks per note
-	 */
-	public int getTicksPerWholeNote() {
-		int maxTicks = 0;
-		for (Measure m: this.measures) {
-			int ticks = m.getTicksPerWholeNote();
-			if (maxTicks > ticks) {
-				maxTicks = ticks;
-			}
-		}
-		
-		return maxTicks;
-	}
 	
 	/**
 	 * Returns default note length for the song
@@ -191,6 +166,36 @@ public class Song {
 		}
 	}
 	
+	/**
+	 * Play song object
+	 * @throws InvalidMidiDataException 
+	 * @throws MidiUnavailableException 
+	 */
+	public void play() throws MidiUnavailableException, InvalidMidiDataException {
+		LyricListener ll = this.getBasicLyricListener();
+		SequencePlayer sp = this.createSequencePlayer(ll);
+		this.scheduleSequence(sp);
+		sp.play();
+	}
+	
+	/**
+	 * Returns the smallest amount of ticks per whole note required of the sequence player
+	 * @return int: representing the smallest amount of ticks per note
+	 */
+	public int getTicksPerWholeNote() {
+		int maxTicks = 0;
+		for (Measure m: this.measures) {
+			int ticks = m.getTicksPerWholeNote();
+			if (ticks > maxTicks) {
+				maxTicks = ticks;
+			}
+		}
+		return maxTicks;
+	}
+
+	
+
+	
 	
 	/**
 	 * Creates a basic lyric listener object
@@ -226,22 +231,53 @@ public class Song {
 	     * @param tempoNoteType: type of note that tempoNPM applies to
 		*/
 		
-		int ticksPerWholeNote = this.getTicksPerWholeNote();
-		int ticksPerBeat = ticksPerWholeNote / this.meter.getDenominator();
+		// Derived from basic musical relationships
+		this.ticksPerWholeNote = this.getTicksPerWholeNote();
+		Fraction beat = new Fraction(1,this.meter.getDenominator());
+		int ticksPerBeat = this.ticksPerWholeNote / this.meter.getDenominator();
 		
-		// FIX THIS CODE
-		
-		sp = new SequencePlayer(100, 11, ll);
+		int beatsPerMinute = (int)(beat.evaluate()/this.tempoNoteType.evaluate())*(this.tempoNPM);
+
+		sp = new SequencePlayer(beatsPerMinute, ticksPerBeat, ll);
 		return sp;
 	}
 	
 	/**
 	 * Loops through entire song scheduling MIDI and lyric events in sequencePlayer
 	 * @param sp: SequencePlayer object to get scheduled on
-	 * @return
+	 * @return void
 	 */
-	public void addToSequence(SequencePlayer sp) {
+	public void scheduleSequence(SequencePlayer sp) {
+		int tickTracker = 0;
+		for(Measure measure: this.measures) {
+			for(Voice voice: measure.getVoices()) {
 
+				int voiceTicks = tickTracker;
+				for(MusicalElement element: voice.getMusicalElements()) {
+					int ticks = (int)((double) this.ticksPerWholeNote*element.getDuration().evaluate());
+
+					if (element instanceof Note) {
+						Note note = (Note) element;
+						sp.addNote(note.getPitch().toMidiNote(), voiceTicks, ticks);
+						System.out.println("Scheduled " + note.toString() + " at tick #" + voiceTicks);
+					} 
+					else if (element instanceof Chord) {
+						Chord chord = (Chord) element;
+						List<Note> notes = chord.getNotes();
+						for (Note note: notes) {
+							int noteDuration = (int) note.getDuration().evaluate()*this.getTicksPerWholeNote();
+							sp.addNote(note.getPitch().toMidiNote(), voiceTicks, noteDuration);
+						}
+						System.out.println("Scheduled " + chord.toString() + " at tick #" + voiceTicks);
+					}
+					
+					
+					voiceTicks += ticks;
+				}
+			}
+			
+			tickTracker += (int) ((double) this.ticksPerWholeNote * this.meter.evaluate());
+		}
 	}
 	
 	/*

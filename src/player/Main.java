@@ -1,5 +1,6 @@
 package player;
 
+import grammar.MusicPlayerBody;
 import grammar.MusicPlayerHeader;
 
 import java.io.File;
@@ -46,6 +47,10 @@ public class Main {
     	MusicPlayerHeader headPlayer = new MusicPlayerHeader();
     	Song song = headPlayer.runListener(join(header,"\n"));
     	System.out.println(song);
+    	
+    	MusicPlayerBody bodyPlayer = new MusicPlayerBody(song);
+    	song = bodyPlayer.runListener(join(body, "\n"));
+    	System.out.println(song.getMeasures().size());
     }
 
     public static void main(String[] args) throws FileNotFoundException {

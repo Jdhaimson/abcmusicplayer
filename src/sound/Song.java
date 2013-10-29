@@ -112,6 +112,10 @@ public class Song {
 		return this.defaultLength;
 	}
 	
+	public List<Measure> getMeasures() {
+		return this.measures;
+	}
+	
 	/**
 	 * Returns the duration which is the fraction represented by the string s 
 	 * times default note length
@@ -120,36 +124,42 @@ public class Song {
 	 */
 	public Fraction parseDurationFromString(String s) {
 		Fraction def = this.defaultLength;
-		
-		if (s.matches("/")) {
+
+		if (s.matches("[0-9]*/[0-9]*")) {
 			// We know it is a fraction
 			String[] split = s.split("/");
 		
 			if (split.length == 0) {
 				// The string was just "/" we default to 1/2
 				return new Fraction(def.getNumerator(), 2*def.getDenominator());
-			} else if(split.length == 1) {
+			} 
+			else if(split.length == 1) {
 				// "1/" => ["1"] - 
-				// default denominator to 2, numerator comes from string
+				// default denominator to 2, numerator comes from string		
 				int num = Integer.parseInt(split[0]);
 				return new Fraction(num*def.getNumerator(), 2*def.getDenominator());
-			} else if(split.length == 2) {
-				if (split[0] == "") {
+			} 
+			else if(split.length == 2) {
+				if (split[0].equals("")) {				
 					// "/2" => ["", "2"]
 					// Default numerator to 1, get denom froms tring
 					int denom = Integer.parseInt(split[1]);
 					return new Fraction(def.getNumerator(), denom*def.getDenominator());
-				} else {
+				} 
+				else {
 					// "1/4" => ["1","4"]
 					// get fraction from string
 					int num = Integer.parseInt(split[0]);
 					int denom = Integer.parseInt(split[1]);
 					return new Fraction(num*def.getNumerator(), denom*def.getDenominator());
 				}
-			} else {
+			} 
+			else {
 				throw new IllegalArgumentException("The duration can only have one / in it");
 			}
-		} else {
+		} 
+		else {
+			// String is just a number
 			int num = Integer.parseInt(s);
 			return new Fraction(num*def.getNumerator(), def.getDenominator());
 		}

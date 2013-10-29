@@ -80,7 +80,8 @@ public class Voice {
 		int maxTicks = 0;
 		for (MusicalElement elem: this.getMusicalElements()) {
 			int ticks = elem.getTicksPerWholeNote();
-			if (maxTicks > ticks) {
+			
+			if (ticks > maxTicks) {
 				maxTicks = ticks;
 			}
 		}

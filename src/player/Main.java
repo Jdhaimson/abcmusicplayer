@@ -8,6 +8,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiUnavailableException;
+
 import sound.Song;
 
 /**
@@ -24,8 +27,10 @@ public class Main {
      * 
      * @param file the name of input abc file
      * @throws FileNotFoundException 
+     * @throws InvalidMidiDataException 
+     * @throws MidiUnavailableException 
      */
-    public static void play(String file) throws FileNotFoundException {
+    public static void play(String file) throws FileNotFoundException, MidiUnavailableException, InvalidMidiDataException {
     	File songFile = new File(file);
     	String content = new Scanner(songFile).useDelimiter("\\Z").next();
     	String[] lines = content.split("\\r?\\n");
@@ -51,11 +56,12 @@ public class Main {
     	MusicPlayerBody bodyPlayer = new MusicPlayerBody(song);
     	song = bodyPlayer.runListener(join(body, "\n"));
     	System.out.println(song.getMeasures().size());
+    	song.play();
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, MidiUnavailableException, InvalidMidiDataException {
         // CALL play() HERE
-    	String file = "sample_abc/waxies_dargle.abc";
+    	String file = "sample_abc/abc_song.abc";
     	play(file);
     }
     

@@ -24,7 +24,11 @@ public class ABCMusicHeaderParserTest {
                 "V:Austin\n"+
                 "K:D\n";
         
-        Song expectedOutput = new Song("Waxie's: Dargle", "Josh", new Fraction(1,8), new Fraction(4,4), 2167, new Fraction(1, 4), 180, new Key("D") );
+        Song expectedOutput = new Song(2167, "Waxie's: Dargle", new Key("D") );
+        expectedOutput.setComposer("Josh");
+        expectedOutput.setLength(new Fraction(1, 8));
+        expectedOutput.setMeter(new Fraction(4, 4));
+        expectedOutput.setTempo(new Fraction(1,4), 180);
         
         assertEquals(true, new MusicPlayerHeader().parse(s).equals(expectedOutput));
     }
@@ -43,9 +47,13 @@ public class ABCMusicHeaderParserTest {
                 "C:Josh\n"+
                 "K:D\n";
                 
-         Song expectedOutput = new Song("Waxie's: Dargle", "Josh", new Fraction(1,8), new Fraction(4,4), 2167, new Fraction(1, 4), 180, new Key("D") );
-                
-         assertEquals(true, new MusicPlayerHeader().parse(s).equals(expectedOutput));   
+        Song expectedOutput = new Song(2167, "Waxie's: Dargle", new Key("D") );
+        expectedOutput.setComposer("Josh");
+        expectedOutput.setLength(new Fraction(1, 8));
+        expectedOutput.setMeter(new Fraction(4, 4));
+        expectedOutput.setTempo(new Fraction(1,4), 180);
+        
+        assertEquals(true, new MusicPlayerHeader().parse(s).equals(expectedOutput));  
     }
     
     @Test
@@ -61,9 +69,12 @@ public class ABCMusicHeaderParserTest {
                 "C:Josh\n"+
                 "K:D\n";
                 
-         Song expectedOutput = new Song("Waxie's: Dargle", "Josh", new Fraction(1,8), new Fraction(4,4), 2167, new Fraction(1, 4), 180, new Key("D") );
-                
-         assertEquals(true, new MusicPlayerHeader().parse(s).equals(expectedOutput)); 
+        Song expectedOutput = new Song(2167, "Waxie's: Dargle", new Key("D") );
+        expectedOutput.setComposer("Josh");
+        expectedOutput.setLength(new Fraction(1, 8));
+        expectedOutput.setTempo(new Fraction(1,4), 180);
+        
+        assertEquals(true, new MusicPlayerHeader().parse(s).equals(expectedOutput)); 
     }
     
     @Test
@@ -78,9 +89,12 @@ public class ABCMusicHeaderParserTest {
                 "C:Josh\n"+
                 "K:D\n";
                 
-         Song expectedOutput = new Song("Waxie's: Dargle", "Josh", new Fraction(1,8), new Fraction(4,4), 2167, new Fraction(1, 8), 100, new Key("D") );
-                
-         assertEquals(true, new MusicPlayerHeader().parse(s).equals(expectedOutput)); 
+        Song expectedOutput = new Song(2167, "Waxie's: Dargle", new Key("D") );
+        expectedOutput.setComposer("Josh");
+        expectedOutput.setLength(new Fraction(1, 8));
+        expectedOutput.setMeter(new Fraction(4, 4));
+        
+        assertEquals(true, new MusicPlayerHeader().parse(s).equals(expectedOutput));
     }
     
     @Test
@@ -96,7 +110,10 @@ public class ABCMusicHeaderParserTest {
                 "V:Austin\n"+
                 "K:D\n";
         
-        Song expectedOutput = new Song("Waxie's: Dargle", "default", new Fraction(1,8), new Fraction(4,4), 2167, new Fraction(1, 4), 180, new Key("D") );
+        Song expectedOutput = new Song(2167, "Waxie's: Dargle", new Key("D") );
+        expectedOutput.setLength(new Fraction(1, 8));
+        expectedOutput.setMeter(new Fraction(4, 4));
+        expectedOutput.setTempo(new Fraction(1,4), 180);
         
         assertEquals(true, new MusicPlayerHeader().parse(s).equals(expectedOutput));
     }
@@ -114,22 +131,12 @@ public class ABCMusicHeaderParserTest {
                 "V:Austin\n"+
                 "K:D\n";
         
-        String s2 = "X:2167\n"+
-                "T:Waxie's: Dargle\n"+
-                "C:Josh\n"+
-                "%Random Comment % * $ ()\n"+
-                "M:2/8"+
-                "%\n"+
-                "Q:1/4=180\n"+
-                "V:1\n"+
-                "V:Austin\n"+
-                "K:D\n";
-        
-        Song expectedOutput = new Song("Waxie's: Dargle", "Josh", new Fraction(1,8), new Fraction(4,4), 2167, new Fraction(1, 4), 180, new Key("D") );
-        Song expectedOutput2 = new Song("Waxie's: Dargle", "Josh", new Fraction(1,16), new Fraction(4,4), 2167, new Fraction(1, 4), 180, new Key("D") );
+        Song expectedOutput = new Song(2167, "Waxie's: Dargle", new Key("D") );
+        expectedOutput.setComposer("Josh");
+        expectedOutput.setMeter(new Fraction(4, 4));
+        expectedOutput.setTempo(new Fraction(1,4), 180);
         
         assertEquals(true, new MusicPlayerHeader().parse(s).equals(expectedOutput));
-        assertEquals(true, new MusicPlayerHeader().parse(s2).equals(expectedOutput2));
     }
     
     @Test(expected = Exception.class) 
@@ -145,7 +152,11 @@ public class ABCMusicHeaderParserTest {
                 "V:1\n"+
                 "V:Austin\n";
         
-        Song expectedOutput = new Song("Waxie's: Dargle", "default", new Fraction(1,8), new Fraction(4,4), 2167, new Fraction(1, 4), 180, new Key("D") );
+        Song expectedOutput = new Song(2167, "Waxie's: Dargle", new Key("D") );
+        expectedOutput.setComposer("Josh");
+        expectedOutput.setLength(new Fraction(1, 8));
+        expectedOutput.setMeter(new Fraction(4, 4));
+        expectedOutput.setTempo(new Fraction(1,4), 180);
         
         assertEquals(true, new MusicPlayerHeader().parse(s).equals(expectedOutput));
     }
@@ -164,7 +175,11 @@ public class ABCMusicHeaderParserTest {
                 "V:Austin\n"+
                 "K:D\n";
         
-        Song expectedOutput = new Song("Waxie's: Dargle", "default", new Fraction(1,8), new Fraction(4,4), 2167, new Fraction(1, 4), 180, new Key("D") );
+        Song expectedOutput = new Song(2167, "Waxie's: Dargle", new Key("D") );
+        expectedOutput.setComposer("Josh");
+        expectedOutput.setLength(new Fraction(1, 8));
+        expectedOutput.setMeter(new Fraction(4, 4));
+        expectedOutput.setTempo(new Fraction(1,4), 180);
         
         assertEquals(true, new MusicPlayerHeader().parse(s).equals(expectedOutput));
     }
@@ -182,7 +197,11 @@ public class ABCMusicHeaderParserTest {
                 "V:Austin\n"+
                 "K:D\n";
         
-        Song expectedOutput = new Song("Waxie's: Dargle", "default", new Fraction(1,8), new Fraction(4,4), 2167, new Fraction(1, 4), 180, new Key("D") );
+        Song expectedOutput = new Song(2167, "Waxie's: Dargle", new Key("D") );
+        expectedOutput.setComposer("Josh");
+        expectedOutput.setLength(new Fraction(1, 8));
+        expectedOutput.setMeter(new Fraction(4, 4));
+        expectedOutput.setTempo(new Fraction(1,4), 180);
         
         assertEquals(true, new MusicPlayerHeader().parse(s).equals(expectedOutput));
     }
@@ -201,7 +220,11 @@ public class ABCMusicHeaderParserTest {
                 "V:Austin"+
                 "K:D\n";
         
-        Song expectedOutput = new Song("Waxie's: Dargle", "default", new Fraction(1,8), new Fraction(4,4), 2167, new Fraction(1, 4), 180, new Key("D") );
+        Song expectedOutput = new Song(2167, "Waxie's: Dargle", new Key("D") );
+        expectedOutput.setComposer("Josh");
+        expectedOutput.setLength(new Fraction(1, 8));
+        expectedOutput.setMeter(new Fraction(4, 4));
+        expectedOutput.setTempo(new Fraction(1,4), 180);
         
         assertEquals(true, new MusicPlayerHeader().parse(s).equals(expectedOutput));
     }
@@ -219,7 +242,11 @@ public class ABCMusicHeaderParserTest {
                 "V:Austin\n"+
                 "K:D\n";
         
-        Song expectedOutput = new Song("Waxie's: Dargle", "Josh", new Fraction(1,8), new Fraction(4,4), 2167, new Fraction(1, 4), 180, new Key("D") );
+        Song expectedOutput = new Song(2167, "Waxie's: Dargle", new Key("D") );
+        expectedOutput.setComposer("Josh");
+        expectedOutput.setLength(new Fraction(1, 8));
+        expectedOutput.setMeter(new Fraction(4, 4));
+        expectedOutput.setTempo(new Fraction(1,4), 180);
         
         assertEquals(true, new MusicPlayerHeader().parse(s).equals(expectedOutput));
     }
@@ -237,8 +264,11 @@ public class ABCMusicHeaderParserTest {
                 "V:1\n"+
                 "V:Austin\n"+
                 "K:D\n";
-        
-        Song expectedOutput = new Song("Waxie's: Dargle", "Josh", new Fraction(1,8), new Fraction(4,4), 2167, new Fraction(1, 4), 180, new Key("D") );
+        Song expectedOutput = new Song(2167, "Waxie's: Dargle", new Key("D") );
+        expectedOutput.setComposer("Josh");
+        expectedOutput.setLength(new Fraction(1, 8));
+        expectedOutput.setMeter(new Fraction(4, 4));
+        expectedOutput.setTempo(new Fraction(1,4), 180);
         
         assertEquals(true, new MusicPlayerHeader().parse(s).equals(expectedOutput));
     }
@@ -256,7 +286,11 @@ public class ABCMusicHeaderParserTest {
                 "V:1\n"+
                 "V:Austin\n";
         
-        Song expectedOutput = new Song("Waxie's: Dargle", "Josh", new Fraction(1,8), new Fraction(4,4), 2167, new Fraction(1, 4), 180, new Key("D") );
+        Song expectedOutput = new Song(2167, "Waxie's: Dargle", new Key("D") );
+        expectedOutput.setComposer("Josh");
+        expectedOutput.setLength(new Fraction(1, 8));
+        expectedOutput.setMeter(new Fraction(4, 4));
+        expectedOutput.setTempo(new Fraction(1,4), 180);
         
         assertEquals(true, new MusicPlayerHeader().parse(s).equals(expectedOutput));
     }

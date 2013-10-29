@@ -23,6 +23,12 @@ public class ABCMusicBodyLexerTest {
     }
 	
 	@Test
+	public void testSpace() {
+	    verifyLexer(" ", new String[] {" "});
+	}
+	
+	
+	@Test
 	public void testSingleNote() {
 	    verifyLexer("A", new String[] {"A"});
 	    //verifyLexer("A/2", new String[] {"A/2"});
@@ -80,9 +86,30 @@ public class ABCMusicBodyLexerTest {
 	}
 	
 	@Test
+	public void testNotesWithOctaveAlterationUp() {
+	    verifyLexer("a''", new String[] {"a''"});
+	}
+	
+	@Test
+	public void testNotesWithOctaveAlterationDown() {
+	    verifyLexer("A,,", new String[] {"A,,"});
+	}
+	
+	@Test
+	public void testNotesCombinationOctaveAlteration() {
+	    verifyLexer("A,, B, C d e' f''", new String[] {"A,,", " " ,"B,", " ", "C", " ", "d"," ", "e'", " ", "f''"} );
+	}
+	
+	@Test
 	public void testBar() {
 	    verifyLexer("|", new String[] {"|"});
 	}
+	
+	@Test
+	public void testDoubleBar() {
+	    verifyLexer("||", new String[] {"||"});
+	}
+	
 	
 	@Test
 	public void testNotesWithBar() {
@@ -98,6 +125,37 @@ public class ABCMusicBodyLexerTest {
 	public void testChordWithAccidental() {
 	    verifyLexer("[^a_b^^c__de]", new String[] {"[", "^", "a", "_", "b","^^", "c","__", "d","e", "]"} );
 	}
+	
+	@Test
+	public void testBasicTupletTriplet() {
+	    verifyLexer("(3ABC", new String[] {"(", "3", "A", "B","C"});
+	}
+	
+	@Test
+    public void testBasicTupletDuplet() {
+        verifyLexer("(2AB", new String[] {"(", "2", "A", "B"});
+    }
+	
+	@Test
+	public void testBasicTupetQuadruplet() {
+	    verifyLexer("(4ABCD", new String[] {"(", "4", "A", "B", "C", "D"});
+	}
+	
+	@Test
+	public void testTupletWithAccidentalsAndOctaves() {
+	    verifyLexer("(2^a__B", new String[] {"(", "2", "^", "a", "__", "B"});
+	}
+	
+	@Test
+	public void testAccidentalWithOctave() {
+	    verifyLexer("^^A,, ^B, _C,, __a' ^^b'", new String[] {"^^", "A,,", " ", "^", "B,", " ", "_", "C,,", " ", "__", "a'", " ", "^^", "b'"});
+	}
+	
+	@Test
+	public void testWomboCombo() {
+	    verifyLexer("^^A/ __a'1/2 _A,/ | (3^a'__B,,C C/4 B,1/4 ||", new String[] {"^^", "A","/", " ", "__", "a'", "1/2"," ", "_", "A,","/", " ", "|", " ", "(", "3", "^", "a'", "__", "B,,", "C", " ", "C", "/4", " ", "B,", "1/4", " ", "||"});
+	}
+	
 	
 	
 	

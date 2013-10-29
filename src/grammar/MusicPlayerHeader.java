@@ -14,8 +14,18 @@ import grammar.ABCMusicHeaderLexer;
 import grammar.ABCMusicHeaderParser;
 
 public class MusicPlayerHeader {
+	
+	public Song parse(String song) {
+    	try{
+    		HeaderListener listener = runListener(song);
+    		return listener.getSong();
+    	}
+    	catch(Exception e){
+    		throw new RuntimeException("Invalid input!");
+    	}
+    }
    
-    public Song runListener(String input) {
+    public HeaderListener runListener(String input) {
         // Create a stream of tokens using the lexer.
         CharStream stream = new ANTLRInputStream(input);
         ABCMusicHeaderLexer lexer = new ABCMusicHeaderLexer(stream);
@@ -42,7 +52,8 @@ public class MusicPlayerHeader {
         walker.walk(listener, tree);
         
         HeaderListener headListener = (HeaderListener) listener;
-        return headListener.getSong();
+        return headListener;
+        //return headListener.getSong();
     }
     
     public static void main(String[] args) {
@@ -58,7 +69,7 @@ public class MusicPlayerHeader {
 				"V:1\n"+
 				"V:Austin\n"+
 				"K:D\n";
-		Song song = header.runListener(s);
+		Song song = header.runListener(s).getSong();
     }
     
 }

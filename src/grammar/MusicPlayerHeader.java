@@ -34,7 +34,7 @@ public class MusicPlayerHeader {
 //      System.err.println(tree.toStringTree(parser));
 
       // debugging option #2: show the tree in a window
-      ((RuleContext)tree).inspect(parser);
+//      ((RuleContext)tree).inspect(parser);
 
         // Walk the tree with the listener.
         ParseTreeWalker walker = new ParseTreeWalker();

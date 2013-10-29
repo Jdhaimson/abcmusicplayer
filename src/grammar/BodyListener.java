@@ -42,6 +42,18 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 	
 	private Song song;
 	
+//debug:	
+private int depth = 0;	
+
+private String debugString(int depth, String text) {
+	StringBuilder retString = new StringBuilder("");
+	for(int i=0; i<depth; i++) {
+		retString.append(" ");
+	}
+	retString.append(text);
+	return retString.toString();
+}
+	
 	/**
 	 * Constructor for BodyListener object - requires that a pre-initialized song created by
 	 * Header Listener be passed in as parameter
@@ -50,6 +62,7 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 	public BodyListener(Song s) {
 		super();
 		this.song = s;
+		this.currentLen = this.song.getDefaultNoteLen();
 	}
 
 
@@ -63,11 +76,18 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 			// Hitting new voice which is same set of measures as last voice
 			this.currentMeasureNum = this.voiceStartMeasure;
 		}
+//debug		
+System.out.println(debugString(depth, ctx.getText()));		
+depth ++;		
 	}
 	@Override 
 	public void exitVoice(ABCMusicBodyParser.VoiceContext ctx) {
 		// Keep track of voices that have already been added
 		voicesAdded.put(currentVoiceName, new Boolean(true));
+
+//debug		
+System.out.println(debugString(depth, ctx.getText()));		
+depth --;		
 	}
 
 	// Keep track of alternate endings for measure
@@ -82,18 +102,28 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 		this.currentMeasure = measure;
 		// create current voice
 		this.currentVoice = new Voice(this.currentVoiceName, this.song.getNotesPerMeasure());
+		
+//debug		
+System.out.println(debugString(depth, ctx.getText()));		
+depth ++;		
 	}
 	@Override public void exitMeasure(ABCMusicBodyParser.MeasureContext ctx) {
 		// Add voice to currentMeasure
 		this.currentMeasure.addVoice(this.currentVoice);
 		// Increment measure tracker
 		this.currentMeasureNum ++;
+//debug		
+System.out.println(debugString(depth, ctx.getText()));		
+depth --;		
 	}
 
 	
 	
 	
-	@Override public void enterNote_element(ABCMusicBodyParser.Note_elementContext ctx) { }
+	@Override public void enterNote_element(ABCMusicBodyParser.Note_elementContext ctx) {
+//debug
+depth ++;		
+	}
 	@Override public void exitNote_element(ABCMusicBodyParser.Note_elementContext ctx) {
 		try {
 			this.currentVoice.addMusicalElement(this.currentElements.remove(0));
@@ -101,9 +131,15 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 			// Should not happen because we are populating list before popping
 			e.printStackTrace();
 		}
+//debug		
+System.out.println(debugString(depth, ctx.getText()));		
+depth --;		
 	}
 	
-	@Override public void enterNote(ABCMusicBodyParser.NoteContext ctx) { }
+	@Override public void enterNote(ABCMusicBodyParser.NoteContext ctx) {
+//debug
+depth ++;
+	}
 	@Override 
 	public void exitNote(ABCMusicBodyParser.NoteContext ctx) {
 		MusicalElement newElement;
@@ -118,6 +154,7 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 				pitch = this.song.getPitchInKey(this.currentPitchStr);
 			}
 			newElement = new Note(pitch, this.currentLen);
+			
 		}
 		
 		//If we're constructing a chord, add to chord list instead of normal list 
@@ -128,15 +165,28 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 		}
 		
 		this.currentLen = this.song.getDefaultNoteLen();
+		
+//debug		
+System.out.println(debugString(depth, ctx.getText()));		
+depth --;			
 	}
 	
-	@Override public void enterAccidental(ABCMusicBodyParser.AccidentalContext ctx) { }
+	@Override public void enterAccidental(ABCMusicBodyParser.AccidentalContext ctx) {
+//debug
+depth ++;		
+	}
 	@Override 
 	public void exitAccidental(ABCMusicBodyParser.AccidentalContext ctx) {
 		this.currentAccidental = ctx.getText();
+//debug		
+System.out.println(debugString(depth, ctx.getText()));		
+depth --;			
 	}
 	
-	@Override public void enterPitch(ABCMusicBodyParser.PitchContext ctx) { }
+	@Override public void enterPitch(ABCMusicBodyParser.PitchContext ctx) { 
+//debug
+depth ++;
+	}
 	@Override public void exitPitch(ABCMusicBodyParser.PitchContext ctx) {
 		// Modify accidental key for measure
 		if (this.currentAccidental != "") {
@@ -144,23 +194,45 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 		}
 		// Reset accidental string
 		this.currentAccidental = "";
+//debug		
+System.out.println(debugString(depth, ctx.getText()));		
+depth --;	
 	}
 	
-	@Override public void enterBase_note_octave(ABCMusicBodyParser.Base_note_octaveContext ctx) { }
+	@Override public void enterBase_note_octave(ABCMusicBodyParser.Base_note_octaveContext ctx) { 
+//debug
+depth ++;		
+	}
 	@Override public void exitBase_note_octave(ABCMusicBodyParser.Base_note_octaveContext ctx) {
 		this.currentPitchStr = ctx.getText();
+		
+//debug		
+System.out.println(debugString(depth, ctx.getText()));		
+depth --;	
 	}	
 	
-	@Override public void enterRest(ABCMusicBodyParser.RestContext ctx) { }
+	@Override public void enterRest(ABCMusicBodyParser.RestContext ctx) { 
+//debug
+depth ++;		
+	}
 	@Override public void exitRest(ABCMusicBodyParser.RestContext ctx) {
 		this.currentPitchStr = ctx.getText();
+//debug		
+System.out.println(debugString(depth, ctx.getText()));		
+depth --;	
 	}
 	
 	
-	@Override public void enterNote_length(ABCMusicBodyParser.Note_lengthContext ctx) { }
+	@Override public void enterNote_length(ABCMusicBodyParser.Note_lengthContext ctx) { 
+//debug
+depth ++;		
+	}
 	@Override 
 	public void exitNote_length(ABCMusicBodyParser.Note_lengthContext ctx) {
 		this.currentLen = this.song.parseDurationFromString(ctx.getText());
+//debug		
+System.out.println(debugString(depth, ctx.getText()));		
+depth --;			
 	}
 	
 	
@@ -168,6 +240,8 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 	@Override 
 	public void enterMulti_note(ABCMusicBodyParser.Multi_noteContext ctx) {
 		this.inChord = true;
+//debug
+depth ++;		
 	}
 	@Override public void exitMulti_note(ABCMusicBodyParser.Multi_noteContext ctx) {
 		List<Note> chordNotes = new LinkedList<Note>();
@@ -176,15 +250,26 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 		}
 		this.currentElements.add(new Chord(chordNotes));
 		this.inChord = false;
+		
+//debug		
+System.out.println(debugString(depth, ctx.getText()));		
+depth --;	
 	}
 
-	@Override public void enterTuplet_element(ABCMusicBodyParser.Tuplet_elementContext ctx) { }
+	@Override public void enterTuplet_element(ABCMusicBodyParser.Tuplet_elementContext ctx) {
+// debug
+depth ++;	
+	}
 	@Override public void exitTuplet_element(ABCMusicBodyParser.Tuplet_elementContext ctx) {
 		List<MusicalElement> elements = new LinkedList<MusicalElement>();
 		for (int i=0; i<this.currentElements.size(); i++) {
 			elements.add(this.currentElements.remove(0));
 		}
 		this.currentElements.add(new Tuplet(elements));
+		
+//debug		
+System.out.println(debugString(depth, ctx.getText()));		
+depth --;			
 	}
 
 
@@ -237,7 +322,9 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 //	@Override public void exitSpace(ABCMusicBodyParser.SpaceContext ctx) { }
 //
 //	@Override public void enterAbc_tune_body(ABCMusicBodyParser.Abc_tune_bodyContext ctx) { }
-//	@Override public void exitAbc_tune_body(ABCMusicBodyParser.Abc_tune_bodyContext ctx) { }
+	@Override public void exitAbc_tune_body(ABCMusicBodyParser.Abc_tune_bodyContext ctx) { 
+		this.song.addMeasures(this.measures);
+	}
 //
 //	@Override public void enterEol(ABCMusicBodyParser.EolContext ctx) { }
 //	@Override public void exitEol(ABCMusicBodyParser.EolContext ctx) { }

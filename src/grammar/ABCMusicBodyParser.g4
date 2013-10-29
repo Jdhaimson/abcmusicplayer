@@ -56,10 +56,9 @@ bar_line : BAR_LINE ;
 nth_repeat: NTH_REPEAT ;
 space: SPACE ;
 
-//element : note_element | tuplet_element | bar_line | NTH_REPEAT | SPACE ;
-measure : (note_element | tuplet_element | nth_repeat | space )+ ;
+measure : (note_element | nth_repeat | space )+ ;
 element : measure | bar_line ;
-note_element : note | multi_note ;
+note_element : note | multi_note | tuplet_element;
 
 note_length : NOTE_LENGTH ;
 
@@ -72,7 +71,7 @@ base_note_octave : BASE_NOTE_OCTAVE ;
 accidental : ACCIDENTAL ;
 
 // tuplets
-tuplet_element : tuplet_spec note_element+;
+tuplet_element : tuplet_spec (note | multi_note)+;
 tuplet_spec : OPEN_PAREN tuplet_digit ;
 tuplet_digit : TUPLET_DIGIT ;
 

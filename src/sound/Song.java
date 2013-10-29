@@ -16,7 +16,7 @@ public class Song {
 	// Header information
 	private String title, composer;
 	private Fraction defaultLength, meter, tempoNoteType;
-	private int index, tempoNPM;
+	private int index, tempoNPM, ticksPerWholeNote;
 	private Key key;
 	
 	private List<Measure> measures = new LinkedList<Measure>();
@@ -104,14 +104,78 @@ public class Song {
 		this.measures.addAll(measures);
 	}
 	
+	
+	/**
+	 * Returns default note length for the song
+	 * @return
+	 */
+	public Fraction getDefaultNoteLen() {
+		return this.defaultLength;
+	}
+	
+	public List<Measure> getMeasures() {
+		return this.measures;
+	}
+	
+	/**
+	 * Returns the duration which is the fraction represented by the string s 
+	 * times default note length
+	 * @param s: string representing note duration (A1/4, s would be "1/4" and 
+	 * @return Fraction which is input fraction * default length
+	 */
+	public Fraction parseDurationFromString(String s) {
+		Fraction def = this.defaultLength;
+
+		if (s.matches("[0-9]*/[0-9]*")) {
+			// We know it is a fraction
+			String[] split = s.split("/");
+		
+			if (split.length == 0) {
+				// The string was just "/" we default to 1/2
+				return new Fraction(def.getNumerator(), 2*def.getDenominator());
+			} 
+			else if(split.length == 1) {
+				// "1/" => ["1"] - 
+				// default denominator to 2, numerator comes from string		
+				int num = Integer.parseInt(split[0]);
+				return new Fraction(num*def.getNumerator(), 2*def.getDenominator());
+			} 
+			else if(split.length == 2) {
+				if (split[0].equals("")) {				
+					// "/2" => ["", "2"]
+					// Default numerator to 1, get denom froms tring
+					int denom = Integer.parseInt(split[1]);
+					return new Fraction(def.getNumerator(), denom*def.getDenominator());
+				} 
+				else {
+					// "1/4" => ["1","4"]
+					// get fraction from string
+					int num = Integer.parseInt(split[0]);
+					int denom = Integer.parseInt(split[1]);
+					return new Fraction(num*def.getNumerator(), denom*def.getDenominator());
+				}
+			} 
+			else {
+				throw new IllegalArgumentException("The duration can only have one / in it");
+			}
+		} 
+		else {
+			// String is just a number
+			int num = Integer.parseInt(s);
+			return new Fraction(num*def.getNumerator(), def.getDenominator());
+		}
+	}
+	
 	/**
 	 * Play song object
 	 * @throws InvalidMidiDataException 
 	 * @throws MidiUnavailableException 
 	 */
-	public void playSong() throws MidiUnavailableException, InvalidMidiDataException {
+	public void play() throws MidiUnavailableException, InvalidMidiDataException {
 		LyricListener ll = this.getBasicLyricListener();
 		SequencePlayer sp = this.createSequencePlayer(ll);
+		this.scheduleSequence(sp);
+		sp.play();
 	}
 	
 	/**
@@ -122,13 +186,16 @@ public class Song {
 		int maxTicks = 0;
 		for (Measure m: this.measures) {
 			int ticks = m.getTicksPerWholeNote();
-			if (maxTicks > ticks) {
+			if (ticks > maxTicks) {
 				maxTicks = ticks;
 			}
 		}
-		
 		return maxTicks;
 	}
+
+	
+
+	
 	
 	/**
 	 * Creates a basic lyric listener object
@@ -164,22 +231,53 @@ public class Song {
 	     * @param tempoNoteType: type of note that tempoNPM applies to
 		*/
 		
-		int ticksPerWholeNote = this.getTicksPerWholeNote();
-		int ticksPerBeat = ticksPerWholeNote / this.meter.getDenominator();
+		// Derived from basic musical relationships
+		this.ticksPerWholeNote = this.getTicksPerWholeNote();
+		Fraction beat = new Fraction(1,this.meter.getDenominator());
+		int ticksPerBeat = this.ticksPerWholeNote / this.meter.getDenominator();
 		
-		// FIX THIS CODE
-		
-		sp = new SequencePlayer(100, 11, ll);
+		int beatsPerMinute = (int)(beat.evaluate()/this.tempoNoteType.evaluate())*(this.tempoNPM);
+
+		sp = new SequencePlayer(beatsPerMinute, ticksPerBeat, ll);
 		return sp;
 	}
 	
 	/**
 	 * Loops through entire song scheduling MIDI and lyric events in sequencePlayer
 	 * @param sp: SequencePlayer object to get scheduled on
-	 * @return
+	 * @return void
 	 */
-	public void addToSequence(SequencePlayer sp) {
+	public void scheduleSequence(SequencePlayer sp) {
+		int tickTracker = 0;
+		for(Measure measure: this.measures) {
+			for(Voice voice: measure.getVoices()) {
 
+				int voiceTicks = tickTracker;
+				for(MusicalElement element: voice.getMusicalElements()) {
+					int ticks = (int)((double) this.ticksPerWholeNote*element.getDuration().evaluate());
+
+					if (element instanceof Note) {
+						Note note = (Note) element;
+						sp.addNote(note.getPitch().toMidiNote(), voiceTicks, ticks);
+						System.out.println("Scheduled " + note.toString() + " at tick #" + voiceTicks);
+					} 
+					else if (element instanceof Chord) {
+						Chord chord = (Chord) element;
+						List<Note> notes = chord.getNotes();
+						for (Note note: notes) {
+							int noteDuration = (int) note.getDuration().evaluate()*this.getTicksPerWholeNote();
+							sp.addNote(note.getPitch().toMidiNote(), voiceTicks, noteDuration);
+						}
+						System.out.println("Scheduled " + chord.toString() + " at tick #" + voiceTicks);
+					}
+					
+					
+					voiceTicks += ticks;
+				}
+			}
+			
+			tickTracker += (int) ((double) this.ticksPerWholeNote * this.meter.evaluate());
+		}
 	}
 	
 	/*

@@ -45,7 +45,7 @@ public class Main {
     	}
     	
     	MusicPlayerHeader headPlayer = new MusicPlayerHeader();
-    	Song song = headPlayer.runListener(join(header,"\n"));
+    	Song song = headPlayer.parse(join(header,"\n"));
     	System.out.println(song);
     	
     	MusicPlayerBody bodyPlayer = new MusicPlayerBody(song);
@@ -55,7 +55,7 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
         // CALL play() HERE
-    	String file = "sample_abc/abc_song.abc";
+    	String file = "sample_abc/waxies_dargle.abc";
     	play(file);
     }
     

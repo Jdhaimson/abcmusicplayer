@@ -249,6 +249,7 @@ public class Song {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		return this.title;
+		return this.title + "\n" + this.composer + "\n" + this.meter + "\n" + this.defaultLength
+				+ "\n" + this.tempoNoteType + "\n" + this.tempoNPM + "\n" + this.key;
 	}
 }

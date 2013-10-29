@@ -33,17 +33,43 @@ public class Song {
 	 * @param tempoNoteType: type of note that tempoNPM applies to
 	 * @param key: key signature of piece
 	 */
-	public Song(String title, String composer, Fraction defaultLength, Fraction meter,
-			    int index, Fraction tempoNoteType, int tempoNPM, Key key) {
-		this.title = title;
-		this.composer = composer;
-		this.defaultLength = defaultLength;
-		this.meter = meter;
+	public Song(int index, String title, Key key) {
+		//Required fields
 		this.index = index;
+		this.title = title;
+		this.key = key;
+		
+		//Defaults
+		this.composer = "default";
+		this.meter = new Fraction(4,4);
+		this.defaultLength = new Fraction(1,8);
+		this.tempoNoteType = this.defaultLength;
+		this.tempoNPM = 100;
+	}
+	
+	public void setComposer(String composer){
+		this.composer = composer;
+	}
+	
+	public void setMeter(Fraction meter) {
+		this.meter = meter;
+		double meterValue = ((double)meter.getNumerator())/((double)meter.getDenominator());
+		if (meterValue < 0.75){
+			this.defaultLength = new Fraction(1,16);
+		}
+		this.tempoNoteType = this.defaultLength;
+	}
+	
+	public void setLength(Fraction length){
+		this.defaultLength = length;
+		this.tempoNoteType = this.defaultLength;
+	}
+	
+	public void setTempo(Fraction tempoNoteType, int tempoNPM){
 		this.tempoNoteType = tempoNoteType;
 		this.tempoNPM = tempoNPM;
-		this.key = key;
 	}
+	
 
 	/**
 	 * Returns the given note with proper accidentals for the song's key
@@ -161,7 +187,8 @@ public class Song {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		return this.title;
+		return this.title + "\n" + this.composer + "\n" + this.meter + "\n" + this.defaultLength
+				+ "\n" + this.tempoNoteType + "\n" + this.tempoNPM + "\n" + this.key;
 	}
 
     /* (non-Javadoc)

@@ -77,27 +77,32 @@ public class HeaderListener extends ABCMusicHeaderParserBaseListener {
 		String[] fraction = ctx.getText().split("/");
 		field_default_length = new Fraction(Integer.parseInt(fraction[0]), Integer.parseInt(fraction[1]));
 	}
-	
-	//FOR NOW: IGNORE VOICES AND COMMENTS IN THE HEADER
-	
-//	@Override public void enterVoice_text(ABCMusicHeaderParser.Voice_textContext ctx) { }
-//	@Override public void exitVoice_text(ABCMusicHeaderParser.Voice_textContext ctx) { }
-
-//	@Override public void enterComment(ABCMusicHeaderParser.CommentContext ctx) { }
-//	@Override public void exitComment(ABCMusicHeaderParser.CommentContext ctx) { }
 
 	@Override 
 	public void exitAbc_tune_header(ABCMusicHeaderParser.Abc_tune_headerContext ctx) {
-		song = new Song(field_title, field_composer, field_default_length, field_meter, field_number, 
-				field_tempo_fraction, field_tempo_number, field_key);
+		song = new Song(field_number, field_title, field_key);
+		
+		if (field_composer != null){
+			song.setComposer(field_composer);
+		}
+		if (field_meter != null){
+			song.setMeter(field_meter);
+		}
+		if (field_default_length != null){
+			song.setLength(field_default_length);
+		}
+		if (field_tempo_fraction != null){
+			song.setTempo(field_tempo_fraction, field_tempo_number);
+		}
+		
 //		System.out.println("field_number: " + field_number);
 //		System.out.println("field_title: " + field_title);
 //		System.out.println("field_composer: " + field_composer);
 //		System.out.println("field_key: " + field_key);
 //		System.out.println("field_meter: " + field_meter);
 //		System.out.println("field_default_length: " + field_default_length);
-//		System.out.println("field_tempo: " + field_tempo_fraction);
-//		System.out.println("field_tempo: " + field_tempo_number);
+//		System.out.println("field_tempo_fraction: " + field_tempo_fraction);
+//		System.out.println("field_tempo_number: " + field_tempo_number);
 	}
 	
 	public Song getSong(){

@@ -97,5 +97,112 @@ public class ChordTest {
         assertEquals(true, chord1.toString().equals(chord1.toString()));
         assertEquals("C:1/4G:1/4", chord1.toString());
 	}
-
+	
+	@Test
+	public void testChordGetNotes() {
+	       List<Note> notes = new LinkedList<Note>();
+	        notes.add(new Note(new Pitch('C'), new Fraction(1, 4)));
+	        notes.add(new Note(new Pitch('G'),new Fraction(1, 4)));
+	        
+	        List<Note> notes2 = new LinkedList<Note>();
+	        notes2.add(new Note(new Pitch('C'), new Fraction(1, 4)));
+	        notes2.add(new Note(new Pitch('F'),new Fraction(1, 4)));
+	        
+	        List<Note> notes3 = new LinkedList<Note>();
+	        notes3.add(new Note(new Pitch('C'), new Fraction(1, 4)));
+	        notes3.add(new Note(new Pitch('G'),new Fraction(1, 2)));
+	        
+	        List<Note> notes4 = new LinkedList<Note>();
+	        notes4.add(new Note(new Pitch('C'), new Fraction(1, 4)));
+	        notes4.add(new Note(new Pitch('G'),new Fraction(1, 4)));
+	        
+	        Chord chord1 = new Chord(notes);
+	        Chord chord2 = new Chord(notes2);
+	        Chord chord3 = new Chord(notes3);
+	        Chord chord4 = new Chord(notes4);
+	        
+	        assertEquals(true, chord1.getNotes().equals(chord1.getNotes()));
+	        assertEquals(true, chord1.getNotes().equals(chord4.getNotes()));
+	        assertEquals(false, chord1.getNotes().equals(chord2.getNotes()));
+	        assertEquals(false, chord1.getNotes().equals(chord3.getNotes()));
+	}
+	
+	@Test
+	public void testChordGetDuration(){
+	       List<Note> notes = new LinkedList<Note>();
+	        notes.add(new Note(new Pitch('C'), new Fraction(1, 4)));
+	        notes.add(new Note(new Pitch('G'),new Fraction(1, 4)));
+	        
+	        List<Note> notes2 = new LinkedList<Note>();
+	        notes2.add(new Note(new Pitch('C'), new Fraction(1, 2)));
+	        notes2.add(new Note(new Pitch('F'),new Fraction(1, 4)));
+	        
+	        List<Note> notes3 = new LinkedList<Note>();
+	        notes3.add(new Note(new Pitch('C'), new Fraction(1, 4)));
+	        notes3.add(new Note(new Pitch('G'),new Fraction(1, 2)));
+	        
+	        List<Note> notes4 = new LinkedList<Note>();
+	        notes4.add(new Note(new Pitch('C'), new Fraction(1, 4)));
+	        notes4.add(new Note(new Pitch('G'),new Fraction(1, 4)));
+	        
+	        Chord chord1 = new Chord(notes);
+	        Chord chord2 = new Chord(notes2);
+	        Chord chord3 = new Chord(notes3);
+	        Chord chord4 = new Chord(notes4);
+	        
+	        assertEquals(true, chord1.getDuration().equals(chord1.getDuration()));
+	        assertEquals(true, chord1.getDuration().equals(chord4.getDuration()));
+	        assertEquals(true, chord1.getDuration().equals(chord3.getDuration()));
+	        assertEquals(false, chord1.getDuration().equals(chord2.getDuration()));
+	        assertEquals(true, chord1.getDuration().equals(new Fraction(1, 4)));
+	}
+	
+	@Test
+	public void testChordGetTicksPerWholeNote() {
+        List<Note> notes = new LinkedList<Note>();
+        notes.add(new Note(new Pitch('C'), new Fraction(1, 4)));
+        notes.add(new Note(new Pitch('G'),new Fraction(1, 4)));
+        
+        List<Note> notes2 = new LinkedList<Note>();
+        notes2.add(new Note(new Pitch('C'), new Fraction(1, 4)));
+        notes2.add(new Note(new Pitch('F'),new Fraction(1, 4)));
+        
+        List<Note> notes3 = new LinkedList<Note>();
+        notes3.add(new Note(new Pitch('C'), new Fraction(1, 4)));
+        notes3.add(new Note(new Pitch('G'),new Fraction(1, 2)));
+        
+        List<Note> notes4 = new LinkedList<Note>();
+        notes4.add(new Note(new Pitch('C'), new Fraction(1, 4)));
+        notes4.add(new Note(new Pitch('G'),new Fraction(1, 4)));
+        
+        List<Note> notes5 = new LinkedList<Note>();
+        notes5.add(new Note(new Pitch('C'), new Fraction(1, 4)));
+        notes5.add(new Note(new Pitch('G'),new Fraction(1, 4)));
+        
+        Chord chord1 = new Chord(notes);
+        Chord chord2 = new Chord(notes2);
+        Chord chord3 = new Chord(notes3);
+        Chord chord4 = new Chord(notes4);
+        Chord chord5 = new Chord(notes5);
+        
+        assertEquals(true, chord1.getTicksPerWholeNote() == chord1.getTicksPerWholeNote());
+        assertEquals(true, chord1.getTicksPerWholeNote() == chord2.getTicksPerWholeNote());
+        assertEquals(true, chord1.getTicksPerWholeNote() == chord3.getTicksPerWholeNote());
+        assertEquals(true, chord1.getTicksPerWholeNote() == chord4.getTicksPerWholeNote());
+        assertEquals(true, chord1.getTicksPerWholeNote() == chord5.getTicksPerWholeNote());
+	}
+	
+	@Test
+	public void testChordClone() {
+        List<Note> notes3 = new LinkedList<Note>();
+        notes3.add(new Note(new Pitch('C'), new Fraction(1, 4)));
+        notes3.add(new Note(new Pitch('G'),new Fraction(1, 2)));
+        
+        Chord chord1 = new Chord(notes3);
+        Chord clone = chord1.clone();
+        
+        assertEquals(true, chord1.equals(clone));
+        assertEquals(true, chord1.hashCode() == clone.hashCode());
+        assertEquals(true, chord1.toString().equals(clone.toString()));
+	}
 }

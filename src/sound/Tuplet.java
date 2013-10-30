@@ -78,15 +78,15 @@ public class Tuplet implements MusicalElement {
 	 */
 	public int getTicksPerWholeNote() {
 		// For Duplets
-		if (type == 2) {
+		if (this.type == 2) {
 			// Duplets equally distribute 2 notes into the length of 3
 			// Thus we have (2*3) ticks for the whole duplet
 			// We then multiply by (1/duration) to figure out how many ticks per whole note
 			return (int)((2*3)*(1/this.duration.evaluate()));
-		} else if (type == 3) {
+		} else if (this.type == 3) {
 			// Triplets distribute 3 notes into length of 2, by the same logic we get
 			return (int)((3*2)*(1/this.duration.evaluate()));
-		} else if (type == 4) {
+		} else if (this.type == 4) {
 			// Quadruplets distribute 4 notes into length of 3, by the same logic we get
 			return (int)((4*3)*(1/this.duration.evaluate()));
 		} else {

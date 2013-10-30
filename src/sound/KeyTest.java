@@ -13,7 +13,7 @@ public class KeyTest {
      */
 
 	@Test
-	public void testeMinor() {
+	public void tesKeyMinor() {
 		Key key = new Key("Em");
 		assertEquals(true, key.getPitch("C"). equals(new Pitch("C")));
 		assertEquals(true, key.getPitch("D"). equals(new Pitch("D")));

@@ -42,9 +42,6 @@ public class FractionTest {
 	public void testFractionGetNumerator() {
         Fraction f1 = new Fraction(1,4);
         Fraction f2 = new Fraction(1, 6);
-        Fraction f3 = new Fraction(2, 4);
-        Fraction f4 = new Fraction(1, 4);
-        Fraction f5 = new Fraction(2, 8);
         Fraction f6 = new Fraction(6);
         Fraction f7 = new Fraction();
         
@@ -56,10 +53,8 @@ public class FractionTest {
 	@Test
 	public void testFractionGetDenominator() {
 	    Fraction f1 = new Fraction(1,4);
-        Fraction f2 = new Fraction(1, 6);
         Fraction f3 = new Fraction(2, 4);
         Fraction f4 = new Fraction(1, 4);
-        Fraction f5 = new Fraction(2, 8);
         Fraction f6 = new Fraction(6);
         Fraction f7 = new Fraction();
         
@@ -72,8 +67,6 @@ public class FractionTest {
 	@Test
 	public void testFractionToString() {
 	    Fraction f1 = new Fraction(1,4);
-        Fraction f2 = new Fraction(1, 6);
-        Fraction f3 = new Fraction(2, 4);
         Fraction f4 = new Fraction(1, 4);
         Fraction f5 = new Fraction(2, 8);
         Fraction f6 = new Fraction(6);
@@ -89,8 +82,6 @@ public class FractionTest {
 	@Test
 	public void testFractionEvaluate() {
 	    Fraction f1 = new Fraction(1,4);
-        Fraction f2 = new Fraction(1, 6);
-        Fraction f3 = new Fraction(2, 4);
         Fraction f4 = new Fraction(1, 4);
         Fraction f5 = new Fraction(2, 8);
         Fraction f6 = new Fraction(6);
@@ -117,9 +108,7 @@ public class FractionTest {
 	public void testFractionAdd() {
 	    Fraction f1 = new Fraction(1,4);
         Fraction f2 = new Fraction(1, 6);
-        Fraction f3 = new Fraction(2, 4);
         Fraction f4 = new Fraction(1, 4);
-        Fraction f5 = new Fraction(2, 8);
         Fraction f6 = new Fraction(6);
         Fraction f7 = new Fraction();
         

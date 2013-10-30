@@ -55,7 +55,7 @@ public class MusicPlayerBody {
         
         // Generate the parse tree using the starter rule.
         ParseTree tree;
-        tree = parser.abc_tune_body(); // "abc_tune_header" is the starter rule.
+        tree = parser.abc_tune_body(); // "abc_tune_body" is the starter rule.
 
         // debugging option #1: print the tree to the console
         //System.err.println(tree.toStringTree(parser));

@@ -267,14 +267,30 @@ public class Song {
 	
 	/**
 	 * Loops through entire song scheduling MIDI and lyric events in sequencePlayer
+	 * Precondition: this.measures is not empty
 	 * @param sp: SequencePlayer object to get scheduled on
 	 * @return void
 	 */
 	public void scheduleSequence(SequencePlayer sp) {
 		int tickTracker = 0;
-		for(Measure measure: this.measures) {
-			for(Voice voice: measure.getVoices()) {
+		Measure nextMeasure;
+		
+		// Build a new list of measures accounting for repeats and alternate endings
+		List<Measure> measuresWithRepeats = new LinkedList<Measure>();
+		int nextMeasureNum = 0;
+		while(nextMeasureNum < measures.size()) {
+			nextMeasure = measures.get(nextMeasureNum);
+			// Prevents 1st ending of alternate ending from being played twice
+			if(nextMeasure.shouldBePlayed()) {
+				measuresWithRepeats.add(nextMeasure);	
+			}
+			nextMeasureNum = nextMeasure.getNextMeasure();
+		}
+		
+		for(Measure measure: measuresWithRepeats) {
 
+			// Add everything within this measure to sequence
+			for(Voice voice: measure.getVoices()) {	
 				int voiceTicks = tickTracker;
 				for(MusicalElement element: voice.getMusicalElements()) {
 					int ticks = (int)((double) this.ticksPerWholeNote*element.getDuration().evaluate());

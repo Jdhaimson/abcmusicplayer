@@ -28,7 +28,6 @@ public class Measure {
 	 * Object representing a measure of a piece.  Contains Voices (which contain Musical elements)
 	 * Also contains a key and stores the amount of notesPerMeasure.
 	 * The sum of all of the ticks in every voice and in all lyrics should be <= ticksPerMeasure
-	 * @param key: key of measure, used to keep track of accidentals
 	 * @param notesPerMeasure: amount of notes in each measure
 	 */
 	public Measure(double notesPerMeasure, int measureNumber) {

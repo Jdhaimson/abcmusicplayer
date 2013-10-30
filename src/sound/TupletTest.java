@@ -284,6 +284,39 @@ public class TupletTest {
         assertEquals(false, tup1.toString().equals(tup3.toString()));
         assertEquals(false, tup1.toString().equals(tup5.toString()));
     }
+    
+    @Test
+    public void testTupletTicksPerElement() {
+        List<MusicalElement> notes = new LinkedList<MusicalElement>();
+        notes.add(new Note(new Pitch('C'), new Fraction(1, 4)));
+        notes.add(new Note(new Pitch('G'),new Fraction(1, 4)));
+
+        List<MusicalElement> notes2 = new LinkedList<MusicalElement>();
+        notes2.add(new Note(new Pitch('C'), new Fraction(1, 4)));
+        notes2.add(new Note(new Pitch('F'),new Fraction(1, 4)));
+
+        List<MusicalElement> notes3 = new LinkedList<MusicalElement>();
+        notes3.add(new Note(new Pitch('C'), new Fraction(1, 4)));
+        notes3.add(new Note(new Pitch('G'),new Fraction(1, 2)));
+
+        List<MusicalElement> notes4 = new LinkedList<MusicalElement>();
+        notes4.add(new Note(new Pitch('C'), new Fraction(1, 4)));
+        notes4.add(new Note(new Pitch('G'),new Fraction(1, 4)));
+
+        List<MusicalElement> notes5 = new LinkedList<MusicalElement>();
+        notes5.add(new Note(new Pitch('C'), new Fraction(1, 8)));
+        notes5.add(new Note(new Pitch('G'),new Fraction(1, 8)));
+        notes5.add(new Note(new Pitch('F'), new Fraction(1, 8)));
+
+        Tuplet tup1 = new Tuplet(notes);
+        Tuplet tup2 = new Tuplet(notes2);
+        Tuplet tup3 = new Tuplet(notes3);
+        Tuplet tup4 = new Tuplet(notes4);
+        Tuplet tup5 = new Tuplet(notes5);
+        
+        assertEquals(3, tup1.getTicksPerElement(8));
+        assertEquals(2, tup5.getTicksPerElement(24));
+    }
 
 
 

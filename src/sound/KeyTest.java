@@ -9,6 +9,18 @@ public class KeyTest {
     /*
      * Testing Strategy
      * 
+     * To test equals(), we created instances of each class, each varying by the others slightly. We created instances that reflected different combinations of differences. 
+     * Tested to make sure equals() was reflexive and that two structurally equal instances were equals().
+     * 
+     * To test toString(), we created instances of each class, each varying by the others slightly. We created instances that reflected different combinations of differences. 
+     * Tested to make sure instances returned the correct string and that structurally equivalent instances returned the same string.
+     * 
+     * To test hashCode(), we tested to be sure that structurally equivalent instances returned the same hash code and that hashCode() was reflexive.
+     * 
+     * To test keyContainsNote(), we created two keys, each with slightly different notes. We tested to make sure that commonalities between the keys were properly reflected, and their differences as well.
+     * 
+     * To test our implementation of minor keys, we created a minor key and tested to make sure that when we got a pitch that needed to get altered, that it was properly reflected. (i.e. in E minor, the F needs to be sharped).
+     * Note that this test also tests some private methods of the class.
      * 
      */
 

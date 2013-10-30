@@ -235,11 +235,13 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 	
 	@Override public void enterLyric_element(ABCMusicBodyParser.Lyric_elementContext ctx) { }
 	@Override public void exitLyric_element(ABCMusicBodyParser.Lyric_elementContext ctx) { 
+		// add all lyric elements to list of current elements
 		this.currentLyricElements.add(ctx.getText());
 	}
 
 	@Override public void enterLyric_text(ABCMusicBodyParser.Lyric_textContext ctx) { }
 	@Override public void exitLyric_text(ABCMusicBodyParser.Lyric_textContext ctx) { 
+		// add lyric to list of current lyrics
 		this.currentLyrics.add(ctx.getText());
 	}
 	
@@ -264,11 +266,8 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 			int elementCount = 0;
 
 			for (String s: this.currentLyricElements) {
-				if (!s.equals(elementType)) {
-					// If we're given two different types of elements throw error
-					//throw new IllegalArgumentException("Each Lyric can only have one type"
-					//								 	+ " of modifying symbol");
-				} else {
+				// If we're given two different types of elements ignore everything but the first type
+				if (s.equals(elementType)) {
 					elementCount ++;
 				}
 			}
@@ -284,9 +283,9 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 				}
 			} else if (elementType.equals("_")) {
 				// previous syllable is to be held for an extra note
-				// add same syllable so it will still be displayed on next note
+				// add blank note so it will still be displayed on next note
 				for(int i=0; i<elementCount; i++) {
-					this.currentLyrics.add(this.currentLyrics.get(0));
+					this.currentLyrics.add("");
 				}
 			} else if (elementType.equals("*")) {
 				// one note is skipped (i.e. * is equivalent to a blank syllable)

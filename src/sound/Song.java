@@ -202,12 +202,7 @@ public class Song {
 	 * @return LyricListener: basic lyric listener object
 	 */
 	public LyricListener getBasicLyricListener() {
-		LyricListener ll = new LyricListener() {
-            public void processLyricEvent(String text) {
-                System.out.println(text);
-            }
-        };
-        
+		LyricListener ll = new LyricListener();
         return ll;
 	}
 	

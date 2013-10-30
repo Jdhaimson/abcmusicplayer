@@ -49,7 +49,7 @@ public class Voice {
 	 * @return true if there are enough free notes for lyric to be added to
 	 */
 	public boolean addLyric(String lyric) {
-		if (this.lyrics.size() + 1 < this.getNumNotes()) {
+		if (this.lyrics.size() + 1 <= this.getNumNotes()) {
 			this.lyrics.add(lyric);
 			return true;
 		} else {

@@ -69,7 +69,7 @@ public class Tuplet implements MusicalElement {
 	}
 	
 	public int getTicksPerElement(int ticksPerWholeNote) {
-			return (int)(((double)ticksPerWholeNote*this.duration.evaluate())/(double)this.type);
+		return (int)(((double)ticksPerWholeNote*this.duration.evaluate())/(double)this.type);
 	}
 	
 	/*

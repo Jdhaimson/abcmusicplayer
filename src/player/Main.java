@@ -59,13 +59,6 @@ public class Main {
     	MusicPlayerBody bodyPlayer = new MusicPlayerBody(song);
     	song = bodyPlayer.runListener(join(body, "\n"));
 
-    	List<Measure> measures = song.getMeasures();
-    	for (Measure measure : measures){
-    		for(Voice voice: measure.getVoices()) {
-    			List<String> lyrics = voice.getLyrics();
-    		}
-    		//System.out.println(measure.toString());
-    	}
     	song.play();
 
     }
@@ -73,7 +66,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException, MidiUnavailableException, InvalidMidiDataException {
         // CALL play() HERE
     	
-    	String file = "sample_abc/abc_song.abc";
+    	String file = "sample_abc/waxies_dargle.abc";
     	play(file);
     }
     

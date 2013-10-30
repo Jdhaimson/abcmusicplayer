@@ -61,7 +61,7 @@ public class Main {
 
     	List<Measure> measures = song.getMeasures();
     	for (Measure measure : measures){
-    		System.out.println(measure.toString());
+    		//System.out.println(measure.toString());
     	}
     	song.play();
 
@@ -70,7 +70,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException, MidiUnavailableException, InvalidMidiDataException {
         // CALL play() HERE
     	
-    	String file = "sample_abc/fur_elise.abc";
+    	String file = "sample_abc/waxies_dargle.abc";
     	play(file);
     }
     

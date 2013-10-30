@@ -133,7 +133,26 @@ public class Measure {
 	}
 	
 	/**
-	 * Returns list of voices in measure
+	 * Get voice with given name
+	 * @param name: requirement that voice with given name must be
+	 * in the measure
+	 * @return: Voice requested
+	 */
+	public Voice getVoice(String name) {
+
+		for (Voice voice: this.voices) {
+			if(voice.getName().equals(name)) {
+				return voice;
+			}
+		}
+		
+		// Will never return null because of precondition,
+		// only here to satisfy compiler
+		return null;
+	}
+	
+	/**
+	 * Returns the voices in measure
 	 * @return List<Voice>: voices in measure
 	 */
 	public List<Voice> getVoices() {

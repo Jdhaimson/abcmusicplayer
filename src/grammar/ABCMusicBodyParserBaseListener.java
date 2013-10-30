@@ -72,6 +72,9 @@ public class ABCMusicBodyParserBaseListener implements ABCMusicBodyParserListene
 	@Override public void enterBase_note_octave(ABCMusicBodyParser.Base_note_octaveContext ctx) { }
 	@Override public void exitBase_note_octave(ABCMusicBodyParser.Base_note_octaveContext ctx) { }
 
+	@Override public void enterLyric_line(ABCMusicBodyParser.Lyric_lineContext ctx) { }
+	@Override public void exitLyric_line(ABCMusicBodyParser.Lyric_lineContext ctx) { }
+
 	@Override public void enterNote_or_rest(ABCMusicBodyParser.Note_or_restContext ctx) { }
 	@Override public void exitNote_or_rest(ABCMusicBodyParser.Note_or_restContext ctx) { }
 

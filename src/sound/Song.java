@@ -268,9 +268,10 @@ public class Song {
 	 * Loops through entire song scheduling MIDI and lyric events in sequencePlayer
 	 * Precondition: this.measures is not empty
 	 * @param sp: SequencePlayer object to get scheduled on
+	 * @param ll: LyricListener to assign lyric events to
 	 * @return void
 	 */
-	public void scheduleSequence(SequencePlayer sp) {
+	public void scheduleSequence(SequencePlayer sp, LyricListener ll) {
 		int tickTracker = 0;
 		Measure nextMeasure;
 		List<Measure> measuresWithRepeats = new LinkedList<Measure>();
@@ -302,6 +303,7 @@ public class Song {
 						voiceTicks += ticks;
 					}
 				}
+				
 			}
 			
 			tickTracker += (int) ((double) this.ticksPerWholeNote * this.meter.evaluate());

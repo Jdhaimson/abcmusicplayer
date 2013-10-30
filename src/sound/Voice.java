@@ -11,7 +11,7 @@ import java.util.List;
 public class Voice {
 	// Stores list of notes
 	private List<MusicalElement> notes = new LinkedList<MusicalElement>();
-	private List<Lyric> lyrics = new LinkedList<Lyric>();
+	private List<String> lyrics = new LinkedList<String>();
 	private double maxNotes;
 	private double sumCurrentNotes = 0.0;
 	private String name;
@@ -24,6 +24,14 @@ public class Voice {
 	public Voice(String name, double maxNotes) {
 		this.name = name;
 		this.maxNotes = maxNotes;
+	}
+	
+	/**
+	 * Returns the name of the voice
+	 * @return
+	 */
+	public String getName() {
+		return this.name;
 	}
 	
 	/**
@@ -44,11 +52,16 @@ public class Voice {
 	
 	/**
 	 * Add a lyric to this voice
-	 * @param lyric: lyric to add to measure - sum of durations of lyrics should
-	 * be <= ticksPerMeasure
+	 * @param lyric: lyric to add to measure
+	 * @return true if there are enough free notes for lyric to be added to
 	 */
-	public void addLyric(Lyric lyric) {
-		this.lyrics.add(lyric);
+	public boolean addLyric(String lyric) {
+		if (this.lyrics.size() + 1 < this.getNumNotes()) {
+			this.lyrics.add(lyric);
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	
@@ -63,6 +76,25 @@ public class Voice {
 		}
 		
 		return clonedElements;
+	}
+	
+	/**
+	 * Returns number of notes and chords in voice
+	 * (Each note in tuplet counted and rests ignored)
+	 * @return
+	 */
+	public int getNumNotes() {
+		int count = 0;
+		for (MusicalElement element: this.notes) {
+			if (element instanceof Tuplet) {
+				Tuplet tuplet = (Tuplet) element;
+				count += tuplet.getElements().size();
+			} else if (element instanceof Note || 
+					   element instanceof Chord) {
+				count += 1;
+			}
+		}
+		return count;
 	}
 	
 	/**

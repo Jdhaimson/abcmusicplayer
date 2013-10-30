@@ -8,6 +8,25 @@ import java.util.List;
 import org.junit.Test;
 
 public class ChordTest {
+    
+    /*
+     * Testing Strategy
+     * 
+     * To test equals(), we created instances of each class, each varying by the others slightly. We created instances that reflected different combinations of differences. 
+     * Tested to make sure equals() was reflexive and that two structurally equal instances were equals().
+     * 
+     * To test toString(), we created instances of each class, each varying by the others slightly. We created instances that reflected different combinations of differences. 
+     * Tested to make sure instances returned the correct string and that structurally equivalent instances returned the same string.
+     * 
+     * To test hashCode(), we tested to be sure that structurally equivalent instances returned the same hash code and that hashCode() was reflexive.
+     * 
+     * To test clone(), we tested to be sure that a clone of an instance was equals() to its parent, returned equivalent strings, and returned equivalent hash codes.
+     * 
+     * To test getDuration(), getNotes(), and getTicksPerWholteNote(), we used instances of each class, each varying by the others slightly. We created instances that reflected different combinations of differences.
+     * We created instances who's notes varied on pitch, duration, or both. We tested to make sure that getTicksPerWholeNote() was independent of pitch and only depended on durations of the notes.
+     * We tested to make sure that getDuration was dependent on the durations of the notes, not the pitches.
+     * We tested to make sure that getNotes returned the proper list of notes and took into account both pitch and duration.
+     */
 
 	@Test
 	public void testEquals() {

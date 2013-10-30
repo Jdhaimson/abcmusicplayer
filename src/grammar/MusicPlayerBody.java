@@ -32,7 +32,7 @@ public class MusicPlayerBody {
     		return listener.getSong();
     	}
     	catch(Exception e){
-    		throw new RuntimeException("Invalid input!");
+    		throw new RuntimeException("Invalid Body Input!");
     	}
     }
 	

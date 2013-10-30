@@ -21,7 +21,7 @@ public class MusicPlayerHeader {
     		return listener.getSong();
     	}
     	catch(Exception e){
-    		throw new RuntimeException("Invalid input!");
+    		throw new RuntimeException("Invalid Header Input!");
     	}
     }
    

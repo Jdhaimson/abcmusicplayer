@@ -13,16 +13,16 @@ public class Chord implements MusicalElement {
 	private List<Note> notes;
 	
 	/**
-	 * Chord object which contains a set of one or more notes
-	 * @param notes
+	 * Chord object which contains a set of one or more Notes
+	 * @param notes the Note objects within the Chord
 	 */
 	public Chord(List<Note> notes) {
 		this.notes = notes;
 	}
 
 	/**
-	 * Gets list of all notes in chord
-	 * @return list of all notes in chord
+	 * Gets list of all Notes in Chord
+	 * @return list of all Notes in Chord
 	 */
 	public List<Note> getNotes() {
 		List<Note> clonedNotes = new LinkedList<Note>();
@@ -37,6 +37,7 @@ public class Chord implements MusicalElement {
 	 * @see sound.MusicalElement#getDuration()
 	 */
 	public Fraction getDuration() {
+		//Duration of Chord is determined by the duration of the first Note in that Chord
 		return this.notes.get(0).getDuration();
 	}
 	
@@ -112,8 +113,6 @@ public class Chord implements MusicalElement {
         }
         return true;
     }
-
-
 
 }
 

@@ -23,7 +23,7 @@ public class Key {
 	
 	/**
 	 * Constructor for Key Object
-	 * @param keyName: Name of key. First letter must be capital
+	 * @param keyName Name of key. First letter must be capital.
 	 */
 	public Key(String keyName) {
 		this.keySignature = this.getBaseKey(keyName);
@@ -33,8 +33,8 @@ public class Key {
 	/**
 	 * Alters Key with accidental on note
 	 * Ex. alterKey('C', 1) makes all C's a C#
-	 * @param note: Note to be altered in Key signature
-	 * @param accidentalString: string of accidentals to apply to note
+	 * @param note Note to be altered in Key signature
+	 * @param accidentalString string of accidentals to apply to note
 	 */
 	public void alterKey(String note, String accidentalString) {
 		int semitonesUp = 0;
@@ -48,8 +48,8 @@ public class Key {
 	
 	/**
 	 * Method to test if a note is in this key
-	 * @param note: String representing the note
-	 * @return: True if string in key
+	 * @param note String representing the note
+	 * @return True if string in key
 	 */
 	public boolean containsNote(String note) {
 		return this.keySignature.containsKey(note);
@@ -76,8 +76,8 @@ public class Key {
 	
 	/**
 	 * Returns the key for a given key signature
-	 * @param key: String representing desired key signature
-	 * @return: map of strings to pitches representing the pitch of each note
+	 * @param key String representing desired key signature
+	 * @return map of strings to pitches representing the pitch of each note
 	 * 		    in that key
 	 */
 	private Map<String, Pitch> getBaseKey(String key) {
@@ -117,8 +117,7 @@ public class Key {
 			
 		// Fill in the rest of the notes with naturals
 		for (int i=1; i < flatOrder.length; i++) {
-			// Both flatOrder and sharpOrder contain all of the notes so we can
-			// iterate through either
+			// Both flatOrder and sharpOrder contain all of the notes so we can iterate through either
 			if (!(keySignature.containsKey(flatOrder[i]))) {	
 				keySignature.put(flatOrder[i], new Pitch(flatOrder[i]));
 			}
@@ -130,8 +129,8 @@ public class Key {
 	/**
 	 * Returns relative major of a string representing a minor key. If input key
 	 * is already major, it will just return the input
-	 * @param key: String representing major or minor key
-	 * @return: Relative major of input if input is minor, or input if input is major
+	 * @param key String representing major or minor key
+	 * @return Relative major of input if input is minor, or input if input is major
 	 */
 	private String getRelativeMajor(String key) {
 		Map<String, String> relativeMajor = new HashMap<String, String>();

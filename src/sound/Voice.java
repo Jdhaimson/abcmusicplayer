@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Voice is a mutable object that stores a list of notes in that voice
+ * Voice is a mutable object that stores a list of notes in that voice, as well as a list of lyrics.
  * @author Josh
  *
  */
@@ -29,23 +29,15 @@ public class Voice {
 	/**
 	 * Adds element  to voice
 	 * @param element
-	 * @throws Exception when note would make voice longer than maxNotes
 	 */
 	public void addMusicalElement(MusicalElement element) throws Exception {
-	//	if (this.sumCurrentNotes + element.getDuration().evaluate() <= this.maxNotes) {
-			this.notes.add(element);
-			this.sumCurrentNotes += element.getDuration().evaluate();
-	/*	}
-		else {
-			throw new Exception("This voice cannot be longer than " + Double.toString(this.maxNotes) + " notes");
-		}
-		*/
+		this.notes.add(element);
+		this.sumCurrentNotes += element.getDuration().evaluate();
 	}
 	
 	/**
 	 * Add a lyric to this voice
-	 * @param lyric: lyric to add to measure - sum of durations of lyrics should
-	 * be <= ticksPerMeasure
+	 * @param lyric lyric to add to measure - sum of durations of lyrics should be <= ticksPerMeasure
 	 */
 	public void addLyric(Lyric lyric) {
 		this.lyrics.add(lyric);

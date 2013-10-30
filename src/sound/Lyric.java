@@ -1,19 +1,18 @@
 package sound;
 
 /**
- * Lyric is an immutable object representing a specific syllable of a song
+ * Lyric is an immutable object representing a specific syllable of a song and its duration
  * @author Josh
  *
  */
 public class Lyric {
         private String syllable;
-        private int duration;
-        
+        private int duration;     
         
         /**
          * Object representing lyrics of piece
-         * @param syllable: Syllable to be displayed with each note
-         * @param duration: Number of ticks to display syllable for 
+         * @param syllable Syllable to be displayed with each note
+         * @param duration Number of ticks to display syllable for 
          */
         public Lyric(String syllable, int duration) {
                 this.syllable = syllable;

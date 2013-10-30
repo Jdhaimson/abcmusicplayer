@@ -29,9 +29,9 @@ public class Main {
      * System.exit().)
      * 
      * @param file the name of input abc file
-     * @throws FileNotFoundException 
-     * @throws InvalidMidiDataException 
-     * @throws MidiUnavailableException 
+     * @throws FileNotFoundException if file does not exist
+     * @throws InvalidMidiDataException error with Midi player and/or sequencer
+     * @throws MidiUnavailableException error with Midi player and/or sequencer
      */
     public static void play(String file) throws FileNotFoundException, MidiUnavailableException, InvalidMidiDataException {
     	File songFile = new File(file);

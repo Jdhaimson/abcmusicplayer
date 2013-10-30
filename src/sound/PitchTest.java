@@ -7,8 +7,16 @@ import org.junit.Test;
 public class PitchTest {
 
 	/*
-	 * Testing Strategy:
-	 * NONE
+	 * Testing Strategy
+	 * 
+	 * To test equals(), we created instances of each class, each varying by the others slightly. We created instances that reflected different combinations of differences. 
+     * Tested to make sure equals() was reflexive and that two structurally equal instances were equals().
+     * 
+     * To test toString(), we created instances of each class, each varying by the others slightly. We created instances that reflected different combinations of differences. 
+     * Tested to make sure instances returned the correct string and that structurally equivalent instances returned the same string.
+     * 
+     * To test hashCode(), we tested to be sure that structurally equivalent instances returned the same hash code and that hashCode() was reflexive.
+	 * 
 	 */
 	
 	@Test
@@ -17,6 +25,9 @@ public class PitchTest {
 		assertEquals("^C", p.toString());
 	}
 	
+	/*
+	 * Tests equals() as well as accidentalTranspose, transpose, and octaveTranspose
+	 */
 	@Test
 	public void testPitchEquals() {
 	    Pitch pitch1 = new Pitch('C');
@@ -53,6 +64,31 @@ public class PitchTest {
         
         assertEquals(true, pitch1.hashCode() == pitch1.hashCode());
         assertEquals(true, pitch1.hashCode() == pitch2.hashCode());
+	}
+	
+	@Test
+	public void testPitchDifference() {
+	    
+	}
+	
+	@Test
+	public void testPitchToMidiNote() {
+	    
+	}
+	
+	@Test
+	public void testPitchLessThan() {
+	    
+	}
+	
+	@Test
+	public void testPitchGetAccidental() {
+	    
+	}
+	
+	@Test
+	public void testPitchClone() {
+	    
 	}
 	
 

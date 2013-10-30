@@ -10,13 +10,19 @@ import org.junit.Test;
 public class NoteTest {
 
 	/*
-	 * Testing Strategy:
-	 * 
-	 * We tested each of Note's toString(), equals(), and hashCode() methods by way of creating several instances of Note, each slightly different than the others.
-	 * We tested used these instances to check that structural equivalent Note's would be .equal(), would return the same hashCode() output, and would have equivalent toString() outputs.
-	 * We tested clone() by checking that the output would have equivalent toString() and hashCode() values as the object getting cloned, and that both the original and the clone were structurally equivalent.
-	 * We tested getDuration() and getPitches() in a similar way as toString(), equals(), and hashCode()
-	 * We created instances of Note slightly each slightly different than the others and tested for equivalence or inequivalence depending on what differed between the instances.
+	 * Testing Strategy
+     * 
+     * To test equals(), we created instances of each class, each varying by the others slightly. We created instances that reflected different combinations of differences. 
+     * Tested to make sure equals() was reflexive and that two structurally equal instances were equals().
+     * 
+     * To test toString(), we created instances of each class, each varying by the others slightly. We created instances that reflected different combinations of differences. 
+     * Tested to make sure instances returned the correct string and that structurally equivalent instances returned the same string.
+     * 
+     * To test hashCode(), we tested to be sure that structurally equivalent instances returned the same hash code and that hashCode() was reflexive.
+     * 
+     * To test getDuration() and getTicksPerWholteNote(), we used instances of each class, each varying by the others slightly. We created instances that reflected different combinations of differences.
+     * We created instances who's notes varied on pitch, duration, or both. We tested to make sure that getTicksPerWholeNote() was independent of pitch and only depended on durations of the notes.
+     * We tested to make sure that getDuration was dependent on the durations of the notes, not the pitches.
 	 */
 	
 	@Test

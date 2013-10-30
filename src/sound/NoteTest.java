@@ -100,7 +100,7 @@ public class NoteTest {
         assertEquals(true, note1.getTicksPerWholeNote() == note1.getTicksPerWholeNote());
         assertEquals(true, note4.getTicksPerWholeNote() == note5.getTicksPerWholeNote());
         assertEquals(false, note1.getTicksPerWholeNote() == note5.getTicksPerWholeNote());
-        assertEquals(true, note6.getTicksPerWholeNote() == note5.getTicksPerWholeNote());
+        assertEquals(note6.getTicksPerWholeNote(), note5.getTicksPerWholeNote());
 	}
 	
 }

@@ -146,25 +146,6 @@ public class VoiceTest {
         assertEquals(true, voice1.getMusicalElements().equals(notesToCheck));
     }
 
-    @Test(expected = Exception.class) 
-    public void testVoiceException() throws Exception{
-        Voice voice1 = new Voice("Bass", .25);
-
-        List<Pitch> pitches1 = new LinkedList<Pitch>();
-        pitches1.add(new Pitch('C'));
-        pitches1.add(new Pitch('E'));
-        pitches1.add(new Pitch('G'));
-
-        List<Pitch> pitches2 = new LinkedList<Pitch>();
-        pitches2.add(new Pitch('C'));
-        pitches2.add(new Pitch('F'));
-        pitches2.add(new Pitch('G'));
-
-        Note note2 = new Note(new Pitch('C'), new Fraction(1, 2));
-
-        voice1.addMusicalElement(note2);   
-    }
-
     @Test
     public void testVoiceGetTicksPerWholeNote() {
         Voice voice1 = new Voice("Bass", 1.0);

@@ -30,7 +30,7 @@ public class Voice {
 	 * Adds element  to voice
 	 * @param element
 	 */
-	public void addMusicalElement(MusicalElement element) throws Exception {
+	public void addMusicalElement(MusicalElement element) {
 		this.notes.add(element);
 		this.sumCurrentNotes += element.getDuration().evaluate();
 	}

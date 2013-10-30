@@ -243,15 +243,11 @@ public class Song {
 	}
 	
 	public void scheduleBasicElement(SequencePlayer sp, MusicalElement element, List<String> lyrics, int voiceTicks) {
-		if (element instanceof Rest) {
-			//System.out.println("Scheduled Rest at tick #" + voiceTicks);
-		}
-		else if (element instanceof Note) {
+		if (element instanceof Note) {
 			Note note = (Note) element;
 			int noteDuration = (int) ((double)note.getDuration().evaluate()*this.getTicksPerWholeNote());
 			sp.addNote(note.getPitch().toMidiNote(), voiceTicks, noteDuration);
 			scheduleLyric(sp, lyrics, voiceTicks);
-			//System.out.println("Scheduled " + note.toString() + " at tick #" + voiceTicks);
 
 		} 
 		else if (element instanceof Chord) {
@@ -261,7 +257,6 @@ public class Song {
 				int noteDuration = (int) ((double)note.getDuration().evaluate()*this.getTicksPerWholeNote());
 				sp.addNote(note.getPitch().toMidiNote(), voiceTicks, noteDuration);
 				scheduleLyric(sp, lyrics, voiceTicks);
-				//System.out.println("Scheduled " + note.toString() + " at tick #" + voiceTicks);
 			}	
 		}
 	}

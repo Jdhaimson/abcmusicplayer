@@ -49,11 +49,8 @@ public class Voice {
 	 * @return true if there are enough free notes for lyric to be added to
 	 */
 	public boolean addLyric(String lyric) {
-		System.out.println(lyric);
 		if (this.lyrics.size() + 1 < this.getNumNotes()) {
 			this.lyrics.add(lyric);
-			System.out.println("Added!");
-			System.out.println(this.lyrics.size());
 			return true;
 		} else {
 			return false;
@@ -79,7 +76,6 @@ public class Voice {
 	 * @return list of lyrics in voice in order they should be displayed
 	 */
 	public List<String> getLyrics() {
-		System.out.println(this.lyrics.size());
 		List<String> clonedLyrics = new LinkedList<String>();
 		for (String lyric: this.lyrics){
 			clonedLyrics.add(lyric);
@@ -145,7 +141,6 @@ public class Voice {
 		for(String lyric: this.getLyrics()) {
 			clonedVoice.addLyric(lyric);
 		}
-		
 		return clonedVoice;
 	}
 	

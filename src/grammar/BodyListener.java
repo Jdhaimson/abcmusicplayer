@@ -252,7 +252,7 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 		String element = it.toString();
 		while(it.hasNext()) {
 			// remove any number of spaces as elements
-			if(element.matches(" +")) {
+			if(element.matches("[\\s ]+")) {
 				it.remove();		
 			}
 			element = it.next();
@@ -262,11 +262,12 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 		if (this.currentLyricElements.size() > 0) {
 			String elementType = this.currentLyricElements.get(0);
 			int elementCount = 0;
+
 			for (String s: this.currentLyricElements) {
 				if (!s.equals(elementType)) {
 					// If we're given two different types of elements throw error
-					throw new IllegalArgumentException("Each Lyric can only have one type"
-													 	+ " of modifying symbol");
+					//throw new IllegalArgumentException("Each Lyric can only have one type"
+					//								 	+ " of modifying symbol");
 				} else {
 					elementCount ++;
 				}
@@ -320,9 +321,10 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 			
 			// While loop to account for the case where we are at the end of a measure
 			// and the next n measures are empty
-			while(!this.currentVoice.addLyric(l)) {
+			while(!this.currentVoice.addLyric(l) ) {
 				this.lyricStartMeasure += 1;
 				if(this.lyricStartMeasure < this.measures.size()) {
+					
 					Measure m = this.measures.get(this.lyricStartMeasure);
 					this.currentVoice = m.getVoice(this.currentVoiceName);
 				} else { // we're at the end of the piece - don't add 

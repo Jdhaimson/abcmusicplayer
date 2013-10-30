@@ -52,7 +52,8 @@ public class Song {
 	}
 	
 	
-	//NOTE: the following three methods are called in this order: setMeter, setLength, setTempo
+	//NOTE: the following three methods are called in this order: setMeter -> setLength -> setTempo
+	//This hierarchy was chosen because certain field default values get set by other fields' values.
 	
 	public void setMeter(Fraction meter) {
 		this.meter = meter; //replaces default meter
@@ -85,8 +86,7 @@ public class Song {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * @return meter fraction's decimal evaluation
 	 */
 	public double getNotesPerMeasure() {
 		return this.meter.evaluate();
@@ -139,7 +139,7 @@ public class Song {
 				return new Fraction(def.getNumerator(), 2*def.getDenominator());
 			} 
 			else if(split.length == 1) {
-				// "1/" => ["1"] - 
+				// "1/" => ["1"]
 				// default denominator to 2, numerator comes from string		
 				int num = Integer.parseInt(split[0]);
 				return new Fraction(num*def.getNumerator(), 2*def.getDenominator());
@@ -248,13 +248,11 @@ public class Song {
 	
 	public void scheduleBasicElement(SequencePlayer sp, MusicalElement element, int voiceTicks) {
 		if (element instanceof Rest) {
-			//System.out.println("Scheduled Rest at tick #" + voiceTicks);
 		}
 		else if (element instanceof Note) {
 			Note note = (Note) element;
 			int noteDuration = (int) ((double)note.getDuration().evaluate()*this.getTicksPerWholeNote());
 			sp.addNote(note.getPitch().toMidiNote(), voiceTicks, noteDuration);
-			//System.out.println("Scheduled " + note.toString() + " at tick #" + voiceTicks);
 
 		} 
 		else if (element instanceof Chord) {
@@ -263,7 +261,6 @@ public class Song {
 			for (Note note: notes) {
 				int noteDuration = (int) ((double)note.getDuration().evaluate()*this.getTicksPerWholeNote());
 				sp.addNote(note.getPitch().toMidiNote(), voiceTicks, noteDuration);
-				//System.out.println("Scheduled " + note.toString() + " at tick #" + voiceTicks);
 			}	
 		}
 	}

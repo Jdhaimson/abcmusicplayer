@@ -72,7 +72,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws FileNotFoundException, MidiUnavailableException, InvalidMidiDataException {
-    	String file = "sample_abc/piece2.abc";
+    	String file = "sample_abc/piece1.abc";
     	play(file);
     }
     

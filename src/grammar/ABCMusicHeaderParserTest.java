@@ -34,7 +34,7 @@ public class ABCMusicHeaderParserTest {
     }
     
     @Test
-    public void testBasicHeaderParserDifferentOrder() {
+    public void testBasicHeaderParserDifferentOrderNoSetLength() {
         String s = "X:2167\n"+
                 "T:Waxie's: Dargle\n"+
                 "%Random Comment % * $ ()\n"+
@@ -49,7 +49,6 @@ public class ABCMusicHeaderParserTest {
                 
         Song expectedOutput = new Song(2167, "Waxie's: Dargle", new Key("D") );
         expectedOutput.setComposer("Josh");
-        expectedOutput.setLength(new Fraction(1, 8));
         expectedOutput.setMeter(new Fraction(4, 4));
         expectedOutput.setTempo(new Fraction(1,4), 180);
         

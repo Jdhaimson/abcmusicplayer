@@ -2,14 +2,10 @@ package sound;
 
 /* Fraction.java from http://www.cs.berkeley.edu/~jrs/61bf98/labs/lab2/Fraction.java */
 
-import java.io.*;
-
-/** The Fraction class implements non-negative fractions, i.e., rational 
- * numbers.   
+/** The Fraction class implements non-negative fractions that represent rational numbers
  */
 public class Fraction {
 	
-	/* private fields within a Fraction.           */ 
 	private int numerator;
 	private int denominator;
 	

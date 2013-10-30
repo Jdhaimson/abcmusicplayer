@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Voice is a mutable object that stores a list of notes in that voice
+ * Voice is a mutable object that stores a list of notes in that voice, as well as a list of lyrics.
  * @author Josh
  *
  */

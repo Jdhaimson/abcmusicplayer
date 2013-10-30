@@ -1,21 +1,17 @@
 package grammar;
 
-import java.util.Stack;
-
-import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.tree.ErrorNode;
-import org.antlr.v4.runtime.tree.TerminalNode;
-
 import sound.*;
 import grammar.ABCMusicHeaderParser;
 
 /**
- * HEADER LISTENER
+ * HEADER LISTENER - Observes and stores all fields in the header of the song.
+ * 					 Creates Song object using the fields that were found (only index, title, and key are required fields).
  */
 public class HeaderListener extends ABCMusicHeaderParserBaseListener {
 	
+	//all applicable fields found in a song's header (excludes voices and comments)
 	private Song song;
-	private int field_number;
+	private int field_index;
 	private String field_title;
 	private String field_composer;
 	private Key field_key;
@@ -25,63 +21,66 @@ public class HeaderListener extends ABCMusicHeaderParserBaseListener {
 	private int field_tempo_number;
 	
         
-	@Override 
+	@Override //storing name of composer as String
 	public void exitComposer_text(ABCMusicHeaderParser.Composer_textContext ctx) { 
 		field_composer = ctx.getText();
 	}
 
 
-	@Override 
+	@Override //storing tempo as a Fraction
 	public void exitTempo_fraction(ABCMusicHeaderParser.Tempo_fractionContext ctx) {
-		String[] fraction = ctx.getText().split("/");
+		String[] fraction = ctx.getText().split("/"); //extracting numerator and denominator
 		field_tempo_fraction = new Fraction(Integer.parseInt(fraction[0]), Integer.parseInt(fraction[1]));
 	}
 	
-	@Override
+	@Override //storing beat size as integer
 	public void exitTempo_number(ABCMusicHeaderParser.Tempo_numberContext ctx) {
 		field_tempo_number = Integer.parseInt(ctx.getText()) ;
 	}
 
-	@Override 
+	@Override //storing key as Key object
 	public void exitKey_note(ABCMusicHeaderParser.Key_noteContext ctx) { 
 		field_key = new Key(ctx.getText());
 	}
 
-	@Override 
+	@Override //storing index as integer
 	public void exitNumber(ABCMusicHeaderParser.NumberContext ctx) { 
-		field_number = Integer.parseInt(ctx.getText());
+		field_index = Integer.parseInt(ctx.getText());
 	}
 
-	@Override 
+	@Override //storing meter as Fraction
 	public void exitMeter(ABCMusicHeaderParser.MeterContext ctx) {
 		String context = ctx.getText();
+		//preset token "C" = 4/4
 		if (context.equals("C")){
 			field_meter = new Fraction(4,4);
 		}
+		//preset token "C|" = 2/2
 		else if (context.equals("C|")){
 			field_meter = new Fraction(2,2);
 		}
 		else{
-			String[] fraction = context.split("/");
+			String[] fraction = context.split("/"); //extracting numerator and denominator
 			field_meter = new Fraction(Integer.parseInt(fraction[0]), Integer.parseInt(fraction[1]));
 		}
 	}
 
-	@Override
+	@Override //storing title as String
 	public void exitTitle_text(ABCMusicHeaderParser.Title_textContext ctx) { 
 		field_title = ctx.getText();
 	}
 
-	@Override 
+	@Override //storing default length as Fraction
 	public void exitLength_fraction(ABCMusicHeaderParser.Length_fractionContext ctx) { 
-		String[] fraction = ctx.getText().split("/");
+		String[] fraction = ctx.getText().split("/"); //extracting numerator and denominator
 		field_default_length = new Fraction(Integer.parseInt(fraction[0]), Integer.parseInt(fraction[1]));
 	}
 
-	@Override 
+	@Override //create new Song object upon leaving header
 	public void exitAbc_tune_header(ABCMusicHeaderParser.Abc_tune_headerContext ctx) {
-		song = new Song(field_number, field_title, field_key);
+		song = new Song(field_index, field_title, field_key);
 		
+		//below are the optional fields; if they were found, we add them to the Song object
 		if (field_composer != null){
 			song.setComposer(field_composer);
 		}
@@ -94,17 +93,9 @@ public class HeaderListener extends ABCMusicHeaderParserBaseListener {
 		if (field_tempo_fraction != null){
 			song.setTempo(field_tempo_fraction, field_tempo_number);
 		}
-		
-//		System.out.println("field_number: " + field_number);
-//		System.out.println("field_title: " + field_title);
-//		System.out.println("field_composer: " + field_composer);
-//		System.out.println("field_key: " + field_key);
-//		System.out.println("field_meter: " + field_meter);
-//		System.out.println("field_default_length: " + field_default_length);
-//		System.out.println("field_tempo_fraction: " + field_tempo_fraction);
-//		System.out.println("field_tempo_number: " + field_tempo_number);
 	}
 	
+	//returns the Song object created
 	public Song getSong(){
 		return this.song;
 	}

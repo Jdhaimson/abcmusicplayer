@@ -24,14 +24,14 @@ public class Song {
 	
 	/**	
 	 * Song object
-	 * @param title
-	 * @param composer
-	 * @param noteLength: default duration of note
-	 * @param meter: sum of durations of all notes within a bar
-	 * @param index: index number to determine play order if in playlist
-	 * @param tempoNPM: Amount of notes of given type per minute
-	 * @param tempoNoteType: type of note that tempoNPM applies to
-	 * @param key: key signature of piece
+	 * @param title title of piece
+	 * @param composer default is "default"
+	 * @param noteLength default duration of note
+	 * @param meter sum of durations of all notes within a bar
+	 * @param index index number to determine play order if in playlist
+	 * @param tempoNPM Amount of notes of given type per minute
+	 * @param tempoNoteType type of note that tempoNPM applies to
+	 * @param key key signature of piece
 	 */
 	public Song(int index, String title, Key key) {
 		//Required fields
@@ -48,12 +48,17 @@ public class Song {
 	}
 	
 	public void setComposer(String composer){
-		this.composer = composer;
+		this.composer = composer; //replaces default composer
 	}
 	
+	
+	//NOTE: the following three methods are called in this order: setMeter -> setLength -> setTempo
+	//This hierarchy was chosen because certain field default values get set by other fields' values.
+	
 	public void setMeter(Fraction meter) {
-		this.meter = meter;
+		this.meter = meter; //replaces default meter
 		double meterValue = ((double)meter.getNumerator())/((double)meter.getDenominator());
+		//default unit length is a sixteenth note if meter < 0.75, else is an eighth note
 		if (meterValue < 0.75){
 			this.defaultLength = new Fraction(1,16);
 		}
@@ -61,7 +66,7 @@ public class Song {
 	}
 	
 	public void setLength(Fraction length){
-		this.defaultLength = length;
+		this.defaultLength = length; //replaces default length
 		this.tempoNoteType = this.defaultLength;
 	}
 	
@@ -81,8 +86,7 @@ public class Song {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * @return meter fraction's decimal evaluation
 	 */
 	public double getNotesPerMeasure() {
 		return this.meter.evaluate();
@@ -135,7 +139,7 @@ public class Song {
 				return new Fraction(def.getNumerator(), 2*def.getDenominator());
 			} 
 			else if(split.length == 1) {
-				// "1/" => ["1"] - 
+				// "1/" => ["1"]
 				// default denominator to 2, numerator comes from string		
 				int num = Integer.parseInt(split[0]);
 				return new Fraction(num*def.getNumerator(), 2*def.getDenominator());
@@ -243,7 +247,6 @@ public class Song {
 			int noteDuration = (int) ((double)note.getDuration().evaluate()*this.getTicksPerWholeNote());
 			sp.addNote(note.getPitch().toMidiNote(), voiceTicks, noteDuration);
 			scheduleLyric(sp, lyrics, voiceTicks);
-
 		} 
 		else if (element instanceof Chord) {
 			Chord chord = (Chord) element;
@@ -272,11 +275,16 @@ public class Song {
 	public void scheduleSequence(SequencePlayer sp) {
 		int tickTracker = 0;
 		Measure nextMeasure;
+		
+		// Build a new list of measures accounting for repeats and alternate endings
 		List<Measure> measuresWithRepeats = new LinkedList<Measure>();
 		int nextMeasureNum = 0;
 		while(nextMeasureNum < measures.size()) {
 			nextMeasure = measures.get(nextMeasureNum);
-			measuresWithRepeats.add(nextMeasure);
+			// Prevents 1st ending of alternate ending from being played twice
+			if(nextMeasure.shouldBePlayed()) {
+				measuresWithRepeats.add(nextMeasure);	
+			}
 			nextMeasureNum = nextMeasure.getNextMeasure();
 		}
 		

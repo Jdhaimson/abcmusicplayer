@@ -5,13 +5,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Stack;
-
-import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.tree.ErrorNode;
-import org.antlr.v4.runtime.tree.TerminalNode;
 
 import sound.*;
 import grammar.ABCMusicBodyParser;
@@ -44,14 +37,13 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 	
 	// Track Lyrics
 	private int lyricStartMeasure;
-	private int lyricNoteTracker;
 	private String lyricBuffer = "";
 	private boolean lyricMeasureChange = false;
 	private List<String> currentLyrics = new LinkedList<String>();
 	private List<String> currentLyricElements = new LinkedList<String>();
 
 	// Track repeats
-	private int openRepeat;
+	private int openRepeat = 0;
 	private int altEnding1;
 	
 	private Song song;
@@ -68,13 +60,15 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 	}
 
 	// Enter Whole Song
-	@Override public void exitAbc_tune_body(ABCMusicBodyParser.Abc_tune_bodyContext ctx) { 
+	@Override
+	public void exitAbc_tune_body(ABCMusicBodyParser.Abc_tune_bodyContext ctx) { 
 		this.song.addMeasures(this.measures);
 	}
 	
 	
 	// Voices
-	@Override public void enterVoice(ABCMusicBodyParser.VoiceContext ctx) { 
+	@Override
+	public void enterVoice(ABCMusicBodyParser.VoiceContext ctx) { 
 		this.currentVoiceName = ctx.getText();
 		if (this.voicesAdded.containsKey(this.currentVoiceName)) {
 			// Hitting the next section of voices - move measure tracker forward
@@ -106,29 +100,48 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 		this.currentMeasure = measure;
 		// create current voice
 		this.currentVoice = new Voice(this.currentVoiceName, this.song.getNotesPerMeasure());	
+		
 	}
-	@Override public void exitMeasure(ABCMusicBodyParser.MeasureContext ctx) {
+	@Override
+	public void exitMeasure(ABCMusicBodyParser.MeasureContext ctx) {
 		// Add voice to currentMeasure
 		this.currentMeasure.addVoice(this.currentVoice);
 		// Increment measure tracker
 		this.currentMeasureNum ++;	
 	}
-	// Keep track of alternate endings for measure
-	@Override public void enterNth_repeat(ABCMusicBodyParser.Nth_repeatContext ctx) { }
-	@Override public void exitNth_repeat(ABCMusicBodyParser.Nth_repeatContext ctx) { }
-
-	// Keep track of repeats
-	@Override public void enterBar_line(ABCMusicBodyParser.Bar_lineContext ctx) { }
-	@Override public void exitBar_line(ABCMusicBodyParser.Bar_lineContext ctx) { }
 	
-
+	
+	// Keep track of alternate endings for measure
+	@Override
+	public void exitNth_repeat(ABCMusicBodyParser.Nth_repeatContext ctx) { 
+		if(ctx.getText().equals("[1")) {
+			this.altEnding1 = this.currentMeasureNum;
+		} else if (ctx.getText().equals("[2")) {
+			Measure m = this.measures.get(this.altEnding1);
+			m.setAlternateEnding(this.currentMeasureNum );
+		}
+	}
+	
+	// Keep track of repeats
+	@Override
+	public void exitBar_line(ABCMusicBodyParser.Bar_lineContext ctx) { 
+		if(ctx.getText().equals("|:")) {
+			this.openRepeat = this.currentMeasureNum;
+		} else if (ctx.getText().equals(":|")) {
+			Measure m = this.measures.get(this.currentMeasureNum - 1);
+			m.setRepeat(this.openRepeat);
+		}
+				
+	}
+	
 	
 	// Musical Elements - Notes, Rests, Chords and Tuplets
 	@Override 
 	public void enterMulti_note(ABCMusicBodyParser.Multi_noteContext ctx) {
 		this.inChord = true;
 	}
-	@Override public void exitMulti_note(ABCMusicBodyParser.Multi_noteContext ctx) {
+	@Override
+	public void exitMulti_note(ABCMusicBodyParser.Multi_noteContext ctx) {
 		List<Note> chordNotes = new LinkedList<Note>();
 		for (int i=0; i<this.chordElements.size(); i++) {
 			chordNotes.add((Note) this.chordElements.remove(0));
@@ -137,16 +150,17 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 		this.inChord = false;
 	}
 
-	@Override public void enterTuplet_element(ABCMusicBodyParser.Tuplet_elementContext ctx) {}
-	@Override public void exitTuplet_element(ABCMusicBodyParser.Tuplet_elementContext ctx) {
+	@Override
+	public void exitTuplet_element(ABCMusicBodyParser.Tuplet_elementContext ctx) {
 		List<MusicalElement> elements = new LinkedList<MusicalElement>();
 		for (int i=0; i<this.currentElements.size(); i++) {
 			elements.add(this.currentElements.remove(0));
 		}
 		this.currentElements.add(new Tuplet(elements));			
 	}
-	@Override public void enterNote_element(ABCMusicBodyParser.Note_elementContext ctx) {}
-	@Override public void exitNote_element(ABCMusicBodyParser.Note_elementContext ctx) {
+
+	@Override
+	public void exitNote_element(ABCMusicBodyParser.Note_elementContext ctx) {
 		try {
 			this.currentVoice.addMusicalElement(this.currentElements.remove(0));
 		} catch (Exception e) {
@@ -155,7 +169,6 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 		}	
 	}
 	
-	@Override public void enterNote(ABCMusicBodyParser.NoteContext ctx) {}
 	@Override 
 	public void exitNote(ABCMusicBodyParser.NoteContext ctx) {
 		MusicalElement newElement;
@@ -183,14 +196,13 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 		this.currentLen = this.song.getDefaultNoteLen();		
 	}
 	
-	@Override public void enterAccidental(ABCMusicBodyParser.AccidentalContext ctx) {}
 	@Override 
 	public void exitAccidental(ABCMusicBodyParser.AccidentalContext ctx) {
 		this.currentAccidental = ctx.getText();		
 	}
 	
-	@Override public void enterPitch(ABCMusicBodyParser.PitchContext ctx) { }
-	@Override public void exitPitch(ABCMusicBodyParser.PitchContext ctx) {
+	@Override
+	public void exitPitch(ABCMusicBodyParser.PitchContext ctx) {
 		// Modify accidental key for measure
 		if (this.currentAccidental != "") {
 			this.currentMeasure.modifyKey(this.currentPitchStr, this.currentAccidental);
@@ -199,18 +211,16 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 		this.currentAccidental = "";
 	}
 	
-	@Override public void enterBase_note_octave(ABCMusicBodyParser.Base_note_octaveContext ctx) { }
-	@Override public void exitBase_note_octave(ABCMusicBodyParser.Base_note_octaveContext ctx) {
+	@Override
+	public void exitBase_note_octave(ABCMusicBodyParser.Base_note_octaveContext ctx) {
 		this.currentPitchStr = ctx.getText();
 	}	
-	
-	@Override public void enterRest(ABCMusicBodyParser.RestContext ctx) { }
-	@Override public void exitRest(ABCMusicBodyParser.RestContext ctx) {
+	@Override
+	public void exitRest(ABCMusicBodyParser.RestContext ctx) {
 		this.currentPitchStr = ctx.getText();	
 	}
 	
 	
-	@Override public void enterNote_length(ABCMusicBodyParser.Note_lengthContext ctx) { }
 	@Override 
 	public void exitNote_length(ABCMusicBodyParser.Note_lengthContext ctx) {
 		this.currentLen = this.song.parseDurationFromString(ctx.getText());
@@ -220,31 +230,28 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 	
 	
 	// Track measure number that line starts at to know what measure to come back to when adding lyrics
-	@Override public void enterAbc_line(ABCMusicBodyParser.Abc_lineContext ctx) {
+	@Override 
+	public void enterAbc_line(ABCMusicBodyParser.Abc_lineContext ctx) {
 		this.lyricStartMeasure = this.currentMeasureNum;
 	}
-	@Override public void exitAbc_line(ABCMusicBodyParser.Abc_lineContext ctx) { }
 	
 	// add voice at first measure of lyric line to currentVoice
-	@Override public void enterLyric_line(ABCMusicBodyParser.Lyric_lineContext ctx) { 
+	@Override
+	public void enterLyric_line(ABCMusicBodyParser.Lyric_lineContext ctx) { 
 		Measure m = this.measures.get(this.lyricStartMeasure);
 		this.currentVoice = m.getVoice(this.currentVoiceName);
 	}
-	@Override public void exitLyric_line(ABCMusicBodyParser.Lyric_lineContext ctx) { }
 	
-	@Override public void enterLyric_element(ABCMusicBodyParser.Lyric_elementContext ctx) { }
 	@Override public void exitLyric_element(ABCMusicBodyParser.Lyric_elementContext ctx) { 
 		// add all lyric elements to list of current elements
 		this.currentLyricElements.add(ctx.getText());
 	}
 
-	@Override public void enterLyric_text(ABCMusicBodyParser.Lyric_textContext ctx) { }
 	@Override public void exitLyric_text(ABCMusicBodyParser.Lyric_textContext ctx) { 
 		// add lyric to list of current lyrics
 		this.currentLyrics.add(ctx.getText());
 	}
 	
-	@Override public void enterLyric(ABCMusicBodyParser.LyricContext ctx) { }
 	@Override public void exitLyric(ABCMusicBodyParser.LyricContext ctx) { 
 
 		// Look at lyric symbols and do the proper thing for each
@@ -342,42 +349,8 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 		}
 	}
 
-
-
 	
-
-//	@Override public void enterTuplet_digit(ABCMusicBodyParser.Tuplet_digitContext ctx) { }
-//	@Override public void exitTuplet_digit(ABCMusicBodyParser.Tuplet_digitContext ctx) { }
-//	
-//	@Override public void enterTuplet_spec(ABCMusicBodyParser.Tuplet_specContext ctx) { }
-//	@Override public void exitTuplet_spec(ABCMusicBodyParser.Tuplet_specContext ctx) { }
-//	
-//	
-//	@Override public void enterField_voice(ABCMusicBodyParser.Field_voiceContext ctx) { }
-//	@Override public void exitField_voice(ABCMusicBodyParser.Field_voiceContext ctx) { }
-//	
-	
-//	@Override public void enterNote_or_rest(ABCMusicBodyParser.Note_or_restContext ctx) { }
-//	@Override public void exitNote_or_rest(ABCMusicBodyParser.Note_or_restContext ctx) { }
-//	
-//	@Override public void enterAbc_music(ABCMusicBodyParser.Abc_musicContext ctx) { }
-//	@Override public void exitAbc_music(ABCMusicBodyParser.Abc_musicContext ctx) { }
-
-//
-//	@Override public void enterElement(ABCMusicBodyParser.ElementContext ctx) { }
-//	@Override public void exitElement(ABCMusicBodyParser.ElementContext ctx) { }
-//
-//	@Override public void enterMid_tune_field(ABCMusicBodyParser.Mid_tune_fieldContext ctx) { }
-//	@Override public void exitMid_tune_field(ABCMusicBodyParser.Mid_tune_fieldContext ctx) { }
-//	
-//	@Override public void enterComment(ABCMusicBodyParser.CommentContext ctx) { }
-//	@Override public void exitComment(ABCMusicBodyParser.CommentContext ctx) { }
-//	
-//	@Override public void enterSpace(ABCMusicBodyParser.SpaceContext ctx) { }
-//	@Override public void exitSpace(ABCMusicBodyParser.SpaceContext ctx) { }
-//
-
-//
-//	@Override public void enterEol(ABCMusicBodyParser.EolContext ctx) { }
-//	@Override public void exitEol(ABCMusicBodyParser.EolContext ctx) { }
+	public Song getSong(){
+		return this.song;
+	}
 }

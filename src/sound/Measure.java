@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Mutable object representing a measure of a piece.  Measure contains
- * voices and a key which is used to keep track of accidentals.
+ * Voices and a Key which is used to keep track of accidentals.
  * @author Josh
  *
  */
@@ -70,6 +70,22 @@ public class Measure {
 				throw new Exception("Voices must have same duration as measures");
 			}
 		} catch (Exception e) {}
+	}
+	
+	/**
+	 * Return the measure number of this measure
+	 * @return
+	 */
+	public int getMeasureNum() {
+		return this.measureNumber;
+	}
+	
+	/**
+	 * Used to determine if alt endings should be played
+	 * @return False if has alternate ending and has already been played
+	 */
+	public boolean shouldBePlayed() {
+		return !(this.played && this.hasAlternateEnding);
 	}
 	
 	/**

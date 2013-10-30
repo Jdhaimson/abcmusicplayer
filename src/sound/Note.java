@@ -1,14 +1,14 @@
 package sound;
 
 /**
- * Note is an immutable object representing a note.  It contains a chord
- * and the duration to play it for
+ * Note is an immutable object representing a note.  It contains a pitch
+ * and the duration to play it for.
  * @author Josh
  *
  */
 public class Note implements MusicalElement {
 	private Pitch pitch;
-	private Fraction duration; // ie quarter note, whole note, etc
+	private Fraction duration; // i.e. quarter note, whole note, etc
 	
 	/**
 	 * Constructor of Note object

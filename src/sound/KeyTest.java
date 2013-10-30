@@ -52,12 +52,12 @@ public class KeyTest {
 	    assertEquals(true, key3.hashCode() == key3.hashCode());
 	}
 
-	//TODO: Finish toString Testing
 	@Test
 	public void testKeyToString() {
 	    Key key1 = new Key("Em");
 	    Key key2 = new Key("G");
-	    assertEquals(key1.toString(), key2.toString());
+	    assertEquals(true, key2.toString().equals("G {D=D, E=E, F=^F, G=G, A=A, B=B, C=C}"));
+	    assertEquals(true, key1.toString().equals("Em {D=D, E=E, F=^F, G=G, A=A, B=B, C=C}"));
 	}
 	
 	@Test
@@ -73,7 +73,9 @@ public class KeyTest {
 	    assertEquals(false, gMajor.containsNote("b"));
 	    assertEquals(true, gMajor.containsNote("A") == aMajor.containsNote("A"));
 	    assertEquals(false, aMajor.containsNote("^C"));
-	    assertEquals(false, aMajor.containsNote("^C") == gMajor.containsNote("^C"));
+	    assertEquals(false, gMajor.containsNote("^C"));
 	}
+	
+
 	
 }

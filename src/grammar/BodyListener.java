@@ -98,6 +98,7 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 		this.currentMeasure = measure;
 		// create current voice
 		this.currentVoice = new Voice(this.currentVoiceName, this.song.getNotesPerMeasure());	
+		
 	}
 	@Override public void exitMeasure(ABCMusicBodyParser.MeasureContext ctx) {
 		// Add voice to currentMeasure
@@ -259,4 +260,8 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 //
 //	@Override public void enterEol(ABCMusicBodyParser.EolContext ctx) { }
 //	@Override public void exitEol(ABCMusicBodyParser.EolContext ctx) { }
+	
+	public Song getSong(){
+		return this.song;
+	}
 }

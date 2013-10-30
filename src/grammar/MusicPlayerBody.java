@@ -26,7 +26,17 @@ public class MusicPlayerBody {
 		this.song = s;
 	}
 	
-    public Song runListener(String input) {
+	public Song parse(String s) {
+    	try{
+    		BodyListener listener = runListener(s);
+    		return listener.getSong();
+    	}
+    	catch(Exception e){
+    		throw new RuntimeException("Invalid Body Input!");
+    	}
+    }
+	
+    public BodyListener runListener(String input) {
         // Create a stream of tokens using the lexer.
         CharStream stream = new ANTLRInputStream(input);
         ABCMusicBodyLexer lexer = new ABCMusicBodyLexer(stream);
@@ -52,7 +62,8 @@ public class MusicPlayerBody {
         ParseTreeListener listener = new BodyListener(this.song);
         walker.walk(listener, tree);
       
-        return this.song;
+        BodyListener bodylistener = (BodyListener) listener;
+        return bodylistener;
     }
     
     public static void main(String[] args) {

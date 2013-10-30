@@ -57,7 +57,7 @@ public class Main {
     	System.out.println(song);
     	
     	MusicPlayerBody bodyPlayer = new MusicPlayerBody(song);
-    	song = bodyPlayer.runListener(join(body, "\n"));
+    	song = bodyPlayer.parse(join(body, "\n"));
 
     	List<Measure> measures = song.getMeasures();
     	for (Measure measure : measures){
@@ -69,8 +69,7 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException, MidiUnavailableException, InvalidMidiDataException {
         // CALL play() HERE
-    	
-    	String file = "sample_abc/fur_elise.abc";
+    	String file = "sample_abc/piece2.abc";
     	play(file);
     }
     

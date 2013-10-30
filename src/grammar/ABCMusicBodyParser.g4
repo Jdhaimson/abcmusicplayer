@@ -60,8 +60,6 @@ measure : (note_element | nth_repeat | space )+ ;
 element : measure | bar_line ;
 note_element : note | multi_note | tuplet_element;
 
-note_length : NOTE_LENGTH ;
-
 note : note_or_rest note_length? ;
 multi_note : OPEN_BRACK note+ CLOSED_BRACK ;
 note_or_rest : pitch | rest ;
@@ -69,6 +67,8 @@ rest : REST ;
 pitch : accidental? base_note_octave ;
 base_note_octave : BASE_NOTE_OCTAVE ;
 accidental : ACCIDENTAL ;
+
+note_length : NOTE_LENGTH ;
 
 // tuplets
 tuplet_element : tuplet_spec (note | multi_note)+;

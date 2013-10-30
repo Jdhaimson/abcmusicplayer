@@ -64,9 +64,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws FileNotFoundException, MidiUnavailableException, InvalidMidiDataException {
-        // CALL play() HERE
-    	
-    	String file = "sample_abc/waxies_dargle.abc";
+    	String file = "sample_abc/abc_song.abc";
     	play(file);
     }
     

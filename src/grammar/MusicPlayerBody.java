@@ -42,10 +42,10 @@ public class MusicPlayerBody {
         tree = parser.abc_tune_body(); // "abc_tune_header" is the starter rule.
 
         // debugging option #1: print the tree to the console
-//      System.err.println(tree.toStringTree(parser));
+        // System.err.println(tree.toStringTree(parser));
 
-      // debugging option #2: show the tree in a window
-  //    ((RuleContext)tree).inspect(parser);
+        // debugging option #2: show the tree in a window
+        // ((RuleContext)tree).inspect(parser);
 
         // Walk the tree with the listener.
         ParseTreeWalker walker = new ParseTreeWalker();

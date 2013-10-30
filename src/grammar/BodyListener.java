@@ -67,8 +67,7 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 		this.currentLen = this.song.getDefaultNoteLen();
 	}
 
-	// Whole Song
-	@Override public void enterAbc_tune_body(ABCMusicBodyParser.Abc_tune_bodyContext ctx) { }
+	// Enter Whole Song
 	@Override public void exitAbc_tune_body(ABCMusicBodyParser.Abc_tune_bodyContext ctx) { 
 		this.song.addMeasures(this.measures);
 	}

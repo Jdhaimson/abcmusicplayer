@@ -61,6 +61,11 @@ public class Main {
 
     	List<Measure> measures = song.getMeasures();
     	for (Measure measure : measures){
+    		for(Voice voice: measure.getVoices()) {
+    			List<String> lyrics = voice.getLyrics();
+    			int z = 1;
+    			System.out.println(lyrics.size());
+    		}
     		//System.out.println(measure.toString());
     	}
     	song.play();

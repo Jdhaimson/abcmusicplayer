@@ -37,17 +37,10 @@ public class Voice {
 	/**
 	 * Adds element  to voice
 	 * @param element
-	 * @throws Exception when note would make voice longer than maxNotes
 	 */
-	public void addMusicalElement(MusicalElement element) throws Exception {
-	//	if (this.sumCurrentNotes + element.getDuration().evaluate() <= this.maxNotes) {
-			this.notes.add(element);
-			this.sumCurrentNotes += element.getDuration().evaluate();
-	/*	}
-		else {
-			throw new Exception("This voice cannot be longer than " + Double.toString(this.maxNotes) + " notes");
-		}
-		*/
+	public void addMusicalElement(MusicalElement element) {
+		this.notes.add(element);
+		this.sumCurrentNotes += element.getDuration().evaluate();
 	}
 	
 	/**
@@ -56,8 +49,11 @@ public class Voice {
 	 * @return true if there are enough free notes for lyric to be added to
 	 */
 	public boolean addLyric(String lyric) {
+		System.out.println(lyric);
 		if (this.lyrics.size() + 1 < this.getNumNotes()) {
 			this.lyrics.add(lyric);
+			System.out.println("Added!");
+			System.out.println(this.lyrics.size());
 			return true;
 		} else {
 			return false;
@@ -76,6 +72,20 @@ public class Voice {
 		}
 		
 		return clonedElements;
+	}
+	
+	/**
+	 * Returns list of lyrics in voice
+	 * @return list of lyrics in voice in order they should be displayed
+	 */
+	public List<String> getLyrics() {
+		System.out.println(this.lyrics.size());
+		List<String> clonedLyrics = new LinkedList<String>();
+		for (String lyric: this.lyrics){
+			clonedLyrics.add(lyric);
+		}
+		
+		return clonedLyrics;
 	}
 	
 	/**
@@ -130,12 +140,10 @@ public class Voice {
 	public Voice clone() {
 		Voice clonedVoice = new Voice(this.name, this.maxNotes);
 		for(MusicalElement elem: this.getMusicalElements()) {
-			try {
-				clonedVoice.addMusicalElement(elem);
-			} catch (Exception e) { 
-				// Do nothing, Exception will never be hit because it would 
-				// have been hit first while constructing the initial object
-			}
+			clonedVoice.addMusicalElement(elem);
+		}
+		for(String lyric: this.getLyrics()) {
+			clonedVoice.addLyric(lyric);
 		}
 		
 		return clonedVoice;

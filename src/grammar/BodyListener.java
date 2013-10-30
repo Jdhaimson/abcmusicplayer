@@ -235,13 +235,11 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 	
 	@Override public void enterLyric_element(ABCMusicBodyParser.Lyric_elementContext ctx) { }
 	@Override public void exitLyric_element(ABCMusicBodyParser.Lyric_elementContext ctx) { 
-		System.out.println("Lyric Element: " + ctx.getText());
 		this.currentLyricElements.add(ctx.getText());
 	}
 
 	@Override public void enterLyric_text(ABCMusicBodyParser.Lyric_textContext ctx) { }
 	@Override public void exitLyric_text(ABCMusicBodyParser.Lyric_textContext ctx) { 
-		System.out.println("Lyric Text: " + ctx.getText());
 		this.currentLyrics.add(ctx.getText());
 	}
 	
@@ -315,7 +313,7 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 		this.currentLyricElements.clear();
 		
 		// add all elements in queue to voices
-		while(this.currentElements.size() > 0) {
+		while(this.currentLyrics.size() > 0) {
 			// add lyric to voice - prepend anything in lyric buffer that needs to be combined
 			String l = this.lyricBuffer + this.currentLyrics.get(0);
 			this.lyricBuffer = "";

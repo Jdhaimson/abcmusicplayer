@@ -242,7 +242,7 @@ public class Song {
 		return sp;
 	}
 	
-	public void scheduleBasicElement(SequencePlayer sp, MusicalElement element, int voiceTicks) {
+	public void scheduleBasicElement(SequencePlayer sp, MusicalElement element, List<String> lyrics, int voiceTicks) {
 		if (element instanceof Rest) {
 			//System.out.println("Scheduled Rest at tick #" + voiceTicks);
 		}
@@ -250,6 +250,7 @@ public class Song {
 			Note note = (Note) element;
 			int noteDuration = (int) ((double)note.getDuration().evaluate()*this.getTicksPerWholeNote());
 			sp.addNote(note.getPitch().toMidiNote(), voiceTicks, noteDuration);
+			scheduleLyric(sp, lyrics, voiceTicks);
 			//System.out.println("Scheduled " + note.toString() + " at tick #" + voiceTicks);
 
 		} 
@@ -259,8 +260,16 @@ public class Song {
 			for (Note note: notes) {
 				int noteDuration = (int) ((double)note.getDuration().evaluate()*this.getTicksPerWholeNote());
 				sp.addNote(note.getPitch().toMidiNote(), voiceTicks, noteDuration);
+				scheduleLyric(sp, lyrics, voiceTicks);
 				//System.out.println("Scheduled " + note.toString() + " at tick #" + voiceTicks);
 			}	
+		}
+	}
+	
+	public void scheduleLyric(SequencePlayer sp, List<String> lyrics, int voiceTicks) {
+		if(lyrics.size() > 0) {
+			sp.addLyricEvent(lyrics.get(0), voiceTicks);
+			lyrics.remove(0);
 		}
 	}
 	
@@ -268,10 +277,9 @@ public class Song {
 	 * Loops through entire song scheduling MIDI and lyric events in sequencePlayer
 	 * Precondition: this.measures is not empty
 	 * @param sp: SequencePlayer object to get scheduled on
-	 * @param ll: LyricListener to assign lyric events to
 	 * @return void
 	 */
-	public void scheduleSequence(SequencePlayer sp, LyricListener ll) {
+	public void scheduleSequence(SequencePlayer sp) {
 		int tickTracker = 0;
 		Measure nextMeasure;
 		List<Measure> measuresWithRepeats = new LinkedList<Measure>();
@@ -286,6 +294,7 @@ public class Song {
 
 			// Add everything within this measure to sequence
 			for(Voice voice: measure.getVoices()) {	
+				List<String> lyrics = voice.getLyrics();
 				int voiceTicks = tickTracker;
 				for(MusicalElement element: voice.getMusicalElements()) {
 					int ticks = (int)((double) this.ticksPerWholeNote*element.getDuration().evaluate());
@@ -295,11 +304,11 @@ public class Song {
 						int ticksPerElem = tuplet.getTicksPerElement(ticksPerWholeNote);
 						List<MusicalElement> tupletElements = tuplet.getElements();
 						for(MusicalElement tElement: tupletElements) {
-							this.scheduleBasicElement(sp, tElement, voiceTicks);								
+							this.scheduleBasicElement(sp, tElement, lyrics, voiceTicks);								
 							voiceTicks += ticksPerElem;
 						}
 					} else {
-						this.scheduleBasicElement(sp, element, voiceTicks);
+						this.scheduleBasicElement(sp, element, lyrics, voiceTicks);
 						voiceTicks += ticks;
 					}
 				}

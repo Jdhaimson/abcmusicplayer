@@ -15,6 +15,8 @@ public class FractionTest {
 	    Fraction f5 = new Fraction(2, 8);
 	    Fraction f6 = new Fraction(6);
 	    Fraction f7 = new Fraction();
+	    Fraction f8 = new Fraction(1,4);
+	    Fraction f9 = new Fraction(3, 4);
 	    
 	    assertEquals(true, f1.equals(f1));
 	    assertEquals(true, f1.equals(f4));
@@ -23,6 +25,7 @@ public class FractionTest {
 	    assertEquals(false, f1.equals(f5));
 	    assertEquals(false, f1.equals(f6));
 	    assertEquals(false, f1.equals(f7));
+	    assertEquals(false, f8.equals(f9));
 	}
 	
 	@Test

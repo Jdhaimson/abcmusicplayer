@@ -54,7 +54,6 @@ public class RestTest {
 
         assertEquals(true, r1.hashCode() == r1.hashCode());
         assertEquals(true, r1.hashCode() == r2.hashCode());
-        assertEquals(false, r1.hashCode() == r3.hashCode());
     }
 
     @Test
@@ -74,7 +73,7 @@ public class RestTest {
         Rest r2 = new Rest(new Fraction(1/4));
         Rest r3 = new Rest(new Fraction(3/4));
 
-        assertEquals(true, r1.toString().equals("z:1/4"));
+        assertEquals("z:1/4", r1.toString());
         assertEquals(true, r1.toString().equals(r2.toString()));
         assertEquals(true, r3.toString().equals("z:3/4"));
     }

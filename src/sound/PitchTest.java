@@ -55,9 +55,5 @@ public class PitchTest {
         assertEquals(true, pitch1.hashCode() == pitch2.hashCode());
 	}
 	
-	@Test
-	public void testPitchToString() {
-	    
-	}
 
 }

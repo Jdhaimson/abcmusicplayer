@@ -112,4 +112,56 @@ public class Tuplet implements MusicalElement {
     	tupletStrings.append(":" + this.duration.toString());
     	return tupletStrings.toString();
 	}
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result
+                + ((duration == null) ? 0 : duration.hashCode());
+        result = prime * result
+                + ((elements == null) ? 0 : elements.hashCode());
+        result = prime * result + type;
+        return result;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Tuplet)) {
+            return false;
+        }
+        Tuplet other = (Tuplet) obj;
+        if (duration == null) {
+            if (other.duration != null) {
+                return false;
+            }
+        } else if (!duration.equals(other.duration)) {
+            return false;
+        }
+        if (elements == null) {
+            if (other.elements != null) {
+                return false;
+            }
+        } else if (!elements.equals(other.elements)) {
+            return false;
+        }
+        if (type != other.type) {
+            return false;
+        }
+        return true;
+    }
+	
+	
 }

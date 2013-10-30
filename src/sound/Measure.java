@@ -17,10 +17,11 @@ public class Measure {
 	
 	// Keep track of repeats and alternate endings
 	private int repeatStartMeasure;
+	private int alternateEnding;
 	private boolean hasRepeat = false;
 	private boolean played = false;
 	private boolean hasAlternateEnding = false;
-	private int alternateEnding;
+	
 	
 	
 	/**
@@ -36,30 +37,22 @@ public class Measure {
 	}
 
 	/**
-	 * Object representing a measure of a piece.  Contains Voices (which contain notes)
-	 * and Lyrics.  Also contains a key and stores the amount of notesPerMeasure.
-	 * The sum of all of the ticks in every voice and in all lyrics should be <= notesPerMeasure
-	 * @param notesPerMeasure: amount of notes in each measure
-	 * @param startRepeat: measure to repeat from
+	 * Sets measure to have repeat and stores what the starting measure
+	 * of that repeat sequence is
+	 * @param repeatStartMeasure: int representing the measure # of the 
+	 * starting measure
 	 */
-	public Measure(double notesPerMeasure, int measureNumber, int repeatStartMeasure) {
-		this.notesPerMeasure = notesPerMeasure;
-		this.measureNumber = measureNumber;
+	public void setRepeat(int repeatStartMeasure) {
 		this.repeatStartMeasure = repeatStartMeasure;
+		this.hasRepeat = true;
 	}
 	
 	/**
-	 * Object representing a measure of a piece.  Contains Voices (which contain notes)
-	 * and Lyrics.  Also contains a key and stores the amount of ticksPerMeasure.
-	 * The sum of all of the ticks in every voice and in all lyrics should be <= ticksPerMeasure
-	 * @param notesPerMeasure: amount of notes in each measure
-	 * @param startRepeat: measure to repeat from
-	 * @param alternateEnding: measure to go to on alternate ending
+	 * Sets measure to have alternate ending and stores measure number
+	 * of that ending
+	 * @param alternateEnding: int representing measure # of alternate ending 
 	 */
-	public Measure(double notesPerMeasure, int measureNumber, int repeatStartMeasure, int alternateEnding) {
-		this.notesPerMeasure = notesPerMeasure;
-		this.measureNumber = measureNumber;
-		this.repeatStartMeasure = repeatStartMeasure;
+	public void setAlternateEnding(int alternateEnding) {
 		this.alternateEnding = alternateEnding;
 		this.hasAlternateEnding = true;
 	}
@@ -109,31 +102,6 @@ public class Measure {
 				return this.measureNumber + 1;
 			}
 		} 
-	}
-	
-	/**
-	 * Get repeat start measure and set repeated flag to true
-	 * @return Starting measure of repeat
-	 */
-	public int doRepeat() {
-		this.repeated = true;
-		return this.repeatStartMeasure;
-	}
-	
-	/**
-	 * Used to determine if measure has alternate ending
-	 * @return
-	 */
-	public boolean hasAlternateEnding() {
-		return this.hasAlternateEnding;
-	}
-	
-	/**
-	 * Returns alternate ending
-	 * @return
-	 */
-	public int getAlternateEnding() {
-		return this.alternateEnding;
 	}
 	
 	/**
@@ -217,12 +185,13 @@ public class Measure {
 				+ ((accidentalKey == null) ? 0 : accidentalKey.hashCode());
 		result = prime * result + alternateEnding;
 		result = prime * result + (hasAlternateEnding ? 1231 : 1237);
+		result = prime * result + (hasRepeat ? 1231 : 1237);
 		result = prime * result + measureNumber;
 		long temp;
 		temp = Double.doubleToLongBits(notesPerMeasure);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + (played ? 1231 : 1237);
 		result = prime * result + repeatStartMeasure;
-		result = prime * result + (repeated ? 1231 : 1237);
 		result = prime * result + ((voices == null) ? 0 : voices.hashCode());
 		return result;
 	}
@@ -255,6 +224,9 @@ public class Measure {
 		if (hasAlternateEnding != other.hasAlternateEnding) {
 			return false;
 		}
+		if (hasRepeat != other.hasRepeat) {
+			return false;
+		}
 		if (measureNumber != other.measureNumber) {
 			return false;
 		}
@@ -262,10 +234,10 @@ public class Measure {
 				.doubleToLongBits(other.notesPerMeasure)) {
 			return false;
 		}
-		if (repeatStartMeasure != other.repeatStartMeasure) {
+		if (played != other.played) {
 			return false;
 		}
-		if (repeated != other.repeated) {
+		if (repeatStartMeasure != other.repeatStartMeasure) {
 			return false;
 		}
 		if (voices == null) {
@@ -277,5 +249,6 @@ public class Measure {
 		}
 		return true;
 	}
-	
+
+
 }

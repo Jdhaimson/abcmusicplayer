@@ -73,6 +73,22 @@ public class Measure {
 	}
 	
 	/**
+	 * Return the measure number of this measure
+	 * @return
+	 */
+	public int getMeasureNum() {
+		return this.measureNumber;
+	}
+	
+	/**
+	 * Used to determine if alt endings should be played
+	 * @return False if has alternate ending and has already been played
+	 */
+	public boolean shouldBePlayed() {
+		return !(this.played && this.hasAlternateEnding);
+	}
+	
+	/**
 	 * Returns the number of the measure that should be played after this one
 	 * No guarantee that this measure is actually in the song though
 	 * @return

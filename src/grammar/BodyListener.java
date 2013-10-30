@@ -42,7 +42,7 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 	private String currentAccidental = "";
 
 	// Track repeats
-	private int openRepeat;
+	private int openRepeat = 0;
 	private int altEnding1;
 	
 	private Song song;
@@ -105,11 +105,31 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 		// Increment measure tracker
 		this.currentMeasureNum ++;	
 	}
+	
+	
 	// Keep track of alternate endings for measure
 	@Override public void enterNth_repeat(ABCMusicBodyParser.Nth_repeatContext ctx) { }
-	@Override public void exitNth_repeat(ABCMusicBodyParser.Nth_repeatContext ctx) { }
+	@Override public void exitNth_repeat(ABCMusicBodyParser.Nth_repeatContext ctx) { 
+		if(ctx.getText().equals("[1")) {
+			this.altEnding1 = this.currentMeasureNum;
+		} else if (ctx.getText().equals("[2")) {
+			Measure m = this.measures.get(this.altEnding1);
+			m.setAlternateEnding(this.currentMeasureNum );
+		}
+	}
 	
-
+	// Keep track of repeats
+	@Override public void enterBar_line(ABCMusicBodyParser.Bar_lineContext ctx) { }
+	@Override public void exitBar_line(ABCMusicBodyParser.Bar_lineContext ctx) { 
+		if(ctx.getText().equals("|:")) {
+			this.openRepeat = this.currentMeasureNum;
+		} else if (ctx.getText().equals(":|")) {
+			Measure m = this.measures.get(this.currentMeasureNum - 1);
+			m.setRepeat(this.openRepeat);
+		}
+				
+	}
+	
 	
 	// Musical Elements - Notes, Rests, Chords and Tuplets
 	@Override 
@@ -230,9 +250,6 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 //	
 //	@Override public void enterField_voice(ABCMusicBodyParser.Field_voiceContext ctx) { }
 //	@Override public void exitField_voice(ABCMusicBodyParser.Field_voiceContext ctx) { }
-//	
-//	@Override public void enterBar_line(ABCMusicBodyParser.Bar_lineContext ctx) { }
-//	@Override public void exitBar_line(ABCMusicBodyParser.Bar_lineContext ctx) { }
 //		
 //	@Override public void enterNote_or_rest(ABCMusicBodyParser.Note_or_restContext ctx) { }
 //	@Override public void exitNote_or_rest(ABCMusicBodyParser.Note_or_restContext ctx) { }

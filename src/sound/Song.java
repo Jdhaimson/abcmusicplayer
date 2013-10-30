@@ -273,11 +273,16 @@ public class Song {
 	public void scheduleSequence(SequencePlayer sp) {
 		int tickTracker = 0;
 		Measure nextMeasure;
+		
+		// Build a new list of measures accounting for repeats and alternate endings
 		List<Measure> measuresWithRepeats = new LinkedList<Measure>();
 		int nextMeasureNum = 0;
 		while(nextMeasureNum < measures.size()) {
 			nextMeasure = measures.get(nextMeasureNum);
-			measuresWithRepeats.add(nextMeasure);
+			// Prevents 1st ending of alternate ending from being played twice
+			if(nextMeasure.shouldBePlayed()) {
+				measuresWithRepeats.add(nextMeasure);	
+			}
 			nextMeasureNum = nextMeasure.getNextMeasure();
 		}
 		

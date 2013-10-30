@@ -260,4 +260,8 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 //
 //	@Override public void enterEol(ABCMusicBodyParser.EolContext ctx) { }
 //	@Override public void exitEol(ABCMusicBodyParser.EolContext ctx) { }
+	
+	public Song getSong(){
+		return this.song;
+	}
 }

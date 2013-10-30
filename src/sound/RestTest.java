@@ -24,32 +24,32 @@ public class RestTest {
 
     @Test
     public void testRestGetDuration() {
-        Rest r1 = new Rest(new Fraction(1/4));
-        Rest r2 = new Rest(new Fraction(1/4));
-        Rest r3 = new Rest(new Fraction(3/4));
+        Rest r1 = new Rest(new Fraction(1,4));
+        Rest r2 = new Rest(new Fraction(1,4));
+        Rest r3 = new Rest(new Fraction(3,4));
 
-        assertEquals(true, new Fraction(1/4).equals(r1.getDuration()));
-        assertEquals(true, new Fraction(1/4).equals(r2.getDuration()));
+        assertEquals(true, new Fraction(1,4).equals(r1.getDuration()));
+        assertEquals(true, new Fraction(1,4).equals(r2.getDuration()));
         assertEquals(true, r1.getDuration().equals(r2.getDuration()));
         assertEquals(false, r1.getDuration().equals(r3.getDuration()));
     }
 
     @Test
     public void testRestGetTicksPerWholeNote() {
-        Rest r1 = new Rest(new Fraction(1/4));
-        Rest r2 = new Rest(new Fraction(1/4));
-        Rest r3 = new Rest(new Fraction(3/4));
+        Rest r1 = new Rest(new Fraction(1,4));
+        Rest r2 = new Rest(new Fraction(1,4));
+        Rest r3 = new Rest(new Fraction(3,4));
 
-        assertEquals(true, r1.getTicksPerWholeNote() == 4);
-        assertEquals(true, r2.getTicksPerWholeNote() == 4);
-        assertEquals(true, r3.getTicksPerWholeNote() == 4);
+        assertEquals(4, r1.getTicksPerWholeNote() );
+        assertEquals(4, r2.getTicksPerWholeNote() );
+        assertEquals(4, r3.getTicksPerWholeNote() );
     }
 
     @Test
     public void testRestClone() {
-        Rest r1 = new Rest(new Fraction(1/4));
-        Rest r2 = new Rest(new Fraction(1/4));
-        Rest r3 = new Rest(new Fraction(3/4));
+        Rest r1 = new Rest(new Fraction(1,4));
+        Rest r2 = new Rest(new Fraction(1,4));
+        Rest r3 = new Rest(new Fraction(3,4));
         Rest r1Clone = r1.clone();
 
         assertEquals(true, r1.equals(r1Clone));
@@ -64,8 +64,8 @@ public class RestTest {
 
     @Test
     public void testRestHashCode() {
-        Rest r1 = new Rest(new Fraction(1/4));
-        Rest r2 = new Rest(new Fraction(1/4));
+        Rest r1 = new Rest(new Fraction(1,4));
+        Rest r2 = new Rest(new Fraction(1,4));
 
         assertEquals(true, r1.hashCode() == r1.hashCode());
         assertEquals(true, r1.hashCode() == r2.hashCode());
@@ -73,9 +73,9 @@ public class RestTest {
 
     @Test
     public void testRestEquals() {
-        Rest r1 = new Rest(new Fraction(1/4));
-        Rest r2 = new Rest(new Fraction(1/4));
-        Rest r3 = new Rest(new Fraction(3/4));
+        Rest r1 = new Rest(new Fraction(1,4));
+        Rest r2 = new Rest(new Fraction(1,4));
+        Rest r3 = new Rest(new Fraction(3,4));
 
         assertEquals(true, r1.equals(r1));
         assertEquals(true, r1.equals(r2));
@@ -84,9 +84,9 @@ public class RestTest {
 
     @Test
     public void testRestToString() {
-        Rest r1 = new Rest(new Fraction(1/4));
-        Rest r2 = new Rest(new Fraction(1/4));
-        Rest r3 = new Rest(new Fraction(3/4));
+        Rest r1 = new Rest(new Fraction(1,4));
+        Rest r2 = new Rest(new Fraction(1,4));
+        Rest r3 = new Rest(new Fraction(3,4));
 
         assertEquals("z:1/4", r1.toString());
         assertEquals(true, r1.toString().equals(r2.toString()));

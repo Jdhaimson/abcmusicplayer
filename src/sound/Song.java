@@ -24,14 +24,14 @@ public class Song {
 	
 	/**	
 	 * Song object
-	 * @param title
-	 * @param composer
-	 * @param noteLength: default duration of note
-	 * @param meter: sum of durations of all notes within a bar
-	 * @param index: index number to determine play order if in playlist
-	 * @param tempoNPM: Amount of notes of given type per minute
-	 * @param tempoNoteType: type of note that tempoNPM applies to
-	 * @param key: key signature of piece
+	 * @param title title of piece
+	 * @param composer default is "default"
+	 * @param noteLength default duration of note
+	 * @param meter sum of durations of all notes within a bar
+	 * @param index index number to determine play order if in playlist
+	 * @param tempoNPM Amount of notes of given type per minute
+	 * @param tempoNoteType type of note that tempoNPM applies to
+	 * @param key key signature of piece
 	 */
 	public Song(int index, String title, Key key) {
 		//Required fields
@@ -48,12 +48,16 @@ public class Song {
 	}
 	
 	public void setComposer(String composer){
-		this.composer = composer;
+		this.composer = composer; //replaces default composer
 	}
 	
+	
+	//NOTE: the following three methods are called in this order: setMeter, setLength, setTempo
+	
 	public void setMeter(Fraction meter) {
-		this.meter = meter;
+		this.meter = meter; //replaces default meter
 		double meterValue = ((double)meter.getNumerator())/((double)meter.getDenominator());
+		//default unit length is a sixteenth note if meter < 0.75, else is an eighth note
 		if (meterValue < 0.75){
 			this.defaultLength = new Fraction(1,16);
 		}
@@ -61,7 +65,7 @@ public class Song {
 	}
 	
 	public void setLength(Fraction length){
-		this.defaultLength = length;
+		this.defaultLength = length; //replaces default length
 		this.tempoNoteType = this.defaultLength;
 	}
 	

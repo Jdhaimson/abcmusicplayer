@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Mutable object representing a measure of a piece.  Measure contains
- * voices and a key which is used to keep track of accidentals.
+ * Voices and a Key which is used to keep track of accidentals.
  * @author Josh
  *
  */

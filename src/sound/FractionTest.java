@@ -5,6 +5,33 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class FractionTest {
+    
+    /*
+     * Testing Strategy
+     * 
+     * To test equals(), we created instances of each class, each varying by the others slightly. We created instances that reflected different combinations of differences. 
+     * Tested to make sure equals() was reflexive and that two structurally equal instances were equals().
+     * 
+     * To test toString(), we created instances of each class, each varying by the others slightly. We created instances that reflected different combinations of differences. 
+     * Tested to make sure instances returned the correct string and that structurally equivalent instances returned the same string.
+     * 
+     * To test hashCode(), we tested to be sure that structurally equivalent instances returned the same hash code and that hashCode() was reflexive.
+     * 
+     * To test clone(), we tested to be sure that a clone of an instance was equals() to its parent, returned equivalent strings, and returned equivalent hash codes.
+     * 
+     * To test getNumerator(), we created instances of each class, each varying by the others slightly. We created instances that reflected different combinations of differences.
+     * We used the different constructors of Fraction with different values to ensure complete coverage. We tested to make sure that Fractions with equivalent numerators independent of denomintor returned equivlant numerators.
+     * 
+     * To test getDenominator(), we created instances of each class, each varying by the others slightly. We created instances that reflected different combinations of differences.
+     * We used the different constructors of Fraction with different values to ensure complete coverage. We tested to make sure that Fractions with equivalent denominators returned equivalent denominators independent of numerator.
+     * 
+     * To test evaluate(), we created instances of each class, each varying by the others slightly. We created instances that reflected different combinations of differences.
+     * We used the different constructors of Fraction with different values to ensure complete coverage. We tested to make sure that Fractions that evaluate() returned the proper result and that unsimplified fractions evaluated to the same as their simplified versions.
+     * 
+     * To test add(), we created instances of each class, each varying by the others slightly. We created instances that reflected different combinations of differences.
+     * We used the different constructors of Fraction with different values to ensure complete coverage. We tested to make sure that add() returnd the proper value and that fractions with equivalent or different denominators could be properly added together. 
+     * 
+     */
 
 	@Test
 	public void testFractionEquals() {

@@ -10,15 +10,21 @@ import org.junit.Test;
 public class VoiceTest {
 	/*
 	 * Testing Strategy:
-	 * NONE
+	 * 
+	 * To test equals(), we created instances of each class, each varying by the others slightly. We created instances that reflected different combinations of differences. 
+     * Tested to make sure equals() was reflexive and that two structurally equal instances were equals().
+     * 
+     * To test toString(), we created instances of each class, each varying by the others slightly. We created instances that reflected different combinations of differences. 
+     * Tested to make sure instances returned the correct string and that structurally equivalent instances returned the same string.
+     * 
+     * To test hashCode(), we tested to be sure that structurally equivalent instances returned the same hash code and that hashCode() was reflexive.
+     * 
+     * To test clone(), we tested to be sure that a clone of an instance was equals() to its parent, returned equivalent strings, and returned equivalent hash codes.
+     * 
+     * To test getTicksPerVoice(), we created voices that had differing names and maxNotes. We tested to make sure that getTicksPerVoice was independent to voice name and that voices with the same maxNote returned the same value
+     * 
+     * To test addMusicalElement(), we created a voice and added to it. After each addition, we checked to make sure that it contained all the necessary notes, both the ones it started with, and the ones we added.
 	 */
-
-	@Test
-	public void testVoiceConstructor() {
-		Voice v = new Voice("Test", 1.0);
-		assertEquals("Test", v.toString());
-	}
-
 	
 	@Test
 	public void testVoiceEquals() {
@@ -94,7 +100,7 @@ public class VoiceTest {
 	}
 	
 	
-	public void testVoiceAddNote() {
+	public void testVoiceAddMusicalElement() {
 	    Voice voice1 = new Voice("Bass", 1.0);
 	    
 	    List<Note> notesToCheck = new LinkedList<Note>();
@@ -111,7 +117,6 @@ public class VoiceTest {
         
         Note note1 = new Note(new Pitch('C'), new Fraction(1, 4));
         Note note2 = new Note(new Pitch('E'), new Fraction(1, 2));
-        Note note3 = new Note(new Pitch('G'), new Fraction(1, 4));
         
         try {
             voice1.addMusicalElement(note1);

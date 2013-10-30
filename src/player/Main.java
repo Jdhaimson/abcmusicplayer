@@ -75,7 +75,7 @@ public class Main {
 
         // CALL play() HERE
 
-    	String file = "sample_abc/fur_elise.abc";
+    	String file = "sample_abc/piece2.abc";
 
     	play(file);
     }

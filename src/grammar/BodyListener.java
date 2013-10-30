@@ -29,6 +29,9 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 	private List<MusicalElement> chordElements = new LinkedList<MusicalElement>();
 	private boolean inChord = false;
 	
+	private List<MusicalElement> tupletElements = new LinkedList<MusicalElement>();
+    private boolean inTuplet = false;
+	
 	// Track Note Pitches, lengths and accidentals
 	private String currentPitchStr;
 	private Fraction currentLen;
@@ -139,13 +142,16 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 		this.inChord = false;
 	}
 
-	@Override public void enterTuplet_element(ABCMusicBodyParser.Tuplet_elementContext ctx) {}
+	@Override public void enterTuplet_element(ABCMusicBodyParser.Tuplet_elementContext ctx) {
+	    inTuplet = true;
+	}
 	@Override public void exitTuplet_element(ABCMusicBodyParser.Tuplet_elementContext ctx) {
 		List<MusicalElement> elements = new LinkedList<MusicalElement>();
-		for (int i=0; i<this.currentElements.size(); i++) {
-			elements.add(this.currentElements.remove(0));
+		for (int i=0; i<this.tupletElements.size(); i++) {
+			elements.add(this.tupletElements.remove(0));
 		}
-		this.currentElements.add(new Tuplet(elements));			
+		this.tupletElements.add(new Tuplet(elements));
+		inTuplet = false;
 	}
 	@Override public void enterNote_element(ABCMusicBodyParser.Note_elementContext ctx) {}
 	@Override public void exitNote_element(ABCMusicBodyParser.Note_elementContext ctx) {
@@ -177,8 +183,12 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 		
 		//If we're constructing a chord, add to chord list instead of normal list 
 		if(this.inChord) {
-			this.chordElements.add(newElement);
-		} else {
+			this.chordElements.add(newElement);		
+		} 
+		if(this.inTuplet) {
+            this.tupletElements.add(newElement);
+		}
+		else {
 			this.currentElements.add(newElement);
 		}
 		

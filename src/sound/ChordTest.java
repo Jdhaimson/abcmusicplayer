@@ -198,11 +198,21 @@ public class ChordTest {
         notes5.add(new Note(new Pitch('C'), new Fraction(1, 4)));
         notes5.add(new Note(new Pitch('G'),new Fraction(1, 4)));
         
+        List<Note> notes6 = new LinkedList<Note>();
+        notes6.add(new Note(new Pitch('C'), new Fraction(1, 2)));
+        notes6.add(new Note(new Pitch('G'),new Fraction(1, 4)));
+        
         Chord chord1 = new Chord(notes);
         Chord chord2 = new Chord(notes2);
         Chord chord3 = new Chord(notes3);
         Chord chord4 = new Chord(notes4);
         Chord chord5 = new Chord(notes5);
+        Chord chord6 = new Chord(notes6);
+        
+        assertEquals(4, chord1.getTicksPerWholeNote());
+        assertEquals(4, chord3.getTicksPerWholeNote());
+        assertEquals(4, chord6.getTicksPerWholeNote());
+        
         
         assertEquals(true, chord1.getTicksPerWholeNote() == chord1.getTicksPerWholeNote());
         assertEquals(true, chord1.getTicksPerWholeNote() == chord2.getTicksPerWholeNote());

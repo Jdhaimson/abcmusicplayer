@@ -39,10 +39,12 @@ public class RestTest {
         Rest r1 = new Rest(new Fraction(1,4));
         Rest r2 = new Rest(new Fraction(1,4));
         Rest r3 = new Rest(new Fraction(3,4));
+        Rest r4 = new Rest(new Fraction(2, 8));
 
         assertEquals(4, r1.getTicksPerWholeNote() );
         assertEquals(4, r2.getTicksPerWholeNote() );
         assertEquals(4, r3.getTicksPerWholeNote() );
+        assertEquals(4, r4.getTicksPerWholeNote());
     }
 
     @Test

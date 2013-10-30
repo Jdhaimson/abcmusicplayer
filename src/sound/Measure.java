@@ -17,7 +17,8 @@ public class Measure {
 	
 	// Keep track of repeats and alternate endings
 	private int repeatStartMeasure;
-	private boolean repeated = false;
+	private boolean hasRepeat = false;
+	private boolean played = false;
 	private boolean hasAlternateEnding = false;
 	private int alternateEnding;
 	
@@ -76,6 +77,38 @@ public class Measure {
 				throw new Exception("Voices must have same duration as measures");
 			}
 		} catch (Exception e) {}
+	}
+	
+	/**
+	 * Returns the number of the measure that should be played after this one
+	 * No guarantee that this measure is actually in the song though
+	 * @return
+	 */
+	public int getNextMeasure() {
+		if (!this.hasRepeat && !this.hasAlternateEnding) {
+			this.played = true;
+			return this.measureNumber + 1;
+		} else if(this.hasAlternateEnding) {
+			
+			if (this.played) {
+				return this.alternateEnding;
+			} else {
+				this.played = true;
+				if (this.hasRepeat) {
+					return this.repeatStartMeasure;
+				} else {
+					return this.measureNumber + 1;
+				}
+			}
+			
+		} else {  // We have a repeat and do not have alternate ending
+			if (!this.played) {
+				this.played = true;
+				return this.repeatStartMeasure;
+			} else {
+				return this.measureNumber + 1;
+			}
+		} 
 	}
 	
 	/**

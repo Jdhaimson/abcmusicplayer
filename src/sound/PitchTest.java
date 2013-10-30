@@ -21,11 +21,11 @@ public class PitchTest {
      * 
      * To test toMidiNote(), we tested to make sure that transposing a note by 0 octaves or semitones would return the same result as a non altered note.
      * 
-     * I encorporated testing of accidentalTranspose(), octaveTranspose(), and transpose() into almost all tests. I tested to check that tranposing by 0 of anything would be the same as the original note. I also looked at transposing up and down one or two octaves or semitones.
+     * We encorporated testing of accidentalTranspose(), octaveTranspose(), and transpose() into almost all tests. We tested to check that tranposing by 0 of anything would be the same as the original note. We also looked at transposing up and down one or two octaves or semitones.
      * 
-     * To test lessThan() and difference(), I used transposing by different amounts to check for differences and whether or not a note was less than another. I also started with different pitches to check if that had any effect as well. I also tested to make sure that one note was note less than itself or an equivalent note.
+     * To test lessThan() and difference(), we used transposing by different amounts to check for differences and whether or not a note was less than another. We also started with different pitches to check if that had any effect as well. We also tested to make sure that one note was note less than itself or an equivalent note.
      * 
-     * To test getAccidental(), I transposed by different amounts and checked for propper accidental returns. Transposing by an octave should not effect the accidental, and this was tested.
+     * To test getAccidental(), we transposed by different amounts and checked for propper accidental returns. Transposing by an octave should not effect the accidental, and this was tested.
      * 
      */
 
@@ -35,9 +35,6 @@ public class PitchTest {
         assertEquals("^C", p.toString());
     }
 
-    /*
-     * Tests equals() as well as accidentalTranspose, transpose, and octaveTranspose
-     */
     @Test
     public void testPitchEquals() {
         Pitch pitch1 = new Pitch('C');

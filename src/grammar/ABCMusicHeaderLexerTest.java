@@ -54,7 +54,7 @@ public class ABCMusicHeaderLexerTest {
     @Test
     //Tempo Test
     public void testTempoLexer() {
-        verifyLexer("Q:1/4=80\n", new String[] {"Q:","1/4=80","\n"});
+        verifyLexer("Q:1/4=80\n", new String[] {"Q:","1/4","=", "80","\n"});
     }
     
     @Test
@@ -93,7 +93,7 @@ public class ABCMusicHeaderLexerTest {
         				"M:","4/4", "\n",
         				"%","Hi","\n",
         				"L:","1/4", "\n",
-        				"Q:","1/4=120", "\n",
+        				"Q:","1/4", "=", "120", "\n",
         				"K:","C","\n"});
     }
     

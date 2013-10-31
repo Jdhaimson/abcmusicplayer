@@ -30,7 +30,7 @@ public class MusicPlayerHeader {
     }
    
 	/**
-	 * @param input String representation of song
+	 * @param input String representation of song header
 	 * @return HeaderListener used to walk along header's parse tree
 	 */
     public HeaderListener runListener(String input) {

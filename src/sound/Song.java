@@ -92,6 +92,13 @@ public class Song {
 		this.tempoNPM = tempoNPM;
 	}
 	
+	/**
+	 * Return the measure number of this measure
+	 * @return
+	 */
+	public List<Measure> getMeasures() {
+		return this.measures;
+	}
 
 	/**
 	 * Returns the given note with proper accidentals for the song's key

@@ -34,6 +34,19 @@ public class Chord implements MusicalElement {
 
 	/*
 	 * (non-Javadoc)
+	 * @see sound.MusicalElement#changeDuration(sound.Fraction)
+	 */
+	public Chord changeDuration(Fraction multDuration) {
+		List<Note> modNotes = new LinkedList<Note>();
+		for(Note note: this.getNotes()) {
+			modNotes.add(note.changeDuration(multDuration));
+		}
+		
+		return new Chord(modNotes);
+	}
+	
+	/*
+	 * (non-Javadoc)
 	 * @see sound.MusicalElement#getDuration()
 	 */
 	public Fraction getDuration() {

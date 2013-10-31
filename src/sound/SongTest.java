@@ -62,15 +62,16 @@ public class SongTest {
 	@Test
 	public void testTuplet() throws Exception {
 		Song song = new Song(1, "Title", new Key("C"));
-		song.setMeter(new Fraction(3,8));
+		song.setMeter(new Fraction(6,8));
 		song.setTempo(new Fraction(1,8), 140);
-		Measure m = new Measure(.375, 0);
-		Voice v1 = new Voice("Upper", .375);
+		Measure m = new Measure(.75, 0);
+		Voice v1 = new Voice("Upper", .75);
+		Voice v2 = new Voice("Lower", .75);
 		
 			
 		Note n1 = new Note(new Pitch("C"), new Fraction(1,4));
 		Note n2 = new Note(new Pitch("C"), new Fraction(1,16));
-		Note n3 = new Note(new Pitch("G"), new Fraction(1,8));
+		Note n3 = new Note(new Pitch("C,,"), new Fraction(1,8));
 		
 		List<Note> chordNotes = new LinkedList<Note>();
 		chordNotes.add(new Note(new Pitch("C,"), new Fraction (1,8)));
@@ -86,10 +87,19 @@ public class SongTest {
 		Tuplet t = new Tuplet(tupletElements);
 		
 		v1.addMusicalElement(t);
-		v1.addMusicalElement(n2);
-		v1.addMusicalElement(n2);
+		v1.addMusicalElement(n1);
+		v1.addMusicalElement(t);
+		v1.addMusicalElement(n1);
+		//v1.addMusicalElement(n2);
+		v2.addMusicalElement(n3);
+		v2.addMusicalElement(n3);
+		v2.addMusicalElement(n3);
+		v2.addMusicalElement(n3);
+		v2.addMusicalElement(n3);
+		v2.addMusicalElement(n3);
 
 		m.addVoice(v1);
+		m.addVoice(v2);
 		song.addMeasure(m);
 		song.play();
 	}	

@@ -297,12 +297,14 @@ public class Song {
 
 					if (element instanceof Tuplet) {
 						Tuplet tuplet = (Tuplet) element;
-						int ticksPerElem = tuplet.getTicksPerElement(ticksPerWholeNote);
 						List<MusicalElement> tupletElements = tuplet.getElements();
-						for(MusicalElement tElement: tupletElements) {
+						
+						for(MusicalElement tElement: tupletElements) {						
+							int ticksPerElem = (int)(tElement.getDuration().evaluate()*this.getTicksPerWholeNote());
 							this.scheduleBasicElement(sp, tElement, lyrics, voiceTicks, ticksPerElem);								
 							voiceTicks += ticksPerElem;
 						}
+					
 					} else {
 						this.scheduleBasicElement(sp, element, lyrics, voiceTicks,
 								(int)(element.getDuration().evaluate()*this.getTicksPerWholeNote()));

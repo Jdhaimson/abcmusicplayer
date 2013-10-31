@@ -20,24 +20,32 @@ public class Tuplet implements MusicalElement {
 	 * cannot be longer than 4 notes
 	 */
 	public Tuplet(List<MusicalElement> elements) {
-		this.elements = elements;
 		this.type = elements.size();
 		if (this.type > 4 || this.type < 2) {
 			throw new IllegalArgumentException("Only supports Duplets, Triplets or Quadruplets");
 		}
-		Fraction elementDuration = this.elements.get(0).getDuration();
-		int numeratorModifier = 1;
+		Fraction elementDuration = elements.get(0).getDuration();
+		Fraction multiplier = new Fraction(1,1);
 		if (this.type == 4) {
 			// Quadruplets last for 3* the length of each individual note
-			numeratorModifier = 3;	
+			multiplier = new Fraction(3, 4);	
 		} else if (this.type == 3) {
 			// Triplets last for 2* the length of each individual note
-			numeratorModifier = 2;
+			multiplier = new Fraction(2, 3);	
 		} else { // type == 2 
 			// Duplets last for 3* the length of each individual note
-			numeratorModifier = 3;
+			multiplier = new Fraction(3, 2);	
 		}
-		this.duration = new Fraction(elementDuration.getNumerator()*numeratorModifier, elementDuration.getDenominator());
+		
+		// Change the duration of each of the notes within the tuplet
+		List<MusicalElement> modElements = new LinkedList<MusicalElement>();
+		for(MusicalElement element: elements) {
+			modElements.add(element.changeDuration(multiplier));
+		}
+		
+		this.elements = modElements;
+		this.duration = new Fraction(elementDuration.getNumerator()*multiplier.getNumerator()*this.type,
+									elementDuration.getDenominator()*multiplier.getDenominator());
 	}
 	
 	/**
@@ -102,6 +110,20 @@ public class Tuplet implements MusicalElement {
 		return new Tuplet(this.getElements());
 	}
 	
+	/*
+	 * Note - not useful for Tuplet class as tuplets derive their duration
+	 * from their elements
+	 * (non-Javadoc)
+	 * @see sound.MusicalElement#changeDuration(sound.Fraction)
+	 */
+	public Tuplet changeDuration(Fraction duration) {
+		return this.clone();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString(){
 		StringBuilder tupletStrings = new StringBuilder();

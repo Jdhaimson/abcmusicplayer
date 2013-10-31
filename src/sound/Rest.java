@@ -38,6 +38,15 @@ public class Rest implements MusicalElement {
 	
 	/*
 	 * (non-Javadoc)
+	 * @see sound.MusicalElement#changeDuration(sound.Fraction)
+	 */
+	public Rest changeDuration(Fraction multDuration) {
+		Fraction newDuration = this.duration.multiply(multDuration);
+		return new Rest(newDuration);
+	}
+	
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#clone()
 	 */
 	public Rest clone() {

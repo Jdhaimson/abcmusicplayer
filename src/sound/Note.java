@@ -49,10 +49,19 @@ public class Note implements MusicalElement {
 	
 	/*
 	 * (non-Javadoc)
+	 * @see sound.MusicalElement#changeDuration(sound.Fraction)
+	 */
+	public Note changeDuration(Fraction multDuration) {
+		Fraction newDuration = this.duration.multiply(multDuration);
+		return new Note(this.getPitch(), newDuration);
+	}
+	
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#clone()
 	 */
 	public Note clone() {
-		return new Note(this.pitch, this.duration);
+		return new Note(this.getPitch(), this.duration);
 	}
 	
 	/*

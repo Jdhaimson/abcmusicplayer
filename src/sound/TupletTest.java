@@ -309,9 +309,6 @@ public class TupletTest {
         notes5.add(new Note(new Pitch('F'), new Fraction(1, 8)));
 
         Tuplet tup1 = new Tuplet(notes);
-        Tuplet tup2 = new Tuplet(notes2);
-        Tuplet tup3 = new Tuplet(notes3);
-        Tuplet tup4 = new Tuplet(notes4);
         Tuplet tup5 = new Tuplet(notes5);
         
         assertEquals(3, tup1.getTicksPerElement(8));

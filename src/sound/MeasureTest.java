@@ -21,6 +21,8 @@ public class MeasureTest {
      * To test hashCode(), we tested to be sure that structurally equivalent instances returned the same hash code and that hashCode() was reflexive.
      * 
      * To test clone(), we tested to be sure that a clone of an instance was equals() to its parent, returned equivalent strings, and returned equivalent hash codes. 
+     * 
+     * To test each of the measures methods, we wrote tests to make sure that modifiers correctly modified, and that all methods ran without error.
      */
 
     @Test

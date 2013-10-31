@@ -1,4 +1,4 @@
-	package sound;
+package sound;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -47,6 +47,10 @@ public class Song {
 		this.tempoNPM = 100;
 	}
 	
+	/**
+	 * Sets composer of song
+	 * @param composer
+	 */
 	public void setComposer(String composer){
 		this.composer = composer; //replaces default composer
 	}
@@ -55,6 +59,10 @@ public class Song {
 	//NOTE: the following three methods are called in this order: setMeter -> setLength -> setTempo
 	//This hierarchy was chosen because certain field default values get set by other fields' values.
 	
+	/**
+	 * Sets meter of song
+	 * @param meter
+	 */
 	public void setMeter(Fraction meter) {
 		this.meter = meter; //replaces default meter
 		double meterValue = ((double)meter.getNumerator())/((double)meter.getDenominator());
@@ -65,11 +73,20 @@ public class Song {
 		this.tempoNoteType = this.defaultLength;
 	}
 	
+	/**
+	 * Sets default length of song
+	 * @param length
+	 */
 	public void setLength(Fraction length){
 		this.defaultLength = length; //replaces default length
 		this.tempoNoteType = this.defaultLength;
 	}
 	
+	/**
+	 * Sets tempo of song
+	 * @param tempoNoteType
+	 * @param tempoNPM
+	 */
 	public void setTempo(Fraction tempoNoteType, int tempoNPM){
 		this.tempoNoteType = tempoNoteType;
 		this.tempoNPM = tempoNPM;
@@ -115,10 +132,6 @@ public class Song {
 	 */
 	public Fraction getDefaultNoteLen() {
 		return this.defaultLength;
-	}
-	
-	public List<Measure> getMeasures() {
-		return this.measures;
 	}
 	
 	/**
@@ -196,10 +209,6 @@ public class Song {
 		}
 		return maxTicks;
 	}
-
-	
-	
-	
 	
 	/**
 	 * Creates a basic lyric listener object
@@ -241,6 +250,14 @@ public class Song {
 		return sp;
 	}
 	
+	/**
+	 * Schedules element and associated lyric to sequenceplayer
+	 * @param sp: sequenceplayer
+	 * @param element: Element to be scheduled
+	 * @param lyrics: List of current Lyrics
+	 * @param voiceTicks: What tick to schedule it at
+	 * @param noteDuration: Duration of element
+	 */
 	public void scheduleBasicElement(SequencePlayer sp, MusicalElement element, List<String> lyrics, int voiceTicks, int noteDuration) {
 		if (element instanceof Note) {
 			Note note = (Note) element;
@@ -257,6 +274,12 @@ public class Song {
 		}
 	}
 	
+	/**
+	 * Schedules lyric element in sequenceplayer
+	 * @param sp: SequencePlayer to schedule on
+	 * @param lyrics: List of strings
+	 * @param voiceTicks: Tick to schedule it at
+	 */
 	public void scheduleLyric(SequencePlayer sp, List<String> lyrics, int voiceTicks) {
 		if(lyrics.size() > 0) {
 			sp.addLyricEvent(lyrics.get(0), voiceTicks);

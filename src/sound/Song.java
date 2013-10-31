@@ -206,12 +206,7 @@ public class Song {
 	 * @return LyricListener: basic lyric listener object
 	 */
 	public LyricListener getBasicLyricListener() {
-		LyricListener ll = new LyricListener() {
-            public void processLyricEvent(String text) {
-                System.out.println(text);
-            }
-        };
-        
+		LyricListener ll = new LyricListener();
         return ll;
 	}
 	
@@ -246,14 +241,12 @@ public class Song {
 		return sp;
 	}
 	
-	public void scheduleBasicElement(SequencePlayer sp, MusicalElement element, int voiceTicks) {
-		if (element instanceof Rest) {
-		}
-		else if (element instanceof Note) {
+	public void scheduleBasicElement(SequencePlayer sp, MusicalElement element, List<String> lyrics, int voiceTicks) {
+		if (element instanceof Note) {
 			Note note = (Note) element;
 			int noteDuration = (int) ((double)note.getDuration().evaluate()*this.getTicksPerWholeNote());
 			sp.addNote(note.getPitch().toMidiNote(), voiceTicks, noteDuration);
-
+			scheduleLyric(sp, lyrics, voiceTicks);
 		} 
 		else if (element instanceof Chord) {
 			Chord chord = (Chord) element;
@@ -261,7 +254,15 @@ public class Song {
 			for (Note note: notes) {
 				int noteDuration = (int) ((double)note.getDuration().evaluate()*this.getTicksPerWholeNote());
 				sp.addNote(note.getPitch().toMidiNote(), voiceTicks, noteDuration);
+				scheduleLyric(sp, lyrics, voiceTicks);
 			}	
+		}
+	}
+	
+	public void scheduleLyric(SequencePlayer sp, List<String> lyrics, int voiceTicks) {
+		if(lyrics.size() > 0) {
+			sp.addLyricEvent(lyrics.get(0), voiceTicks);
+			lyrics.remove(0);
 		}
 	}
 	
@@ -291,6 +292,7 @@ public class Song {
 
 			// Add everything within this measure to sequence
 			for(Voice voice: measure.getVoices()) {	
+				List<String> lyrics = voice.getLyrics();
 				int voiceTicks = tickTracker;
 				for(MusicalElement element: voice.getMusicalElements()) {
 					int ticks = (int)((double) this.ticksPerWholeNote*element.getDuration().evaluate());
@@ -300,14 +302,15 @@ public class Song {
 						int ticksPerElem = tuplet.getTicksPerElement(ticksPerWholeNote);
 						List<MusicalElement> tupletElements = tuplet.getElements();
 						for(MusicalElement tElement: tupletElements) {
-							this.scheduleBasicElement(sp, tElement, voiceTicks);								
+							this.scheduleBasicElement(sp, tElement, lyrics, voiceTicks);								
 							voiceTicks += ticksPerElem;
 						}
 					} else {
-						this.scheduleBasicElement(sp, element, voiceTicks);
+						this.scheduleBasicElement(sp, element, lyrics, voiceTicks);
 						voiceTicks += ticks;
 					}
 				}
+				
 			}
 			
 			tickTracker += (int) ((double) this.ticksPerWholeNote * this.meter.evaluate());

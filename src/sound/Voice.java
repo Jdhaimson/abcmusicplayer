@@ -11,7 +11,7 @@ import java.util.List;
 public class Voice {
 	// Stores list of notes
 	private List<MusicalElement> notes = new LinkedList<MusicalElement>();
-	private List<Lyric> lyrics = new LinkedList<Lyric>();
+	private List<String> lyrics = new LinkedList<String>();
 	private double maxNotes;
 	private double sumCurrentNotes = 0.0;
 	private String name;
@@ -27,20 +27,34 @@ public class Voice {
 	}
 	
 	/**
+	 * Returns the name of the voice
+	 * @return
+	 */
+	public String getName() {
+		return this.name;
+	}
+	
+	/**
 	 * Adds element  to voice
 	 * @param element
 	 */
-	public void addMusicalElement(MusicalElement element) throws Exception {
+	public void addMusicalElement(MusicalElement element) {
 		this.notes.add(element);
 		this.sumCurrentNotes += element.getDuration().evaluate();
 	}
 	
 	/**
 	 * Add a lyric to this voice
-	 * @param lyric lyric to add to measure - sum of durations of lyrics should be <= ticksPerMeasure
+	 * @param lyric: lyric to add to measure
+	 * @return true if there are enough free notes for lyric to be added to
 	 */
-	public void addLyric(Lyric lyric) {
-		this.lyrics.add(lyric);
+	public boolean addLyric(String lyric) {
+		if (this.lyrics.size() + 1 <= this.getNumNotes()) {
+			this.lyrics.add(lyric);
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	
@@ -55,6 +69,38 @@ public class Voice {
 		}
 		
 		return clonedElements;
+	}
+	
+	/**
+	 * Returns list of lyrics in voice
+	 * @return list of lyrics in voice in order they should be displayed
+	 */
+	public List<String> getLyrics() {
+		List<String> clonedLyrics = new LinkedList<String>();
+		for (String lyric: this.lyrics){
+			clonedLyrics.add(lyric);
+		}
+		
+		return clonedLyrics;
+	}
+	
+	/**
+	 * Returns number of notes and chords in voice
+	 * (Each note in tuplet counted and rests ignored)
+	 * @return
+	 */
+	public int getNumNotes() {
+		int count = 0;
+		for (MusicalElement element: this.notes) {
+			if (element instanceof Tuplet) {
+				Tuplet tuplet = (Tuplet) element;
+				count += tuplet.getElements().size();
+			} else if (element instanceof Note || 
+					   element instanceof Chord) {
+				count += 1;
+			}
+		}
+		return count;
 	}
 	
 	/**
@@ -90,14 +136,11 @@ public class Voice {
 	public Voice clone() {
 		Voice clonedVoice = new Voice(this.name, this.maxNotes);
 		for(MusicalElement elem: this.getMusicalElements()) {
-			try {
-				clonedVoice.addMusicalElement(elem);
-			} catch (Exception e) { 
-				// Do nothing, Exception will never be hit because it would 
-				// have been hit first while constructing the initial object
-			}
+			clonedVoice.addMusicalElement(elem);
 		}
-		
+		for(String lyric: this.getLyrics()) {
+			clonedVoice.addLyric(lyric);
+		}
 		return clonedVoice;
 	}
 	

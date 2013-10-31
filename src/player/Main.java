@@ -63,16 +63,12 @@ public class Main {
     	MusicPlayerBody bodyPlayer = new MusicPlayerBody(song);
     	song = bodyPlayer.parse(join(body, "\n")); //join body lines using newline token
 
-    	List<Measure> measures = song.getMeasures();
-    	for (Measure measure : measures){
-    		System.out.println(measure.toString());
-    	}
     	song.play();
 
     }
 
     public static void main(String[] args) throws FileNotFoundException, MidiUnavailableException, InvalidMidiDataException {
-    	String file = "sample_abc/afro.abc";
+    	String file = "sample_abc/fur_elise.abc";
     	play(file);
     }
     

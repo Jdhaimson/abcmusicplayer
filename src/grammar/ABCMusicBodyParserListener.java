@@ -69,6 +69,9 @@ public interface ABCMusicBodyParserListener extends ParseTreeListener {
 	void enterBase_note_octave(ABCMusicBodyParser.Base_note_octaveContext ctx);
 	void exitBase_note_octave(ABCMusicBodyParser.Base_note_octaveContext ctx);
 
+	void enterLyric_line(ABCMusicBodyParser.Lyric_lineContext ctx);
+	void exitLyric_line(ABCMusicBodyParser.Lyric_lineContext ctx);
+
 	void enterNote_or_rest(ABCMusicBodyParser.Note_or_restContext ctx);
 	void exitNote_or_rest(ABCMusicBodyParser.Note_or_restContext ctx);
 

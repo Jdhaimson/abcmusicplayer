@@ -28,7 +28,6 @@ public class Measure {
 	 * Object representing a measure of a piece.  Contains Voices (which contain Musical elements)
 	 * Also contains a key and stores the amount of notesPerMeasure.
 	 * The sum of all of the ticks in every voice and in all lyrics should be <= ticksPerMeasure
-	 * @param key: key of measure, used to keep track of accidentals
 	 * @param notesPerMeasure: amount of notes in each measure
 	 */
 	public Measure(double notesPerMeasure, int measureNumber) {
@@ -149,7 +148,26 @@ public class Measure {
 	}
 	
 	/**
-	 * Returns list of voices in measure
+	 * Get voice with given name
+	 * @param name: requirement that voice with given name must be
+	 * in the measure
+	 * @return: Voice requested
+	 */
+	public Voice getVoice(String name) {
+
+		for (Voice voice: this.voices) {
+			if(voice.getName().equals(name)) {
+				return voice;
+			}
+		}
+		
+		// Will never return null because of precondition,
+		// only here to satisfy compiler
+		return null;
+	}
+	
+	/**
+	 * Returns the voices in measure
 	 * @return List<Voice>: voices in measure
 	 */
 	public List<Voice> getVoices() {

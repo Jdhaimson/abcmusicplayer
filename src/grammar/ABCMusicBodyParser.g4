@@ -50,7 +50,7 @@ package grammar;
 abc_tune_body : abc_music EOF;
 
 abc_music : abc_line+ ;
-abc_line : element+ LINE_FEED lyric? | mid_tune_field | comment ;
+abc_line : element+ LINE_FEED lyric_line? | mid_tune_field | comment ;
 
 bar_line : BAR_LINE ;
 nth_repeat: NTH_REPEAT ;
@@ -81,7 +81,8 @@ mid_tune_field : field_voice ;
 field_voice : V voice (END_VOICE | eol) ;
 voice: VOICE_TEXT* ;
 
-lyric : W (lyric_text | lyric_element)* END_LYRIC ;
+lyric_line :  W (lyric)* END_LYRIC  ;
+lyric : lyric_element* lyric_text lyric_element*;
 lyric_text : LYRIC_TEXT ;
 lyric_element : LYRICAL_ELEMENTS ;
 

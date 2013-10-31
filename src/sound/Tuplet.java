@@ -69,7 +69,7 @@ public class Tuplet implements MusicalElement {
 	}
 	
 	public int getTicksPerElement(int ticksPerWholeNote) {
-			return (int)(((double)ticksPerWholeNote*this.duration.evaluate())/(double)this.type);
+		return (int)(((double)ticksPerWholeNote*this.duration.evaluate())/(double)this.type);
 	}
 	
 	/*
@@ -78,15 +78,15 @@ public class Tuplet implements MusicalElement {
 	 */
 	public int getTicksPerWholeNote() {
 		// For Duplets
-		if (type == 2) {
+		if (this.type == 2) {
 			// Duplets equally distribute 2 notes into the length of 3
 			// Thus we have (2*3) ticks for the whole duplet
 			// We then multiply by (1/duration) to figure out how many ticks per whole note
 			return (int)((2*3)*(1/this.duration.evaluate()));
-		} else if (type == 3) {
+		} else if (this.type == 3) {
 			// Triplets distribute 3 notes into length of 2, by the same logic we get
 			return (int)((3*2)*(1/this.duration.evaluate()));
-		} else if (type == 4) {
+		} else if (this.type == 4) {
 			// Quadruplets distribute 4 notes into length of 3, by the same logic we get
 			return (int)((4*3)*(1/this.duration.evaluate()));
 		} else {
@@ -112,4 +112,56 @@ public class Tuplet implements MusicalElement {
     	tupletStrings.append(":" + this.duration.toString());
     	return tupletStrings.toString();
 	}
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result
+                + ((duration == null) ? 0 : duration.hashCode());
+        result = prime * result
+                + ((elements == null) ? 0 : elements.hashCode());
+        result = prime * result + type;
+        return result;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Tuplet)) {
+            return false;
+        }
+        Tuplet other = (Tuplet) obj;
+        if (duration == null) {
+            if (other.duration != null) {
+                return false;
+            }
+        } else if (!duration.equals(other.duration)) {
+            return false;
+        }
+        if (elements == null) {
+            if (other.elements != null) {
+                return false;
+            }
+        } else if (!elements.equals(other.elements)) {
+            return false;
+        }
+        if (type != other.type) {
+            return false;
+        }
+        return true;
+    }
+	
+	
 }

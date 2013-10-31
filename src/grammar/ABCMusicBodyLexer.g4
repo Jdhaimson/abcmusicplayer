@@ -71,7 +71,7 @@ END_COMMENT : ('\n' | '\r' | '\r\n') -> popMode ;
 
 mode enter_lyrics;
 END_LYRIC : ('\n' | '\r' | '\r\n') -> popMode ;
-LYRIC_TEXT : ~[_-*~\-| \r\n]+ ;
+LYRIC_TEXT : ~[\_\\-\*~\\-\| \r\n]+ ;
 LYRICAL_ELEMENTS : ' '+ | '_' | '-' | '*' | '~' | '\-' | '|' ;
 
 mode enter_voice;

@@ -30,10 +30,13 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 	private List<MusicalElement> chordElements = new LinkedList<MusicalElement>();
 	private boolean inChord = false;
 	
-	// Track Note Pitches, lengths and accidentals
+	// Track Note Pitches, lengths accidentals and tuplets
 	private String currentPitchStr;
 	private Fraction currentLen;
 	private String currentAccidental = "";
+	private boolean inTuplet = false;
+	private int tupType;
+	private Fraction tupMult = new Fraction(1,1);
 	
 	// Track Lyrics
 	private int lyricStartMeasure;
@@ -151,12 +154,24 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 	}
 
 	@Override
-	public void exitTuplet_element(ABCMusicBodyParser.Tuplet_elementContext ctx) {
-		List<MusicalElement> elements = new LinkedList<MusicalElement>();
-		for (int i=0; i<this.currentElements.size(); i++) {
-			elements.add(this.currentElements.remove(0));
+	public void exitTuplet_digit(ABCMusicBodyParser.Tuplet_digitContext ctx) {
+		this.inTuplet = true;
+		this.tupType = Integer.parseInt(ctx.getText());
+		switch (this.tupType) {
+			case 2: this.tupMult = new Fraction(3,2);
+					break;
+			case 3: this.tupMult = new Fraction(2,3);
+					break;
+			case 4: this.tupMult = new Fraction(3,4);
+					break;
 		}
-		this.currentElements.add(new Tuplet(elements));			
+	}
+	public void exitTuplet_element(ABCMusicBodyParser.Tuplet_elementContext ctx) {
+
+		for (int i=0; i<this.currentElements.size(); i++) {
+			this.currentVoice.addMusicalElement(this.currentElements.remove(0).changeDuration(tupMult));
+		}
+		this.inTuplet = false;
 	}
 
 	@Override

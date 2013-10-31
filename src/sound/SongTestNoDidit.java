@@ -47,42 +47,7 @@ public class SongTestNoDidit {
         song.play();
 
     }
-    
-    //@Test
-    public void testTuplet() throws Exception {
-        Song song = new Song(1, "Title", new Key("C"));
-        song.setMeter(new Fraction(4,4));
-        song.setTempo(new Fraction(1,4), 120);
-        Measure m = new Measure(1.0, 0);
-        Voice v1 = new Voice("Upper", 1.0);
-        
-            
-        Note n1 = new Note(new Pitch("C"), new Fraction(1,4));
-        Note n2 = new Note(new Pitch("C"), new Fraction(1,8));
-        Note n3 = new Note(new Pitch("G"), new Fraction(1,8));
-        
-        List<Note> chordNotes = new LinkedList<Note>();
-        chordNotes.add(new Note(new Pitch("C,"), new Fraction (1,8)));
-        chordNotes.add(new Note(new Pitch("E,"), new Fraction (1,8)));
-        chordNotes.add(new Note(new Pitch("G,"), new Fraction (1,8)));
-        Chord c = new Chord(chordNotes);
-        
-        List<MusicalElement> tupletElements = new LinkedList<MusicalElement>();
-        tupletElements.add(n2);
-        tupletElements.add(c);
-        tupletElements.add(n3);
-        
-        Tuplet t = new Tuplet(tupletElements);
-        
-        v1.addMusicalElement(n1);
-        v1.addMusicalElement(n1);
-        v1.addMusicalElement(t);
-
-        m.addVoice(v1);
-        song.addMeasure(m);
-        song.play();
-    }   
-    
+  
     @Test
     public void testRepeat() throws Exception {
         Song song = new Song(1, "Title", new Key("C"));

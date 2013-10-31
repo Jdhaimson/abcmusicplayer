@@ -117,15 +117,33 @@ public class Voice {
 	 */
 	public int getTicksPerWholeNote() {
 		int maxTicks = 0;
+		// handle off beat tuplets
+		// tick number has to be a multiple of the tuplet value
+		boolean hasTuplet = false;
+		int maxTupletTicks = 0;
+		
 		for (MusicalElement elem: this.getMusicalElements()) {
 			int ticks = elem.getTicksPerWholeNote();
+			if (elem instanceof Tuplet) {
+				hasTuplet = true;
+				if (ticks > maxTupletTicks) {
+					maxTupletTicks = ticks;
+				}
+			}
 			
 			if (ticks > maxTicks) {
 				maxTicks = ticks;
 			}
 		}
 		
-		return maxTicks;
+		if (hasTuplet) {
+			while (maxTupletTicks < maxTicks) {
+				maxTupletTicks *= 2;
+			}
+			return maxTupletTicks;
+		} else {
+			return maxTicks;
+		}
 	}
 	
 	/*

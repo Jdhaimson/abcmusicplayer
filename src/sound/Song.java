@@ -241,10 +241,9 @@ public class Song {
 		return sp;
 	}
 	
-	public void scheduleBasicElement(SequencePlayer sp, MusicalElement element, List<String> lyrics, int voiceTicks) {
+	public void scheduleBasicElement(SequencePlayer sp, MusicalElement element, List<String> lyrics, int voiceTicks, int noteDuration) {
 		if (element instanceof Note) {
 			Note note = (Note) element;
-			int noteDuration = (int) ((double)note.getDuration().evaluate()*this.getTicksPerWholeNote());
 			sp.addNote(note.getPitch().toMidiNote(), voiceTicks, noteDuration);
 			scheduleLyric(sp, lyrics, voiceTicks);
 		} 
@@ -252,7 +251,6 @@ public class Song {
 			Chord chord = (Chord) element;
 			List<Note> notes = chord.getNotes();
 			for (Note note: notes) {
-				int noteDuration = (int) ((double)note.getDuration().evaluate()*this.getTicksPerWholeNote());
 				sp.addNote(note.getPitch().toMidiNote(), voiceTicks, noteDuration);
 				scheduleLyric(sp, lyrics, voiceTicks);
 			}	
@@ -302,11 +300,12 @@ public class Song {
 						int ticksPerElem = tuplet.getTicksPerElement(ticksPerWholeNote);
 						List<MusicalElement> tupletElements = tuplet.getElements();
 						for(MusicalElement tElement: tupletElements) {
-							this.scheduleBasicElement(sp, tElement, lyrics, voiceTicks);								
+							this.scheduleBasicElement(sp, tElement, lyrics, voiceTicks, ticksPerElem);								
 							voiceTicks += ticksPerElem;
 						}
 					} else {
-						this.scheduleBasicElement(sp, element, lyrics, voiceTicks);
+						this.scheduleBasicElement(sp, element, lyrics, voiceTicks,
+								(int)(element.getDuration().evaluate()*this.getTicksPerWholeNote()));
 						voiceTicks += ticks;
 					}
 				}

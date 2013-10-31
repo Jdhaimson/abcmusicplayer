@@ -25,7 +25,7 @@ public class SongTest {
      */
 
 	
-	//@Test
+//	@Test
 	public void testBasicSong() throws Exception {
 		Song song = new Song(1, "Title", new Key("C"));
 		song.setMeter(new Fraction(4,4));
@@ -59,17 +59,17 @@ public class SongTest {
 
 	}
 	
-	//@Test
+	@Test
 	public void testTuplet() throws Exception {
 		Song song = new Song(1, "Title", new Key("C"));
-		song.setMeter(new Fraction(4,4));
-		song.setTempo(new Fraction(1,4), 120);
-		Measure m = new Measure(1.0, 0);
-		Voice v1 = new Voice("Upper", 1.0);
+		song.setMeter(new Fraction(3,8));
+		song.setTempo(new Fraction(1,8), 140);
+		Measure m = new Measure(.375, 0);
+		Voice v1 = new Voice("Upper", .375);
 		
 			
 		Note n1 = new Note(new Pitch("C"), new Fraction(1,4));
-		Note n2 = new Note(new Pitch("C"), new Fraction(1,8));
+		Note n2 = new Note(new Pitch("C"), new Fraction(1,16));
 		Note n3 = new Note(new Pitch("G"), new Fraction(1,8));
 		
 		List<Note> chordNotes = new LinkedList<Note>();
@@ -80,21 +80,21 @@ public class SongTest {
 		
 		List<MusicalElement> tupletElements = new LinkedList<MusicalElement>();
 		tupletElements.add(n2);
-		tupletElements.add(c);
-		tupletElements.add(n3);
+		tupletElements.add(n2);
+		tupletElements.add(n2);
 		
 		Tuplet t = new Tuplet(tupletElements);
 		
-		v1.addMusicalElement(n1);
-		v1.addMusicalElement(n1);
 		v1.addMusicalElement(t);
+		v1.addMusicalElement(n2);
+		v1.addMusicalElement(n2);
 
 		m.addVoice(v1);
 		song.addMeasure(m);
 		song.play();
 	}	
 
-	@Test
+//	@Test
 	public void testRepeat() throws Exception {
 		Song song = new Song(1, "Title", new Key("C"));
 		song.setMeter(new Fraction(4,4));
@@ -133,7 +133,7 @@ public class SongTest {
 
 	}
 	
-	@Test
+//	@Test
 	public void testSetComposer() {
 	    Song song = new Song(1, "Title", new Key("E"));
 	    Song songToCheck = new Song(1, "Title", new Key("E"));
@@ -150,7 +150,7 @@ public class SongTest {
 	    assertEquals(false, song.equals(songToCheck));
 	}
 	
-	@Test
+	//@Test
 	public void testSetMeter() {
         Song song = new Song(1, "Title", new Key("E"));
         Song songToCheck = new Song(1, "Title", new Key("E"));
@@ -167,7 +167,7 @@ public class SongTest {
         assertEquals(false, song.equals(songToCheck));
 	}
 	
-	@Test
+//	@Test
 	public void testSetLength() {
         Song song = new Song(1, "Title", new Key("E"));
         Song songToCheck = new Song(1, "Title", new Key("E"));
@@ -184,7 +184,7 @@ public class SongTest {
         assertEquals(false, song.equals(songToCheck));
 	}
 	
-	@Test
+//	@Test
 	public void testSetTempo() {
         Song song = new Song(1, "Title", new Key("E"));
         Song songToCheck = new Song(1, "Title", new Key("E"));
@@ -205,7 +205,7 @@ public class SongTest {
         assertEquals(false, song.equals(songToCheck));
 	}
 	
-	@Test
+//	@Test
 	public void testGetNotesPerMeasure() {
         Song song = new Song(1, "Title", new Key("E"));
 
@@ -226,7 +226,7 @@ public class SongTest {
 	    
 	}
 	
-	@Test
+//	@Test
 	public void testGetPitchInKey() {
 	    //Tests major keys
 	    Song song = new Song(1, "Piece in G Major", new Key("G"));

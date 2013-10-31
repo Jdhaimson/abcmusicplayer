@@ -95,7 +95,6 @@ public class NoteTest {
         Note note1 = new Note(new Pitch('C'), new Fraction(1, 4));
         Note note4 = new Note(new Pitch('C'), new Fraction(1, 2));
         Note note5 = new Note(new Pitch('E'), new Fraction(1, 2));
-        Note note6 = new Note(new Pitch('F'), new Fraction(2, 4));
         
         assertEquals(true, note1.getTicksPerWholeNote() == note1.getTicksPerWholeNote());
         assertEquals(true, note4.getTicksPerWholeNote() == note5.getTicksPerWholeNote());

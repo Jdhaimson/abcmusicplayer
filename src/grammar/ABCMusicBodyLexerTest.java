@@ -14,7 +14,8 @@ public class ABCMusicBodyLexerTest {
      * TESTING STRATEGY
      * 
      * We wrote a number of tests to make sure that our BodyLexer is in tip top shape.
-     * We tested to make sure that our lexer could handle whitespace, single notes, chords, different notations for rythm, notes with different lengths, accidentals, octave alterations, tuplets of all sorts, bars, and combinations of all the above!
+     * We tested to make sure that our lexer could handle whitespace, single notes, chords, different notations for rythm, notes with different lengths, 
+     * accidentals, octave alterations, tuplets of all sorts, bars, and combinations of all the above!
      * 
      * 
      */

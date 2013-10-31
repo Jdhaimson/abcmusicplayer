@@ -23,4 +23,11 @@ public interface MusicalElement {
 	 * @return: Identical Musical Element 
 	 */
 	public MusicalElement clone();
+	
+	/**
+	 * Returns a new element with the same properties as the old one, but a different duration
+	 * @param duration: Fraction representing new duration of the note
+	 * @return
+	 */
+	public MusicalElement changeDuration(Fraction duration);
 }

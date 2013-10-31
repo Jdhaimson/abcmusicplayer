@@ -61,6 +61,16 @@ public class Fraction {
 		return r;
 	}
 
+	/** Add f2 to this fraction and return the result. 
+	 * @param f2 is the fraction to be multiplied.
+	 * @return the result multiplying f1 and f2 to this Fraction.
+	 */
+	public Fraction multiply (Fraction f2) {
+		Fraction r = new Fraction((numerator*f2.getNumerator()), 
+								  (denominator*f2.getDenominator()));    
+		return r;
+	}
+	
 	/**
 	 * Gets numerator of fraction
 	 * @return int: numerator of fraction

@@ -9,4 +9,8 @@ import org.junit.Test;
 
 public class ABCMusicBodyParserTest {
 
+    @Test
+    public void testParser() {
+        
+    }
 }

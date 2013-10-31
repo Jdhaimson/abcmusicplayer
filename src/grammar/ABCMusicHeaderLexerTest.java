@@ -96,28 +96,7 @@ public class ABCMusicHeaderLexerTest {
         				"Q:","1/4", "=", "120", "\n",
         				"K:","C","\n"});
     }
-    
-    @Test
-    //Header Test (with empty comment)
-    public void testEmptyHeaderLexer() {
-        verifyLexer("X:\n"
-        		+ "T:\n"
-        		+ "C:\n"
-        		+ "M:\n"
-        		+ "%\n"
-        		+ "L:\n"
-        		+ "Q:\n"
-        		+ "K:\n",
-        		new String[] {
-        				"X:","\n",
-        				"T:", "\n",
-        				"C:", "\n",
-        				"M:", "\n",
-        				"%", "\n",
-        				"L:", "\n",
-        				"Q:", "\n",
-        				"K:", "\n"});
-    }
+
     
 
 	public void verifyLexer(String input, String[] expectedTokens) {

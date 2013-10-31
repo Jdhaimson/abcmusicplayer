@@ -4,7 +4,7 @@ This piece of software was written for MIT's 6.005. It takes in a .abc file, par
 
 1) Safe from change
 2) Ready for bugs
-3) Easy to understand in spanish
+3) Difficult to understand
 
 Tally ho,
 

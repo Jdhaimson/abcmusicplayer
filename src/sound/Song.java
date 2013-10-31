@@ -294,26 +294,12 @@ public class Song {
 				int voiceTicks = tickTracker;
 				for(MusicalElement element: voice.getMusicalElements()) {
 					int ticks = (int)((double) this.ticksPerWholeNote*element.getDuration().evaluate());
-
-					if (element instanceof Tuplet) {
-						Tuplet tuplet = (Tuplet) element;
-						List<MusicalElement> tupletElements = tuplet.getElements();
-						
-						for(MusicalElement tElement: tupletElements) {						
-							int ticksPerElem = (int)(tElement.getDuration().evaluate()*this.getTicksPerWholeNote());
-							this.scheduleBasicElement(sp, tElement, lyrics, voiceTicks, ticksPerElem);								
-							voiceTicks += ticksPerElem;
-						}
 					
-					} else {
-						this.scheduleBasicElement(sp, element, lyrics, voiceTicks,
-								(int)(element.getDuration().evaluate()*this.getTicksPerWholeNote()));
-						voiceTicks += ticks;
-					}
+					this.scheduleBasicElement(sp, element, lyrics, voiceTicks,
+							(int)(element.getDuration().evaluate()*this.getTicksPerWholeNote()));
+					voiceTicks += ticks;
 				}
-				
 			}
-			
 			tickTracker += (int) ((double) this.ticksPerWholeNote * this.meter.evaluate());
 		}
 	}

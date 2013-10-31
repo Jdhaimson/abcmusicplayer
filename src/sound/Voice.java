@@ -92,11 +92,7 @@ public class Voice {
 	public int getNumNotes() {
 		int count = 0;
 		for (MusicalElement element: this.notes) {
-			if (element instanceof Tuplet) {
-				Tuplet tuplet = (Tuplet) element;
-				count += tuplet.getElements().size();
-			} else if (element instanceof Note || 
-					   element instanceof Chord) {
+			if (element instanceof Note || element instanceof Chord) {
 				count += 1;
 			}
 		}
@@ -117,22 +113,14 @@ public class Voice {
 	 */
 	public int getTicksPerWholeNote() {
 		int maxTicks = 0;
-		// handle off beat tuplets
-		// tick number has to be a multiple of the tuplet value
-		int tupletMultiplier = 1;
-		
+	
 		for (MusicalElement elem: this.getMusicalElements()) {
-			int ticks = elem.getTicksPerWholeNote();
-			if (elem instanceof Tuplet) {
-				Tuplet tuplet = (Tuplet) elem;
-				tupletMultiplier *= tuplet.getType();
-			}
-			
+			int ticks = elem.getTicksPerWholeNote();			
 			if (ticks > maxTicks) {
 				maxTicks = ticks;
 			}
 		}
-		return maxTicks*tupletMultiplier;
+		return maxTicks;
 	}
 	
 	/*

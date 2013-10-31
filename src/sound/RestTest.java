@@ -40,9 +40,9 @@ public class RestTest {
         Rest r2 = new Rest(new Fraction(1,4));
         Rest r3 = new Rest(new Fraction(3,4));
 
-        assertEquals(true, r1.getTicksPerWholeNote() == 4);
-        assertEquals(true, r2.getTicksPerWholeNote() == 4);
-        assertEquals(true, r3.getTicksPerWholeNote() == 4);
+        assertEquals(16, r1.getTicksPerWholeNote());
+        assertEquals(16, r2.getTicksPerWholeNote());
+        assertEquals(4, r3.getTicksPerWholeNote());
     }
 
     @Test

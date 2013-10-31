@@ -9,6 +9,13 @@ import org.junit.Test;
 
 public class ABCMusicHeaderParserTest {
 
+    /*
+     * Testing Strategy
+     * 
+     * To test our parser for the header of the ABC file, we altered the strings getting passed in to our parser in specific ways.
+     * We tested for whitespace, different orders of fields (X:, V:, L:, etc.). We tested to make sure that when fields aren't provided, that our defaults take charge.
+     * We also tested to make sure that when required fields weren't provided, that the necessary error got thrown.
+     */
     
     @Test
     public void testBasicHeaderParser() {

@@ -364,7 +364,10 @@ public class BodyListener extends ABCMusicBodyParserBaseListener {
 		}
 	}
 
-	
+	/**
+	 * Returns song
+	 * @return
+	 */
 	public Song getSong(){
 		return this.song;
 	}

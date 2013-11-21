@@ -78,7 +78,7 @@ public class Measure {
 	public int getMeasureNum() {
 		return this.measureNumber;
 	}
-	
+
 	/**
 	 * Used to determine if alt endings should be played
 	 * @return False if has alternate ending and has already been played

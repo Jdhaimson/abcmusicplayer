@@ -78,7 +78,12 @@ public class HeaderListener extends ABCMusicHeaderParserBaseListener {
 
 	@Override //create new Song object upon leaving header
 	public void exitAbc_tune_header(ABCMusicHeaderParser.Abc_tune_headerContext ctx) {
-		song = new Song(field_index, field_title, field_key);
+		try{
+			song = new Song(field_index, field_title, field_key);
+		}
+		catch (Exception e){
+			throw new RuntimeException("Index, Title, and Key are required fields");
+		}
 		
 		//below are the optional fields; if they were found, we add them to the Song object
 		if (field_composer != null){
